@@ -1,0 +1,23 @@
+.container-location {
+    display: flex;
+
+
+}
+
+.text-field-map {
+    margin: 0 20px 20px 0 !important
+}
+
+.iframe_ {
+
+    display: block;
+    width: 90%;
+    max-width: 60rem;
+    height: 25em;
+    margin-top: 1rem auto;
+    border: 1px solid rgb(116, 114, 114);
+}
+
+.btn-map {
+    height: 3.4rem;
+}

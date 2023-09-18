@@ -1,0 +1,45 @@
+.container-div {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+}
+
+.qr-code {
+    width: 30rem;
+    margin-left: 4rem;
+}
+
+.nav-generate {
+    width: 60rem;
+}
+
+.container-grcode {
+    display: flex;
+}
+
+.header-qr {
+    height: 20%;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .container-div {
+
+        margin: 3rem;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-evenly;
+
+
+    }
+
+    .qr-code {
+        width: auto;
+    }
+
+    .nav-generate {
+        width: auto;
+    }
+}
