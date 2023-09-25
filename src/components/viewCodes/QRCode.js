@@ -5,6 +5,8 @@ import { Button, Card, CardContent, Container } from "@mui/material";
 import QRCode from "react-qr-code";
 import "./QRcode.css";
 import { BsFiletypePdf, BsFiletypeSvg, BsFiletypePng } from "react-icons/bs";
+import { createQrAPI } from "../../services/RestApi";
+import { checkInput } from "../helperFunction/checkInput";
 
 const QRcode = (props) => {
   const [data, setData] = useState("");
@@ -178,6 +180,7 @@ END:VCALENDAR`;
     }
     handleSkypeData();
   }, [props.skypeData]);
+
   useEffect(() => {
     setData("");
     setbuttons(false);
@@ -241,6 +244,17 @@ END:VCALENDAR`;
     }
   }, [downloadType]);
 
+  const saveData = () => {
+    let inp = checkInput(props);
+    //TODO change the ownerID
+    const newData = {
+      type: props.activeButton,
+      link: data,
+      input: inp,
+      ownerId: "3222",
+    };
+    createQrAPI(newData);
+  };
   return (
     <Card>
       <CardContent className="qr-card-content">
@@ -253,6 +267,7 @@ END:VCALENDAR`;
         {data && (
           <Button
             onClick={() => {
+              saveData();
               setDownloadType(null); // Reset download type
               setbuttons(true);
             }}

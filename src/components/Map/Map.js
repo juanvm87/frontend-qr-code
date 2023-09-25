@@ -19,7 +19,6 @@ const Map = (props) => {
     };
     handleData();
   }, [latitude, longitude]);
-  useEffect(() => {});
 
   const getReference = async (e) => {
     const url = `https://nominatim.openstreetmap.org/search?q=${location}&format=json`;

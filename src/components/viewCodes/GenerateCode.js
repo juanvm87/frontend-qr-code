@@ -14,7 +14,7 @@ const GenerateCode = () => {
   const [whatsAppData, setWhatsAppData] = useState({});
   const [wifiData, setWifiData] = useState({});
   const [zoomData, setZoomData] = useState({});
-  const [activeButton, setActiveButton] = useState("");
+  const [activeButton, setActiveButton] = useState("Link");
   const [eventData, setEventData] = useState({});
   const [skypeData, setSkypeData] = useState({});
   const [locationData, setLocationData] = useState("");

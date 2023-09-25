@@ -252,7 +252,6 @@ export const InputGenerateCode = (props) => {
                 handleWhatsAppChange("phone", value);
               }}
               defaultCountry="IN"
-              // TODO- Check why prefix number is stuck in India.
             />
             <TextField
               label="Text"
