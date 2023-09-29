@@ -18,6 +18,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimeField } from "@mui/x-date-pickers/DateTimeField";
 import { fi } from "date-fns/locale";
+import { handleformattedDate } from "../helperFunction/formatedDate.js";
 
 export const InputGenerateCode = (props) => {
   const [phone, setPhone] = useState("");
@@ -39,7 +40,6 @@ export const InputGenerateCode = (props) => {
   const [zoom, setZoom] = useState({ id: "", password: "" });
   const [skype, setSkype] = useState({ id: "", type: "" });
   const [networkType, setNetworkType] = useState("");
-  const [location, setLocation] = useState({ lon: "", lat: "" });
   const [eventData, setEventData] = useState({
     title: "",
     location: "",
@@ -50,17 +50,6 @@ export const InputGenerateCode = (props) => {
     notes: "",
   });
 
-  const handleformattedDate = (date) => {
-    const originalDate = new Date(date);
-    const year = originalDate.getFullYear();
-    const month = (originalDate.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-based, so we add 1
-    const day = originalDate.getDate().toString().padStart(2, "0");
-    const hours = originalDate.getHours().toString().padStart(2, "0");
-    const minutes = originalDate.getMinutes().toString().padStart(2, "0");
-    const seconds = originalDate.getSeconds().toString().padStart(2, "0");
-
-    return `${year}${month}${day}T${hours}${minutes}${seconds}`;
-  };
   const handlePhone = (newPhone) => {
     setPhone(newPhone);
     props.phoneData(newPhone);
@@ -143,6 +132,7 @@ export const InputGenerateCode = (props) => {
             onChange={handleLinkChange}
             label="Link"
             variant="outlined"
+            inputProps={{ maxLength: 100 }}
           />
         </div>
       )}
@@ -156,6 +146,7 @@ export const InputGenerateCode = (props) => {
             variant="outlined"
             multiline
             rows={6}
+            inputProps={{ maxLength: 400 }}
           />
         </div>
       )}
@@ -174,6 +165,7 @@ export const InputGenerateCode = (props) => {
                 className="text-fields"
                 label="Email to"
                 variant="outlined"
+                inputProps={{ maxLength: 50 }}
               />
               <TextField
                 onChange={(event) => {
@@ -186,6 +178,7 @@ export const InputGenerateCode = (props) => {
                 className="text-fields"
                 label="Subject"
                 variant="outlined"
+                inputProps={{ maxLength: 50 }}
               />
             </div>
             <TextField
@@ -197,6 +190,7 @@ export const InputGenerateCode = (props) => {
               variant="outlined"
               multiline
               rows={6}
+              inputProps={{ maxLength: 300 }}
               style={{ marginTop: "10px" }}
             />
           </div>
@@ -238,6 +232,7 @@ export const InputGenerateCode = (props) => {
               multiline
               rows={6}
               style={{ marginTop: "10px" }}
+              inputProps={{ maxLength: 350 }}
             />
           </div>
         </div>
@@ -259,6 +254,7 @@ export const InputGenerateCode = (props) => {
               multiline
               rows={6}
               style={{ marginTop: "10px" }}
+              inputProps={{ maxLength: 350 }}
               onChange={(event) => {
                 handleWhatsAppChange("text", event.target.value);
               }}
@@ -299,6 +295,7 @@ export const InputGenerateCode = (props) => {
               onChange={(event) => {
                 handleSkypeChange("id", event.target.value);
               }}
+              inputProps={{ maxLength: 50 }}
               className="text-field"
               label="Username"
               variant="outlined"
@@ -314,6 +311,7 @@ export const InputGenerateCode = (props) => {
               onChange={(event) => {
                 handleZoomChange("id", event.target.value);
               }}
+              inputProps={{ maxLength: 100 }}
               style={{ margin: "0 10px 0 0" }}
               label="Meeting Id"
               value={zoom.id}
@@ -323,6 +321,7 @@ export const InputGenerateCode = (props) => {
               onChange={(event) => {
                 handleZoomChange("password", event.target.value);
               }}
+              inputProps={{ maxLength: 100 }}
               label="Password"
               value={zoom.password}
               variant="outlined"
@@ -355,6 +354,7 @@ export const InputGenerateCode = (props) => {
               </Select>
             </FormControl>
             <TextField
+              inputProps={{ maxLength: 100 }}
               onChange={(value) => {
                 handleWifiChange("id", value.target.value);
               }}
@@ -369,6 +369,7 @@ export const InputGenerateCode = (props) => {
               className="text-fields"
               label="Password"
               variant="outlined"
+              inputProps={{ maxLength: 100 }}
             />
           </div>
         </div>
@@ -383,12 +384,14 @@ export const InputGenerateCode = (props) => {
                 style={{ margin: "10px 10px 0px 0px", width: "270px" }}
                 label="Event title"
                 variant="outlined"
+                inputProps={{ maxLength: 100 }}
               />
               <TextField
                 onChange={(e) => handleEventChange("location", e.target.value)}
                 style={{ margin: "10px 10px 0px 0px", width: "270px" }}
                 label="Location"
                 variant="outlined"
+                inputProps={{ maxLength: 100 }}
               />
             </div>
             <div className="div-inputs-texfile">
@@ -435,6 +438,7 @@ export const InputGenerateCode = (props) => {
               variant="outlined"
               multiline
               rows={4}
+              inputProps={{ maxLength: 300 }}
             />
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Link as LinkIcon,
   TextSnippet as TextSnippetIcon,
@@ -10,14 +10,42 @@ import {
   Event as EventIcon,
   Email,
 } from "@mui/icons-material";
+import { useParams } from "react-router";
 import "./NavGenerateCode.css";
 import { AiFillSkype } from "react-icons/ai";
 import { BiLogoZoom } from "react-icons/bi";
 import NavButton from "./NavButton";
 import { InputGenerateCode } from "./InputGenerateCode";
+import { getQr } from "../../services/RestApi";
 
 const NavGenerateCodeLinks = (props) => {
   const [activeButton, setActiveButton] = useState("Link");
+  const idFromURL = useParams().id;
+  const [qrData, setQrData] = useState({});
+
+  const getQrDataAPI = async () => {
+    try {
+      if (idFromURL) {
+        const response = await getQr(idFromURL);
+        console.log(response.data);
+        setQrData(response.data);
+        handleQrData(response.data);
+      } else {
+        setQrData("");
+      }
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+  useEffect(() => {
+    getQrDataAPI();
+  }, []);
+
+  const handleQrData = (data) => {
+    setActiveButton(data.type);
+    return data;
+  };
 
   const handleNavigation = (componentName) => {
     setActiveButton(componentName);
@@ -176,6 +204,7 @@ const NavGenerateCodeLinks = (props) => {
         zoomData={setZoomData}
         skypeData={setSkypeData}
         locationData={setLocationData}
+        editData={handleQrData}
       />
     </div>
   );

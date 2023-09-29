@@ -7,20 +7,21 @@
   gap: 2rem;
   overflow: hidden;
 }
-.floating-heading{
+
+.floating-heading {
   transform: translateY(0);
   animation: fl1 3s infinite linear;
 }
 
-.floating-heading::before{
+.floating-heading::before {
   content: attr(data-text);
   position: absolute;
-  clip-path: polygon(0,0,100%,0,100%,50%,0,50%);
+  clip-path: polygon(0, 0, 100%, 0, 100%, 50%, 0, 50%);
   animation: fl1 3s infinite linear;
 }
 
 @keyframes fl1 {
-  30%{
+  30% {
     transform: translateY(10%);
   }
 }
@@ -53,6 +54,7 @@
   gap: 2rem;
   padding: 2rem;
 }
+
 .line {
   width: 100%;
   height: 2px;
@@ -63,10 +65,12 @@
   display: flex;
   flex-direction: column;
 }
+
 .lbl {
   font-weight: bold;
   padding: 1px;
 }
+
 .inp {
   width: 100%;
   padding: 1rem;

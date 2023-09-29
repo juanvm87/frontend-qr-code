@@ -4,15 +4,37 @@ import jsPDF from "jspdf";
 import { Button, Card, CardContent, Container } from "@mui/material";
 import QRCode from "react-qr-code";
 import "./QRcode.css";
+import { useParams } from "react-router";
 import { BsFiletypePdf, BsFiletypeSvg, BsFiletypePng } from "react-icons/bs";
-import { createQrAPI } from "../../services/RestApi";
+import { createQrAPI, getQr } from "../../services/RestApi";
 import { checkInput } from "../helperFunction/checkInput";
+import { PopUpModal } from "../common/PopUpModal";
 
 const QRcode = (props) => {
   const [data, setData] = useState("");
-  const [buttons, setbuttons] = useState(false);
   const [downloadType, setDownloadType] = useState(null);
+  const [qrData, setQrData] = useState({});
+  const idFromURL = useParams().id;
   const qrCodeRef = useRef(null);
+
+  const getQrDataAPI = async () => {
+    try {
+      if (idFromURL) {
+        const response = await getQr(idFromURL);
+        setQrData(response.data);
+        setData(response.data.link);
+      } else {
+        setQrData("");
+      }
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+  useEffect(() => {
+    getQrDataAPI();
+  }, []);
+
   useEffect(() => {
     function HandlerTextData() {
       try {
@@ -183,7 +205,6 @@ END:VCALENDAR`;
 
   useEffect(() => {
     setData("");
-    setbuttons(false);
   }, [props.activeButton]);
 
   useEffect(() => {
@@ -244,14 +265,15 @@ END:VCALENDAR`;
     }
   }, [downloadType]);
 
-  const saveData = () => {
+  const saveData = (textDescription) => {
     let inp = checkInput(props);
     //TODO change the ownerID
     const newData = {
+      title: textDescription,
       type: props.activeButton,
       link: data,
       input: inp,
-      ownerId: "3222",
+      ownerId: "3233",
     };
     createQrAPI(newData);
   };
@@ -264,45 +286,47 @@ END:VCALENDAR`;
           value={data}
           ref={qrCodeRef}
         />
-        {data && (
-          <Button
-            onClick={() => {
-              saveData();
-              setDownloadType(null); // Reset download type
-              setbuttons(true);
-            }}
-            className="btn-save"
-            disabled={!data}
-          >
-            Save
-          </Button>
+        {data && !qrData && (
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div className="container-btn-qr">
+              <Button
+                className="btn-qr"
+                onClick={() => {
+                  setDownloadType("pdf");
+                }}
+              >
+                <BsFiletypePdf size={"2rem"} />
+              </Button>
+              <Button
+                className="btn-qr"
+                onClick={() => {
+                  setDownloadType("png");
+                }}
+              >
+                <BsFiletypePng size={"2rem"} />
+              </Button>
+              <Button
+                className="btn-qr"
+                onClick={() => {
+                  setDownloadType("svg");
+                }}
+              >
+                <BsFiletypeSvg size={"2rem"} />
+              </Button>
+            </div>
+            <div>
+              <PopUpModal
+                saveData={saveData}
+                setDownloadType={setDownloadType}
+              />
+            </div>
+          </div>
         )}
-        {buttons && (
-          <div className="container-btn-qr">
-            <Button
-              className="btn-qr"
-              onClick={() => {
-                setDownloadType("pdf");
-              }}
-            >
-              <BsFiletypePdf size={"2rem"} />
-            </Button>
-            <Button
-              className="btn-qr"
-              onClick={() => {
-                setDownloadType("png");
-              }}
-            >
-              <BsFiletypePng size={"2rem"} />
-            </Button>
-            <Button
-              className="btn-qr"
-              onClick={() => {
-                setDownloadType("svg");
-              }}
-            >
-              <BsFiletypeSvg size={"2rem"} />
-            </Button>
+        {data && qrData && (
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div>
+              <Button sx={{ width: "100%" }}>Update</Button>
+            </div>
           </div>
         )}
       </CardContent>

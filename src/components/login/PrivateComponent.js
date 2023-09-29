@@ -10,8 +10,6 @@ const PrivateComponent = () => {
     if (!auth) {
       navigateTo("/Login");
       return;
-    } else {
-      navigateTo("/Home");
     }
   }, []);
 
