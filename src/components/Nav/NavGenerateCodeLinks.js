@@ -27,7 +27,7 @@ const NavGenerateCodeLinks = (props) => {
     try {
       if (idFromURL) {
         const response = await getQr(idFromURL);
-        console.log(response.data);
+
         setQrData(response.data);
         handleQrData(response.data);
       } else {
@@ -44,7 +44,6 @@ const NavGenerateCodeLinks = (props) => {
 
   const handleQrData = (data) => {
     setActiveButton(data.type);
-    return data;
   };
 
   const handleNavigation = (componentName) => {
@@ -204,7 +203,7 @@ const NavGenerateCodeLinks = (props) => {
         zoomData={setZoomData}
         skypeData={setSkypeData}
         locationData={setLocationData}
-        editData={handleQrData}
+        qrData={qrData}
       />
     </div>
   );

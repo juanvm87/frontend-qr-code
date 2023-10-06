@@ -6,18 +6,18 @@ import { getAllOwnerQr } from "../services/RestApi";
 export default function View() {
   const [data, setData] = useState([]);
 
-  const fetchData = async (id) => {
+  const fetchData = async () => {
     try {
-      const response = await getAllOwnerQr(id);
+      const response = await getAllOwnerQr();
       setData(response.data);
     } catch (err) {
       console.error(err);
       throw err;
     }
   };
-  //TODO change ownerId
+
   useEffect(() => {
-    fetchData("3233");
+    fetchData();
   }, []);
   return (
     <div>
@@ -28,13 +28,15 @@ export default function View() {
       >
         QR Code List
       </Typography>
-      {data.map((card) => {
-        return (
-          <div key={card._id}>
-            <UserCard qrData={card} />
-          </div>
-        );
-      })}
+      {data
+        .map((card) => {
+          return (
+            <div key={card._id}>
+              <UserCard qrData={card} />
+            </div>
+          );
+        })
+        .reverse()}
     </div>
   );
 }

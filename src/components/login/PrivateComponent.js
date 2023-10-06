@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 
 const PrivateComponent = () => {
   console.log("Private");
-  const auth = localStorage.getItem("email");
+  const auth = localStorage.getItem("token");
   const navigateTo = useNavigate();
 
   useEffect(() => {
@@ -12,8 +12,6 @@ const PrivateComponent = () => {
       return;
     }
   }, []);
-
-  console.log("Auth-->", auth);
 
   return <Outlet />;
 };

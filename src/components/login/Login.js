@@ -6,6 +6,7 @@ import "./Login.css";
 // import ApplicationDetails from "./utils/application.json";
 // import { login } from "./services/RestApi";
 import { Snackbar } from "@mui/material";
+import { signin } from "../../services/RestApi";
 
 export const vertical = "top";
 export const horizontal = "right";
@@ -20,7 +21,7 @@ function Login() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const auth = localStorage.getItem("email");
+    const auth = localStorage.getItem("token");
     console.log("Auth-->", auth);
     if (auth) {
       navigate("/home");
@@ -40,11 +41,15 @@ function Login() {
   const waveoriginend = () => {
     setWave(false);
   };
-  const onClickHandler = () => {
-    console.log('click');
-    localStorage.setItem("email",formValues.formemail);
-    navigate('/Home')
-  }
+  const onClickHandler = async () => {
+    const token = await signin({
+      email: formValues.formemail,
+      password: formValues.formpassword,
+    });
+    console.log("click", token);
+    localStorage.setItem("token", token.data.token);
+    navigate("/Home");
+  };
   // const onClickHandler = () => {
   //   if (formValues.formemail !== " " && formValues.formpassword !== " ") {
   //     login({ email: formValues.formemail, password: formValues.formpassword })
@@ -131,10 +136,10 @@ function Login() {
                 ? "login_password"
                 : "login_password_motion"
             }
-             name="formpassword"
-             onChange={(e) => {
-               switchClass(e);
-             }}
+            name="formpassword"
+            onChange={(e) => {
+              switchClass(e);
+            }}
           />
           <i
             class="fa-solid fa-lock"
@@ -145,9 +150,7 @@ function Login() {
             }
           ></i>
           <a className="text_decoration_off" href="/ForgotPassword">
-            <p className="login_forgot_password">
-              Forgot Password?
-            </p>
+            <p className="login_forgot_password">Forgot Password?</p>
           </a>
 
           <button
@@ -173,7 +176,7 @@ function Login() {
         message={message}
         key={vertical + horizontal}
         style={{ backgroundColor: "white", color: "black" }}
-      /> 
+      />
     </>
   );
 }

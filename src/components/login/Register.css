@@ -1,308 +1,336 @@
 .master_div {
-    display: flex;
-    padding: 0px;
-    margin: 0px;
+  display: flex;
+  padding: 0px;
+  margin: 0px;
+}
+
+.image_div {
+  background-color: #5bc0de;
+  width: 400px;
+  height: 657px;
+  background-image: url('../Images/skyhigh.jpg');
+  background-size: cover;
+  margin: 0px;
+  animation: sliding_div;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+  transition: ease-in-out;
+}
+
+@keyframes sliding_div {
+  100% {
+    border-top-right-radius: 500px;
+    border-bottom-right-radius: 500px;
+    width: 800px;
   }
-  
-  .image_div {
-    background-color: #5bc0de;
-    width: 400px;
-    height: 657px;
-    background-image: url('../Images/skyhigh.jpg');
-    background-size: cover;
-    margin: 0px;
-    animation: sliding_div;
-    animation-duration: 3s;
-    animation-fill-mode: forwards;
-    transition: ease-in-out;
+}
+
+.text_panel {
+  width: 550px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heading {
+  font-family: Roboto;
+  font-size: xx-large;
+  font-weight: 600;
+  margin-top: 100px;
+  margin-left: -30px;
+  margin-bottom: 0px;
+}
+
+.sub_heading {
+  font-weight: normal;
+  font-family: Roboto;
+  letter-spacing: 1px;
+  margin-top: -0px;
+  margin-left: -150px;
+}
+
+.register_name {
+  font-family: Roboto;
+  font-size: small;
+  background-color: #f1f3f4;
+  border-radius: 50px;
+  margin-top: 50px;
+  width: 300px;
+  height: 30px;
+  padding-left: 20px;
+  border: none;
+  outline: none;
+}
+
+.register_name_motion {
+  font-family: Roboto;
+  font-size: small;
+  background-color: #f1f3f4;
+  border-radius: 50px;
+  margin-top: 50px;
+  width: 300px;
+  height: 30px;
+  border: none;
+  outline: none;
+  animation: Registration_slide;
+  animation-fill-mode: forwards;
+  animation-duration: 0.3s;
+}
+
+.register_phone {
+  font-family: Roboto;
+  font-size: small;
+  background-color: #f1f3f4;
+  border-radius: 50px;
+  margin-top: 20px;
+  width: 300px;
+  height: 30px;
+  padding-left: 20px;
+  border: none;
+  outline: none;
+}
+
+.register_phone_motion {
+  font-family: Roboto;
+  font-size: small;
+  background-color: #f1f3f4;
+  border-radius: 50px;
+  margin-top: 20px;
+  width: 300px;
+  height: 30px;
+  border: none;
+  outline: none;
+  animation: Registration_slide;
+  animation-fill-mode: forwards;
+  animation-duration: 0.3s;
+}
+
+@keyframes Registration_slide {
+  100% {
+    padding-left: 50px;
   }
-  
-  @keyframes sliding_div {
-    100% {
-      border-top-right-radius: 500px;
-      border-bottom-right-radius: 500px;
-      width: 800px;
-    }
+}
+
+.register_name_motion:focus {
+  outline: none;
+  border: none;
+}
+
+#register_name_logo {
+  color: #a3a3a3;
+  position: absolute;
+  margin-top: 245px;
+  margin-left: -300px;
+  opacity: 0%;
+}
+
+#register_name_logomotion {
+  color: #a3a3a3;
+  position: absolute;
+  margin-top: 245px;
+  margin-left: -300px;
+  opacity: 0%;
+  animation: Registration_icon;
+  animation-fill-mode: forwards;
+  animation-duration: 0.3s;
+}
+
+@keyframes Registration_icon {
+  100% {
+    margin-left: -250px;
+    opacity: 100%;
+    color: #5bc0deff;
   }
-  
-  .text_panel {
-    width: 550px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+}
+
+
+.register_email {
+  font-family: Roboto;
+  font-size: small;
+  background-color: #f1f3f4;
+  border-radius: 50px;
+  margin-top: 20px;
+  width: 300px;
+  height: 30px;
+  border: none;
+  padding-left: 20px;
+}
+
+.register_email_motion {
+  font-family: Roboto;
+  font-size: small;
+  background-color: #f1f3f4;
+  border-radius: 50px;
+  margin-top: 20px;
+  width: 300px;
+  height: 30px;
+  border: none;
+  padding-left: 20px;
+  border: none;
+  outline: none;
+  animation: Registration_slide;
+  animation-fill-mode: forwards;
+  animation-duration: 0.3s;
+}
+
+.register_email:focus {
+  outline: none;
+}
+
+#register_email_logo {
+  color: #a3a3a3;
+  position: absolute;
+  margin-top: 295px;
+  margin-left: -300px;
+  opacity: 0%;
+}
+
+#register_email_logomotion {
+  color: #a3a3a3;
+  position: absolute;
+  margin-top: 295px;
+  margin-left: -300px;
+  opacity: 0%;
+  animation: Registration_icon;
+  animation-fill-mode: forwards;
+  animation-duration: 0.3s;
+}
+
+.register_password {
+  font-family: Roboto;
+  font-size: small;
+  background-color: #f1f3f4;
+  border-radius: 50px;
+  margin-top: 20px;
+  width: 300px;
+  height: 30px;
+  border: none;
+  padding-left: 20px;
+}
+
+.register_password_motion {
+  font-family: Roboto;
+  font-size: small;
+  background-color: #f1f3f4;
+  border-radius: 50px;
+  margin-top: 20px;
+  width: 300px;
+  height: 30px;
+  border: none;
+  padding-left: 20px;
+  outline: none;
+  animation: Registration_slide;
+  animation-fill-mode: forwards;
+  animation-duration: 0.3s;
+}
+
+.register_password:focus {
+  outline: none;
+}
+
+#register_password_logo {
+  color: #a3a3a3;
+  position: absolute;
+  margin-top: 345px;
+  margin-left: -300px;
+  opacity: 0%;
+}
+
+#register_password_logomotion {
+  color: #a3a3a3;
+  position: absolute;
+  margin-top: 345px;
+  margin-left: -300px;
+  opacity: 0%;
+  animation: Registration_icon;
+  animation-fill-mode: forwards;
+  animation-duration: 0.3s;
+}
+
+.register_confirmpassword {
+  font-family: Roboto;
+  font-size: small;
+  background-color: #f1f3f4;
+  border-radius: 50px;
+  margin-top: 20px;
+  width: 300px;
+  height: 30px;
+  border: none;
+  padding-left: 20px;
+}
+
+.register_confirmpassword_motion {
+  font-family: Roboto;
+  font-size: small;
+  background-color: #f1f3f4;
+  border-radius: 50px;
+  margin-top: 20px;
+  width: 300px;
+  height: 30px;
+  border: none;
+  padding-left: 20px;
+  outline: none;
+  animation: Registration_slide;
+  animation-fill-mode: forwards;
+  animation-duration: 0.3s;
+}
+
+#register_confirmpassword_logo {
+  color: #a3a3a3;
+  position: absolute;
+  margin-top: 395px;
+  margin-left: -300px;
+  opacity: 0%;
+}
+
+#register_confirmpassword_logomotion {
+  color: #a3a3a3;
+  position: absolute;
+  margin-top: 395px;
+  margin-left: -300px;
+  opacity: 0%;
+  animation: Registration_icon;
+  animation-fill-mode: forwards;
+  animation-duration: 0.3s;
+}
+
+.account_button {
+  cursor: pointer;
+  margin-top: 30px;
+  width: 300px;
+  height: 40px;
+  background-color: #5bc0de;
+  background-image: url('../Images/skyhigh.jpg');
+  color: white;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  border: none;
+  margin-left: 900px;
+  animation: button_slide;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes button_slide {
+  100% {
+    margin-left: 0px;
   }
-  
-  .heading {
-    font-family: Roboto;
-    font-size: xx-large;
-    font-weight: 600;
-    margin-top: 100px;
-    margin-left: -30px;
-    margin-bottom: 0px;
-  }
-  
-  .sub_heading {
-    font-weight: normal;
-    font-family: Roboto;
-    letter-spacing: 1px;
-    margin-top: -0px;
-    margin-left: -150px;
-  }
-  
-  .register_name {
-    font-family: Roboto;
-    font-size: small;
-    background-color: #f1f3f4;
-    border-radius: 50px;
-    margin-top: 50px;
-    width: 300px;
-    height: 30px;
-    padding-left: 20px;
-    border: none;
-    outline: none;
-  }
-  
-  .register_name_motion {
-    font-family: Roboto;
-    font-size: small;
-    background-color: #f1f3f4;
-    border-radius: 50px;
-    margin-top: 50px;
-    width: 300px;
-    height: 30px;
-    border: none;
-    outline: none;
-    animation: Registration_slide;
-    animation-fill-mode: forwards;
-    animation-duration: 0.3s;
-  }
-  
-  @keyframes Registration_slide {
-    100% {
-      padding-left: 50px;
-    }
-  }
-  
-  .register_name_motion:focus {
-    outline: none;
-    border: none;
-  }
-  
-  #register_name_logo {
-    color: #a3a3a3;
-    position: absolute;
-    margin-top: 245px;
-    margin-left: -300px;
-    opacity: 0%;
-  }
-  
-  #register_name_logomotion {
-    color: #a3a3a3;
-    position: absolute;
-    margin-top: 245px;
-    margin-left: -300px;
-    opacity: 0%;
-    animation: Registration_icon;
-    animation-fill-mode: forwards;
-    animation-duration: 0.3s;
-  }
-  
-  @keyframes Registration_icon {
-    100% {
-      margin-left: -250px;
-      opacity: 100%;
-      color: #5bc0deff;
-    }
-  }
-  
-  
-  .register_email {
-    font-family: Roboto;
-    font-size: small;
-    background-color: #f1f3f4;
-    border-radius: 50px;
-    margin-top: 20px;
-    width: 300px;
-    height: 30px;
-    border: none;
-    padding-left: 20px;
-  }
-  
-  .register_email_motion {
-    font-family: Roboto;
-    font-size: small;
-    background-color: #f1f3f4;
-    border-radius: 50px;
-    margin-top: 20px;
-    width: 300px;
-    height: 30px;
-    border: none;
-    padding-left: 20px;
-    border: none;
-    outline: none;
-    animation: Registration_slide;
-    animation-fill-mode: forwards;
-    animation-duration: 0.3s;
-  }
-  
-  .register_email:focus {
-    outline: none;
-  }
-  
-  #register_email_logo {
-    color: #a3a3a3;
-    position: absolute;
-    margin-top: 295px;
-    margin-left: -300px;
-    opacity: 0%;
-  }
-  
-  #register_email_logomotion {
-    color: #a3a3a3;
-    position: absolute;
-    margin-top: 295px;
-    margin-left: -300px;
-    opacity: 0%;
-    animation: Registration_icon;
-    animation-fill-mode: forwards;
-    animation-duration: 0.3s;
-  }
-  
-  .register_password {
-    font-family: Roboto;
-    font-size: small;
-    background-color: #f1f3f4;
-    border-radius: 50px;
-    margin-top: 20px;
-    width: 300px;
-    height: 30px;
-    border: none;
-    padding-left: 20px;
-  }
-  
-  .register_password_motion {
-    font-family: Roboto;
-    font-size: small;
-    background-color: #f1f3f4;
-    border-radius: 50px;
-    margin-top: 20px;
-    width: 300px;
-    height: 30px;
-    border: none;
-    padding-left: 20px;
-    outline: none;
-    animation: Registration_slide;
-    animation-fill-mode: forwards;
-    animation-duration: 0.3s;
-  }
-  
-  .register_password:focus {
-    outline: none;
-  }
-  
-  #register_password_logo{
-    color: #a3a3a3;
-    position: absolute;
-    margin-top: 345px;
-    margin-left: -300px;
-    opacity: 0%;
-  }
-  
-  #register_password_logomotion {
-    color: #a3a3a3;
-    position: absolute;
-    margin-top: 345px;
-    margin-left: -300px;
-    opacity: 0%;
-    animation: Registration_icon;
-    animation-fill-mode: forwards;
-    animation-duration: 0.3s;
-  }
-  
-  .register_confirmpassword {
-    font-family: Roboto;
-    font-size: small;
-    background-color: #f1f3f4;
-    border-radius: 50px;
-    margin-top: 20px;
-    width: 300px;
-    height: 30px;
-    border: none;
-    padding-left: 20px;
-  }
-  
-  .register_confirmpassword_motion {
-    font-family: Roboto;
-    font-size: small;
-    background-color: #f1f3f4;
-    border-radius: 50px;
-    margin-top: 20px;
-    width: 300px;
-    height: 30px;
-    border: none;
-    padding-left: 20px;
-    outline: none;
-    animation: Registration_slide;
-    animation-fill-mode: forwards;
-    animation-duration: 0.3s;
-  }
-  
-  #register_confirmpassword_logo {
-    color: #a3a3a3;
-    position: absolute;
-    margin-top: 395px;
-    margin-left: -300px;
-    opacity: 0%;
-  }
-  
-  #register_confirmpassword_logomotion {
-    color: #a3a3a3;
-    position: absolute;
-    margin-top: 395px;
-    margin-left: -300px;
-    opacity: 0%;
-    animation: Registration_icon;
-    animation-fill-mode: forwards;
-    animation-duration: 0.3s;
-  }
-  
-  .account_button {
-    cursor: pointer;
-    margin-top: 30px;
-    width: 300px;
-    height: 40px;
-    background-color: #5bc0de;
-    background-image: url('../Images/skyhigh.jpg');
-    color: white;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    border: none;
-    margin-left: 900px;
-    animation: button_slide;
-    animation-duration: 1.5s;
-    animation-fill-mode: forwards;
-  }
-  
-  @keyframes button_slide {
-    100% {
-      margin-left: 0px;
-    }
-  }
-  
-  .existing_account {
-    font-size: smaller;
-    color: #a3a3a3;
-    margin-top: 10px;
-  }
-  
-  .login {
-    font-weight: 600;
-    color: #d898be;
-    margin-left: 5px;
-  }
-  
-  .text_decoration {
-    text-decoration: none;
-  }
+}
+
+.existing_account {
+  font-size: smaller;
+  color: #a3a3a3;
+  margin-top: 10px;
+}
+
+.login {
+  font-weight: 600;
+  color: #d898be;
+  margin-left: 5px;
+}
+
+.text_decoration {
+  text-decoration: none;
+}

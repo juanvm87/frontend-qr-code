@@ -17,7 +17,8 @@ const Create = () => {
   const [activeButton, setActiveButton] = useState("Link");
   const [eventData, setEventData] = useState({});
   const [skypeData, setSkypeData] = useState({});
-  const [locationData, setLocationData] = useState("");
+  const [locationData, setLocationData] = useState({});
+  console.log("fffffff 21 create", locationData);
 
   return (
     <div className="container-grcode">

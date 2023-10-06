@@ -53,8 +53,8 @@ export const checkInput = (props) => {
     return {
       title: props.eventData.title,
       notes: props.eventData.notes,
-      setartDate: props.eventData.startTime,
-      endDate: props.eventData.endTime,
+      startTime: props.eventData.startTime,
+      endTime: props.eventData.endTime,
       location: props.eventData.location,
     };
   }
@@ -68,7 +68,7 @@ export const checkInput = (props) => {
   if (props.activeButton === "Skype") {
     return {
       id: props.skypeData.id,
-      skypeType: props.skypeData.type,
+      type: props.skypeData.type,
     };
   }
 };

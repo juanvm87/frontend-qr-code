@@ -84,7 +84,7 @@ export default function UserCard(props) {
               color="text.secondary"
               component="div"
             >
-              {dataModify(props.qrData.createdDate)}
+              {dataModify(props.qrData.createdAt)}
             </Typography>
           </Box>
 

@@ -9,6 +9,7 @@ import { BsFiletypePdf, BsFiletypeSvg, BsFiletypePng } from "react-icons/bs";
 import { createQrAPI, getQr } from "../../services/RestApi";
 import { checkInput } from "../helperFunction/checkInput";
 import { PopUpModal } from "../common/PopUpModal";
+import { handleformattedDate } from "../helperFunction/formatedDate";
 
 const QRcode = (props) => {
   const [data, setData] = useState("");
@@ -130,8 +131,10 @@ const QRcode = (props) => {
       try {
         const title = props.eventData.title;
         const eventData_notes = props.eventData.notes;
-        const formattedStartDate = props.eventData.startTime;
-        const formattedEndDate = props.eventData.endTime;
+        const formattedStartDate = handleformattedDate(
+          props.eventData.startTime
+        );
+        const formattedEndDate = handleformattedDate(props.eventData.endTime);
 
         const eventDataString22 = `BEGIN:VCALENDAR
 BEGIN:VEVENT
@@ -184,17 +187,9 @@ END:VCALENDAR`;
 
   useEffect(() => {
     function handleSkypeData() {
-      let newData;
       try {
-        if (props.skypeData.type === "chat") {
-          newData = props.skypeData.id
-            ? `skype:${props.skypeData.id}?call`
-            : "";
-        } else {
-          newData = props.skypeData.id
-            ? `skype:${props.skypeData.id}?chat`
-            : "";
-        }
+        let newData = `skype:${props.skypeData.id}?${props.skypeData.type}`;
+
         setData(newData);
       } catch (error) {
         console.error("Error fetching SkypeData:", error);

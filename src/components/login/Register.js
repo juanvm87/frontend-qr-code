@@ -16,6 +16,7 @@ function Register() {
   // iconStates
   const [formValues, setFormValues] = useState({
     formname: "",
+    formphone: "",
     formemail: "",
     formpassword: "",
     formconfirmpassword: "",
@@ -25,6 +26,7 @@ function Register() {
   // Form Entries States
   const initialValues = {
     name: "",
+    phone: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -102,7 +104,30 @@ function Register() {
               : "register_name_logomotion"
           }
         ></i>
-
+        {/* Phone */}
+        <input
+          type="text"
+          inputMode="numeric"
+          placeholder="Phone"
+          name="phone"
+          className={
+            formValues.formphone == ""
+              ? "register_phone"
+              : "register_phone_motion"
+          }
+          value={values.phone}
+          onChange={handleInputChange}
+          onClick={(e) => switchClass(e, "formphone")}
+          required
+        />
+        <i
+          className="fa-solid fa-file-signature"
+          id={
+            formValues.formname == ""
+              ? "register_name_logo"
+              : "register_name_logomotion"
+          }
+        ></i>
         {/* Email */}
         <input
           type="email"
@@ -190,9 +215,7 @@ function Register() {
         ></i>
 
         {/* <button className="account_button" onClick={createAccountHandler}> */}
-        <button className="account_button" >
-          Create account
-        </button>
+        <button className="account_button">Create account</button>
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "right" }}
           open={openSnackbar}
