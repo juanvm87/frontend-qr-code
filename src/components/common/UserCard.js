@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import { useTheme } from '@mui/material/styles';
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -8,11 +8,13 @@ import Typography from "@mui/material/Typography";
 import QRCode from "react-qr-code";
 import { Button, Link } from "@mui/material";
 import { useNavigate } from "react-router";
+import { handleDownload } from "../helperFunction/handleDownload";
 
 export default function UserCard(props) {
-  // const theme = useTheme();
   const qrCodeRef = useRef(null);
   const navigateTo = useNavigate();
+  const [downloadType, setDownloadType] = useState(null);
+
   const dataModify = (date) => {
     const currentDate = new Date(date);
     // Extract the date components
@@ -26,9 +28,21 @@ export default function UserCard(props) {
 
     return formattedDate;
   };
+  useEffect(() => {
+    if (downloadType) {
+      const qrCodeSvgElement = qrCodeRef.current;
+      if (qrCodeSvgElement) {
+        handleDownload(downloadType, qrCodeSvgElement);
+        setDownloadType(null); // Reset the download type after processing
+      }
+    }
+  }, [downloadType]);
 
   const handleNavigation = () => {
     navigateTo(`/Edit/${props.qrData._id}`);
+  };
+  const copyToClipboard = (value) => {
+    navigator.clipboard.writeText(value);
   };
 
   return (
@@ -148,27 +162,52 @@ export default function UserCard(props) {
           sx={{
             display: "flex",
             flexDirection: "row",
-            justifyContent: "space-between",
+
             alignItems: "center",
             paddingLeft: 2,
             paddingBottom: 1,
           }}
         >
-          {/* <Link
-            href={`/Edit/${props.qrData._id}`}
-            style={{ cursor: "pointer" }}
-          >
-            Edit
-          </Link> */}
           <Button onClick={handleNavigation} style={{ cursor: "pointer" }}>
             Edit
           </Button>
           <p> | </p>
-          <Link style={{ cursor: "pointer" }}> Copy </Link>
+          <Button
+            onClick={(value) => {
+              console.log(props.qrData);
+              copyToClipboard(props.qrData.link);
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            Copy
+          </Button>
           <p> | </p>
-          <Link style={{ cursor: "pointer" }}> SVG </Link>
+          <Button
+            onClick={() => {
+              setDownloadType("png");
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            PNG
+          </Button>
           <p> | </p>
-          <Link style={{ cursor: "pointer" }}> PNG </Link>
+          <Button
+            onClick={() => {
+              setDownloadType("pdf");
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            PDF
+          </Button>
+          {/* <p> | </p>
+          <Button
+            onClick={() => {
+              setDownloadType("pdf");
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            DELETE
+          </Button> */}
         </Box>
       </Box>
       <Box sx={{ width: 170, flexShrink: 0 }}>

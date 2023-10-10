@@ -10,13 +10,22 @@ const Map = (props) => {
   const [longitude, setLongitude] = useState("");
 
   useEffect(() => {
+    const fetchupdateData = () => {
+      setLocation(props.updateData.place);
+      setLatitude(props.updateData.latitude);
+      setLongitude(props.updateData.longitude);
+    };
+    fetchupdateData();
+  }, [props.updateData]);
+  useEffect(() => {
     const handleData = () => {
-      props.locationData(
+      const data =
         longitude && latitude
           ? `http://maps.google.com/maps?q=${latitude},${longitude}`
-          : ""
-      );
+          : "";
+      props.locationData({ link: data, place: location });
     };
+
     handleData();
   }, [latitude, longitude]);
 
@@ -46,6 +55,7 @@ const Map = (props) => {
       <div className="container-location">
         <div className="text-field-map">
           <TextField
+            value={location}
             onChange={(event) => setLocation(event.target.value)}
             onKeyDown={handleEnter}
             label="Location"

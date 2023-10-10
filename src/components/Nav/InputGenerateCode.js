@@ -27,7 +27,7 @@ export const InputGenerateCode = (props) => {
     subject: "",
     text: "",
   });
-  const [qrData, setQrData] = useState({});
+  const [location, setLocation] = useState({});
   const [sms, setSms] = useState({ phone: "", text: " " });
   const [whatsApp, setWhatsApp] = useState({ phone: "", text: " " });
   const [wifi, setWifi] = useState({
@@ -47,8 +47,6 @@ export const InputGenerateCode = (props) => {
   });
   useEffect(() => {
     const getQrData = () => {
-      setQrData(props.qrData);
-
       if (props.qrData.type === "Link") {
         setLink(props.qrData.input.link);
       }
@@ -62,9 +60,8 @@ export const InputGenerateCode = (props) => {
           text: props.qrData.input.text,
         });
       }
-      //TODO create Location
       if (props.qrData.type === "Location") {
-        // setLocationData(props.qrData.input);
+        setLocation(props.qrData.input);
       }
       if (props.qrData.type === "Phone") {
         setPhone(props.qrData.input.phone);
@@ -145,7 +142,7 @@ export const InputGenerateCode = (props) => {
 
   const handleWhatsAppChange = (field, value) => {
     let newData = { ...whatsApp, [field]: value };
-
+    console.log("newData whatsApp", newData);
     setWhatsApp(newData);
     if (whatsApp.phone.length > 6) {
       props.whatsAppData(newData);
@@ -260,7 +257,7 @@ export const InputGenerateCode = (props) => {
       {props.activeButton === "Location" && (
         <div className="div-inputs">
           <h2>Location</h2>
-          <Map locationData={handleLocationChange} />
+          <Map locationData={handleLocationChange} updateData={location} />
         </div>
       )}
       {props.activeButton === "Phone" && (

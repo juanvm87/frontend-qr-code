@@ -1,19 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Canvg } from "canvg";
-import jsPDF from "jspdf";
-import { Button, Card, CardContent, Container } from "@mui/material";
+import { Button, Card, CardContent } from "@mui/material";
 import QRCode from "react-qr-code";
 import "./QRcode.css";
 import { useParams } from "react-router";
 import { BsFiletypePdf, BsFiletypeSvg, BsFiletypePng } from "react-icons/bs";
-import { createQrAPI, getQr } from "../../services/RestApi";
+import { createQrAPI, getQr, updateQr } from "../../services/RestApi";
 import { checkInput } from "../helperFunction/checkInput";
 import { PopUpModal } from "../common/PopUpModal";
 import { handleformattedDate } from "../helperFunction/formatedDate";
+import { handleDownload } from "../helperFunction/handleDownload";
 
 const QRcode = (props) => {
-  const [data, setData] = useState("");
+  const [linkData, setLinkData] = useState("");
   const [downloadType, setDownloadType] = useState(null);
+  const [isUpdating, setIsUpdating] = useState(false);
   const [qrData, setQrData] = useState({});
   const idFromURL = useParams().id;
   const qrCodeRef = useRef(null);
@@ -21,9 +21,16 @@ const QRcode = (props) => {
   const getQrDataAPI = async () => {
     try {
       if (idFromURL) {
+        setIsUpdating(true);
+      } else {
+        setIsUpdating(false);
+      }
+
+      if (idFromURL) {
         const response = await getQr(idFromURL);
+
         setQrData(response.data);
-        setData(response.data.link);
+        setLinkData(response.data.link);
       } else {
         setQrData("");
       }
@@ -39,7 +46,7 @@ const QRcode = (props) => {
   useEffect(() => {
     function HandlerTextData() {
       try {
-        setData(props.textData);
+        setLinkData(props.textData);
       } catch (error) {
         console.error("Error fetching textData:", error);
       }
@@ -50,8 +57,7 @@ const QRcode = (props) => {
   useEffect(() => {
     function HandleData() {
       try {
-        setData("http://" + props.linkData);
-        // setData(`WIFI:T:${authentication};S:${name};P:${password};H:${hidden};`);
+        setLinkData("http://" + props.linkData);
       } catch (error) {
         console.error("Error fetching linkData:", error);
       }
@@ -63,7 +69,7 @@ const QRcode = (props) => {
     function HandleEmailData() {
       try {
         const edata = `MATMSG:TO:${props.emailData.to};SUB:${props.emailData.subject};BODY:${props.emailData.text};;`;
-        setData(edata);
+        setLinkData(edata);
       } catch (error) {
         console.error("Error fetching emailData:", error);
       }
@@ -76,7 +82,7 @@ const QRcode = (props) => {
         const idMeeting = props.zoomData.id;
         const password = props.zoomData.password;
         const edata = `https://zoom.us/j/${idMeeting}?pwd=${password}`;
-        setData(edata);
+        setLinkData(edata);
       } catch (error) {
         console.error("Error fetching emailData:", error);
       }
@@ -87,7 +93,7 @@ const QRcode = (props) => {
     function HandlePhoneData() {
       try {
         const phone = `TEL:${props.phoneData}`;
-        setData(phone);
+        setLinkData(phone);
       } catch (error) {
         console.error("Error fetching phoneData:", error);
       }
@@ -99,7 +105,7 @@ const QRcode = (props) => {
     function handleSmsData() {
       try {
         const smsData = `smsto:${props.smsData.phone}:${props.smsData.text}`;
-        setData(smsData);
+        setLinkData(smsData);
       } catch (error) {
         console.error("Error fetching smsData:", error);
       }
@@ -117,7 +123,7 @@ const QRcode = (props) => {
           let whatsAppData = `https://wa.me/${phoneResult}?text=${encodeURIComponent(
             props.whatsAppData.text
           )}`;
-          setData(whatsAppData);
+          setLinkData(whatsAppData);
         } catch (error) {
           console.error("Error fetching whatsAppData:", error);
         }
@@ -150,7 +156,7 @@ END:VALARM
 END:VEVENT
 END:VCALENDAR`;
 
-        setData(eventDataString22);
+        setLinkData(eventDataString22);
       } catch (error) {
         console.error("Error fetching eventData:", error);
       }
@@ -165,7 +171,7 @@ END:VCALENDAR`;
         let id = props.wifiData.id;
 
         const wifiData = `WIFI:T:${auth};S:${id};P:${passd};H:{false}`;
-        setData(wifiData);
+        setLinkData(wifiData);
       } catch (error) {
         console.error("Error fetching wifiData:", error);
       }
@@ -175,9 +181,9 @@ END:VCALENDAR`;
   useEffect(() => {
     function handleLocationData() {
       try {
-        let dataL = props.locationData;
-
-        setData(dataL);
+        let dataL = props.locationData.link;
+        console.log("178 qrcode", dataL);
+        setLinkData(dataL);
       } catch (err) {
         console.error("Error fetching locationData:", err);
       }
@@ -190,7 +196,7 @@ END:VCALENDAR`;
       try {
         let newData = `skype:${props.skypeData.id}?${props.skypeData.type}`;
 
-        setData(newData);
+        setLinkData(newData);
       } catch (error) {
         console.error("Error fetching SkypeData:", error);
       }
@@ -199,78 +205,49 @@ END:VCALENDAR`;
   }, [props.skypeData]);
 
   useEffect(() => {
-    setData("");
+    setLinkData("");
   }, [props.activeButton]);
 
   useEffect(() => {
     if (downloadType) {
       const qrCodeSvgElement = qrCodeRef.current;
-
       if (qrCodeSvgElement) {
-        if (downloadType === "pdf") {
-          const pdf = new jsPDF();
-          const width = qrCodeSvgElement.offsetWidth;
-          const height = qrCodeSvgElement.offsetHeight;
-
-          const canvas = document.createElement("canvas");
-          const context = canvas.getContext("2d");
-
-          canvas.width = width;
-          canvas.height = height;
-
-          Canvg.from(context, qrCodeSvgElement.outerHTML).then((canvg) => {
-            canvg.start();
-            const svgData = canvas.toDataURL("image/svg+xml");
-            pdf.addImage(svgData, "SVG", 10, 10, width, height);
-            pdf.save("qrcode.pdf");
-          });
-        } else if (downloadType === "png") {
-          // Handle PNG download
-          const canvas = document.createElement("canvas");
-          const context = canvas.getContext("2d");
-          const width = qrCodeSvgElement.offsetWidth;
-          const height = qrCodeSvgElement.offsetHeight;
-
-          canvas.width = width;
-          canvas.height = height;
-
-          Canvg.from(context, qrCodeSvgElement.outerHTML).then((canvg) => {
-            canvg.start();
-            const pngData = canvas.toDataURL("image/png");
-            const a = document.createElement("a");
-            a.href = pngData;
-            a.download = "qrcode.png";
-            a.click();
-          });
-        } else if (downloadType === "svg") {
-          // Handle SVG download
-          const svgData = new XMLSerializer().serializeToString(
-            qrCodeSvgElement
-          );
-          const blob = new Blob([svgData], { type: "image/svg+xml" });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "qrcode.svg";
-          a.click();
-          URL.revokeObjectURL(url);
-        }
+        handleDownload(downloadType, qrCodeSvgElement);
         setDownloadType(null); // Reset the download type after processing
       }
     }
   }, [downloadType]);
 
+  const handleUpdate = async (textDescription) => {
+    try {
+      let inp = checkInput(props);
+      const updateCode = {
+        title: textDescription,
+        link: linkData,
+        input: inp,
+      };
+      updateQr(idFromURL, updateCode);
+      console.log("handleUpdate  ", updateCode);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
   const saveData = (textDescription) => {
-    let inp = checkInput(props);
-    //TODO change the ownerID
-    const newData = {
-      title: textDescription,
-      type: props.activeButton,
-      link: data,
-      input: inp,
-      ownerId: "3233",
-    };
-    createQrAPI(newData);
+    try {
+      let inp = checkInput(props);
+      const newData = {
+        title: textDescription,
+        type: props.activeButton,
+        link: linkData,
+        input: inp,
+        ownerId: "",
+      };
+      createQrAPI(newData);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   };
   return (
     <Card>
@@ -278,10 +255,10 @@ END:VCALENDAR`;
         <QRCode
           id="qr-picture"
           className="qr-code"
-          value={data}
+          value={linkData}
           ref={qrCodeRef}
         />
-        {data && !qrData && (
+        {linkData && !qrData && (
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div className="container-btn-qr">
               <Button
@@ -313,14 +290,20 @@ END:VCALENDAR`;
               <PopUpModal
                 saveData={saveData}
                 setDownloadType={setDownloadType}
+                isUpdating={isUpdating}
               />
             </div>
           </div>
         )}
-        {data && qrData && (
+        {isUpdating && (
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div>
-              <Button sx={{ width: "100%" }}>Update</Button>
+              <PopUpModal
+                saveData={saveData}
+                setDownloadType={setDownloadType}
+                isUpdating={isUpdating}
+                handleUpdate={handleUpdate}
+              />
             </div>
           </div>
         )}

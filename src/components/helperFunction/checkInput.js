@@ -21,15 +21,15 @@ export const checkInput = (props) => {
     };
   }
   if (props.activeButton === "Location") {
-    let link = props.locationData;
+    let link = props.locationData.link;
     // Use the URLSearchParams function to retrieve URL parameters
     const urlParams = new URLSearchParams(new URL(link).search);
 
     // Extract the values of latitude and longitude from the parameters
     const lat = urlParams.get("q").split(",")[0];
     const long = urlParams.get("q").split(",")[1];
-
     return {
+      place: props.locationData.place,
       latitude: lat,
       longitude: long,
     };

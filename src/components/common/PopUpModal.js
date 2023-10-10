@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -18,14 +18,22 @@ const style = {
 };
 
 export function PopUpModal(props) {
-  const [open, setOpen] = React.useState(false);
-  const [textValue, setTextValue] = React.useState(""); // State to store input value
+  const [open, setOpen] = useState(false);
+  const [textValue, setTextValue] = useState(""); // State to store input value
   const handleOpen = () => setOpen(true);
+  const [isUpdating, setIsUpdating] = useState(false);
   const handleClose = () => {
     setOpen(false);
     setTextValue("");
   };
 
+  useEffect(() => {
+    const checkIfIsUpdating = () => {
+      setIsUpdating(props.isUpdating);
+    };
+    console.log("updating", isUpdating);
+    checkIfIsUpdating();
+  }, []);
   // Handle input change
   const handleInputChange = (event) => {
     const newValue = event.target.value;
@@ -33,13 +41,19 @@ export function PopUpModal(props) {
     setTextValue(newValue);
   };
 
-  console.log("New Title Value:", textValue);
-
   return (
     <>
-      <Button sx={{ width: "100%" }} onClick={handleOpen}>
-        Save
-      </Button>
+      {!isUpdating && (
+        <Button sx={{ width: "100%" }} onClick={handleOpen}>
+          Save
+        </Button>
+      )}
+      {isUpdating && (
+        <Button onClick={handleOpen} sx={{ width: "100%" }}>
+          Update
+        </Button>
+      )}
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -60,7 +74,12 @@ export function PopUpModal(props) {
               <Button onClick={handleClose}>Cancel</Button>
               <Button
                 onClick={() => {
-                  props.saveData(textValue);
+                  if (!isUpdating) {
+                    props.saveData(textValue);
+                  } else {
+                    props.handleUpdate(textValue);
+                  }
+
                   props.setDownloadType(null);
                   handleClose();
                 }}

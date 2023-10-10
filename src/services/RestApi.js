@@ -12,6 +12,10 @@ export const getAllOwnerQr = async (data) => {
 export const getQr = async (data) => {
   return await http.get(`qr/id/${data}`);
 };
+
+export const updateQr = async (qrId, updateQrData) => {
+  return await http.patch(`qr/${qrId}`, updateQrData);
+};
 export const signup = async (data) => {
   return await http.post("auth/signup", data);
 };

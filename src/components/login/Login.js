@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 // import all_images from "./my_imports/Imports";
 // import RoutesButton from "./RoutesButton";
@@ -22,7 +22,6 @@ function Login() {
 
   useEffect(() => {
     const auth = localStorage.getItem("token");
-    console.log("Auth-->", auth);
     if (auth) {
       navigate("/home");
     }
@@ -41,39 +40,34 @@ function Login() {
   const waveoriginend = () => {
     setWave(false);
   };
-  const onClickHandler = async () => {
-    const token = await signin({
-      email: formValues.formemail,
-      password: formValues.formpassword,
-    });
-    console.log("click", token);
-    localStorage.setItem("token", token.data.token);
-    navigate("/Home");
+
+  const onClickHandler = () => {
+    if (formValues.formemail !== " " && formValues.formpassword !== " ") {
+      signin({ email: formValues.formemail, password: formValues.formpassword })
+        .then((res) => {
+          if (res.status === 201) {
+            setOpenSnackbar(true);
+            let message = "Login Successfully!!!";
+            setMessage(message);
+            localStorage.setItem("_id", res.data._id);
+            localStorage.setItem("token", res.data.token);
+            setTimeout(() => {
+              navigate("/Home");
+            }, 500);
+          } else if (res.status === 200) {
+            setOpenSnackbar(true);
+            setMessage(res.data);
+          }
+        })
+        .catch((e) => {
+          setOpenSnackbar(true);
+          setMessage(e.response.data.message);
+          setTimeout(() => {
+            setOpenSnackbar(false);
+          }, 6000);
+        });
+    }
   };
-  // const onClickHandler = () => {
-  //   if (formValues.formemail !== " " && formValues.formpassword !== " ") {
-  //     login({ email: formValues.formemail, password: formValues.formpassword })
-  //       .then((res) => {
-  //         if (res.status === 201) {
-  //           setOpenSnackbar(true);
-  //           let message = "Login Successfully!!!";
-  //           setMessage(message);
-  //           localStorage.setItem("_id", res.data._id);
-  //           localStorage.setItem("email", res.data.email);
-  //           setTimeout(() => {
-  //             navigate("/admin");
-  //           }, 500);
-  //         } else if (res.status === 200) {
-  //           setOpenSnackbar(true);
-  //           setMessage(res.data);
-  //         }
-  //       })
-  //       .catch((e) => {
-  //         setOpenSnackbar(true);
-  //         setMessage(e);
-  //       });
-  //   }
-  // };
   return (
     <>
       <div className="login_body">
@@ -89,6 +83,7 @@ function Login() {
           onMouseOut={waveoriginend}
         >
           <img
+            alt=""
             src={`https://alphech.com/images/vision.png`}
             className="user_img"
             onMouseEnter={waveoriginstart}
