@@ -9,6 +9,7 @@ import { checkInput } from "../helperFunction/checkInput";
 import { PopUpModal } from "../common/PopUpModal";
 import { handleformattedDate } from "../helperFunction/formatedDate";
 import { handleDownload } from "../helperFunction/handleDownload";
+import { useNavigate } from "react-router-dom";
 
 const QRcode = (props) => {
   const [linkData, setLinkData] = useState("");
@@ -17,6 +18,7 @@ const QRcode = (props) => {
   const [qrData, setQrData] = useState({});
   const idFromURL = useParams().id;
   const qrCodeRef = useRef(null);
+  const navigate = useNavigate();
 
   const getQrDataAPI = async () => {
     try {
@@ -227,7 +229,9 @@ END:VCALENDAR`;
         input: inp,
       };
       updateQr(idFromURL, updateCode);
-      console.log("handleUpdate  ", updateCode);
+      setTimeout(() => {
+        navigate("/View");
+      }, 500);
     } catch (error) {
       console.error(error);
       throw error;
@@ -244,6 +248,9 @@ END:VCALENDAR`;
         ownerId: "",
       };
       createQrAPI(newData);
+      setTimeout(() => {
+        navigate("/View");
+      }, 500);
     } catch (error) {
       console.error(error);
       throw error;
