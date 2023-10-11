@@ -3,6 +3,7 @@ import "./Register.css";
 // import { register } from "./services/RestApi";
 import { useNavigate } from "react-router-dom";
 import { Snackbar } from "@mui/material";
+import { signup } from "../../services/RestApi";
 
 // Authentification
 const isEmail = (email) =>
@@ -16,6 +17,7 @@ function Register() {
   // iconStates
   const [formValues, setFormValues] = useState({
     formname: "",
+    formphone: "",
     formemail: "",
     formpassword: "",
     formconfirmpassword: "",
@@ -25,6 +27,7 @@ function Register() {
   // Form Entries States
   const initialValues = {
     name: "",
+    phone: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -33,35 +36,41 @@ function Register() {
   const [errorMsg, setErrorMsg] = useState(false);
 
   useEffect(() => {
-    const auth = localStorage.getItem("email");
+    const auth = localStorage.getItem("token");
     console.log("Auth-->", auth);
     if (auth) {
       navigate("/Home");
     }
   });
 
-  // const createAccountHandler = () => {
-  //   if (values.password === values.confirmPassword && isEmail(values.email)) {
-  //      register({ email: values.email, password: values.password })
-  //       .then((res) => {
-  //         if (res.status === 201) {
-  //           setOpenSnackbar(true);
-  //           setMessage("Register Successfully!!!");
-  //           setTimeout(() => {
-  //             navigate("/");
-  //           }, 500);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         setMessage(err);
-  //         setOpenSnackbar(true);
-  //       });
-  //   } else if (!isEmail(values.email)) {
-  //     setErrorMsg(true);
-  //   } else if (values.password !== values.confirmPassword) {
-  //     alert("Password & Confirm Password Didn't Match");
-  //   }
-  // };
+  const createAccountHandler = () => {
+    if (values.password === values.confirmPassword && isEmail(values.email)) {
+      signup({
+        name: values.name,
+        phone: values.phone,
+        email: values.email,
+        password: values.password,
+      })
+        .then((res) => {
+          if (res.status === 201) {
+            localStorage.setItem("token", res.data.token);
+            setOpenSnackbar(true);
+            setMessage("Register Successfully!!!");
+            setTimeout(() => {
+              navigate("/Login");
+            }, 500);
+          }
+        })
+        .catch((err) => {
+          setOpenSnackbar(true);
+          setMessage(err);
+        });
+    } else if (!isEmail(values.email)) {
+      setErrorMsg(true);
+    } else if (values.password !== values.confirmPassword) {
+      alert("Password & Confirm Password Didn't Match");
+    }
+  };
   const handleClose = () => {
     setOpenSnackbar(false);
   };
@@ -102,7 +111,30 @@ function Register() {
               : "register_name_logomotion"
           }
         ></i>
-
+        {/* Phone */}
+        <input
+          type="text"
+          inputMode="numeric"
+          placeholder="Phone"
+          name="phone"
+          className={
+            formValues.formphone == ""
+              ? "register_phone"
+              : "register_phone_motion"
+          }
+          value={values.phone}
+          onChange={handleInputChange}
+          onClick={(e) => switchClass(e, "formphone")}
+          required
+        />
+        <i
+          className="fa-solid fa-file-signature"
+          id={
+            formValues.formname == ""
+              ? "register_name_logo"
+              : "register_name_logomotion"
+          }
+        ></i>
         {/* Email */}
         <input
           type="email"
@@ -189,8 +221,7 @@ function Register() {
           }
         ></i>
 
-        {/* <button className="account_button" onClick={createAccountHandler}> */}
-        <button className="account_button" >
+        <button className="account_button" onClick={createAccountHandler}>
           Create account
         </button>
         <Snackbar

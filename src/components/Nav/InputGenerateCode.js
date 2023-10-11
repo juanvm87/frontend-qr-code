@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Map from "../Map/Map.js";
 import "./NavGenerateCode.css";
 
@@ -17,7 +17,6 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimeField } from "@mui/x-date-pickers/DateTimeField";
-import { fi } from "date-fns/locale";
 
 export const InputGenerateCode = (props) => {
   const [phone, setPhone] = useState("");
@@ -28,6 +27,7 @@ export const InputGenerateCode = (props) => {
     subject: "",
     text: "",
   });
+  const [location, setLocation] = useState({});
   const [sms, setSms] = useState({ phone: "", text: " " });
   const [whatsApp, setWhatsApp] = useState({ phone: "", text: " " });
   const [wifi, setWifi] = useState({
@@ -37,37 +37,79 @@ export const InputGenerateCode = (props) => {
     hidden: false,
   });
   const [zoom, setZoom] = useState({ id: "", password: "" });
-  const [skype, setSkype] = useState({ id: "", type: "" });
-  const [networkType, setNetworkType] = useState("");
-  const [location, setLocation] = useState({ lon: "", lat: "" });
+  const [skype, setSkype] = useState({ id: "", type: "call" });
   const [eventData, setEventData] = useState({
     title: "",
     location: "",
     startTime: "",
     endTime: "",
-    reminder: 0, // Default to 0 for "Event Start"
-    link: "",
     notes: "",
   });
+  useEffect(() => {
+    const getQrData = () => {
+      if (props.qrData.type === "Link") {
+        setLink(props.qrData.input.link);
+      }
+      if (props.qrData.type === "Text") {
+        setText(props.qrData.input.text);
+      }
+      if (props.qrData.type === "Email") {
+        setEmail({
+          to: props.qrData.input.email,
+          subject: props.qrData.input.subject,
+          text: props.qrData.input.text,
+        });
+      }
+      if (props.qrData.type === "Location") {
+        setLocation(props.qrData.input);
+      }
+      if (props.qrData.type === "Phone") {
+        setPhone(props.qrData.input.phone);
+      }
+      if (props.qrData.type === "SMS") {
+        setSms({
+          phone: props.qrData.input.phone,
+          text: props.qrData.input.text,
+        });
+      }
+      if (props.qrData.type === "WhatsApp") {
+        setWhatsApp({
+          phone: props.qrData.input.phone,
+          text: props.qrData.input.text,
+        });
+      }
+      if (props.qrData.type === "Skype") {
+        setSkype({ id: props.qrData.input.id, type: props.qrData.input.type });
+      }
+      if (props.qrData.type === "Zoom") {
+        setZoom({
+          id: props.qrData.input.idMeeting,
+          password: props.qrData.input.password,
+        });
+      }
+      if (props.qrData.type === "Wi-Fi") {
+        setWifi({
+          authentication: props.qrData.input.authentication,
+          id: props.qrData.input.id,
+          password: props.qrData.input.password,
+        });
+      }
+      if (props.qrData.type === "Event") {
+        setEventData({
+          title: props.qrData.input.title,
+          location: props.qrData.input.location,
+          startTime: props.qrData.input.startTime,
+          endTime: props.qrData.input.endTime,
+          notes: props.qrData.input.notes,
+        });
+      }
+    };
+    getQrData();
+  }, [props.qrData]);
 
-  const handleformattedDate = (date) => {
-    const originalDate = new Date(date);
-    const year = originalDate.getFullYear();
-    const month = (originalDate.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-based, so we add 1
-    const day = originalDate.getDate().toString().padStart(2, "0");
-    const hours = originalDate.getHours().toString().padStart(2, "0");
-    const minutes = originalDate.getMinutes().toString().padStart(2, "0");
-    const seconds = originalDate.getSeconds().toString().padStart(2, "0");
-
-    return `${year}${month}${day}T${hours}${minutes}${seconds}`;
-  };
   const handlePhone = (newPhone) => {
     setPhone(newPhone);
     props.phoneData(newPhone);
-  };
-
-  const handleNetworkType = (event) => {
-    setNetworkType(event.target.value);
   };
 
   const handleLinkChange = (event) => {
@@ -100,7 +142,7 @@ export const InputGenerateCode = (props) => {
 
   const handleWhatsAppChange = (field, value) => {
     let newData = { ...whatsApp, [field]: value };
-
+    console.log("newData whatsApp", newData);
     setWhatsApp(newData);
     if (whatsApp.phone.length > 6) {
       props.whatsAppData(newData);
@@ -140,9 +182,11 @@ export const InputGenerateCode = (props) => {
         <div className="div-inputs">
           <h2>Link</h2>
           <TextField
+            value={link}
             onChange={handleLinkChange}
             label="Link"
             variant="outlined"
+            inputProps={{ maxLength: 100 }}
           />
         </div>
       )}
@@ -151,11 +195,13 @@ export const InputGenerateCode = (props) => {
           <h2>Text</h2>
 
           <TextField
+            value={text}
             onChange={handleTextChange}
             label="Text"
             variant="outlined"
             multiline
             rows={6}
+            inputProps={{ maxLength: 400 }}
           />
         </div>
       )}
@@ -171,11 +217,14 @@ export const InputGenerateCode = (props) => {
 
                   handleEmailChange();
                 }}
+                value={email.to}
                 className="text-fields"
                 label="Email to"
                 variant="outlined"
+                inputProps={{ maxLength: 50 }}
               />
               <TextField
+                value={email.subject}
                 onChange={(event) => {
                   setEmail((prev) => ({
                     ...prev,
@@ -186,6 +235,7 @@ export const InputGenerateCode = (props) => {
                 className="text-fields"
                 label="Subject"
                 variant="outlined"
+                inputProps={{ maxLength: 50 }}
               />
             </div>
             <TextField
@@ -194,9 +244,11 @@ export const InputGenerateCode = (props) => {
                 handleEmailChange();
               }}
               label="Text"
+              value={email.text}
               variant="outlined"
               multiline
               rows={6}
+              inputProps={{ maxLength: 300 }}
               style={{ marginTop: "10px" }}
             />
           </div>
@@ -205,7 +257,7 @@ export const InputGenerateCode = (props) => {
       {props.activeButton === "Location" && (
         <div className="div-inputs">
           <h2>Location</h2>
-          <Map locationData={handleLocationChange} />
+          <Map locationData={handleLocationChange} updateData={location} />
         </div>
       )}
       {props.activeButton === "Phone" && (
@@ -233,11 +285,13 @@ export const InputGenerateCode = (props) => {
               onChange={(event) => {
                 handleSmsChange("text", event.target.value);
               }}
+              value={sms.text}
               label="Text"
               variant="outlined"
               multiline
               rows={6}
               style={{ marginTop: "10px" }}
+              inputProps={{ maxLength: 350 }}
             />
           </div>
         </div>
@@ -252,14 +306,15 @@ export const InputGenerateCode = (props) => {
                 handleWhatsAppChange("phone", value);
               }}
               defaultCountry="IN"
-              // TODO- Check why prefix number is stuck in India.
             />
             <TextField
               label="Text"
               variant="outlined"
               multiline
+              value={whatsApp.text}
               rows={6}
               style={{ marginTop: "10px" }}
+              inputProps={{ maxLength: 350 }}
               onChange={(event) => {
                 handleWhatsAppChange("text", event.target.value);
               }}
@@ -274,7 +329,7 @@ export const InputGenerateCode = (props) => {
             <FormControl>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="call"
+                defaultValue={skype.type}
                 name="radio-buttons-group"
                 row
               >
@@ -300,8 +355,10 @@ export const InputGenerateCode = (props) => {
               onChange={(event) => {
                 handleSkypeChange("id", event.target.value);
               }}
+              inputProps={{ maxLength: 50 }}
               className="text-field"
               label="Username"
+              value={skype.id}
               variant="outlined"
             />
           </div>
@@ -315,6 +372,7 @@ export const InputGenerateCode = (props) => {
               onChange={(event) => {
                 handleZoomChange("id", event.target.value);
               }}
+              inputProps={{ maxLength: 100 }}
               style={{ margin: "0 10px 0 0" }}
               label="Meeting Id"
               value={zoom.id}
@@ -324,6 +382,7 @@ export const InputGenerateCode = (props) => {
               onChange={(event) => {
                 handleZoomChange("password", event.target.value);
               }}
+              inputProps={{ maxLength: 100 }}
               label="Password"
               value={zoom.password}
               variant="outlined"
@@ -343,11 +402,10 @@ export const InputGenerateCode = (props) => {
               <Select
                 labelId="demo-select-small-label"
                 id="demo-select-small"
-                value={networkType}
+                value={wifi.authentication}
                 label="NetworkType"
                 onChange={(value) => {
                   handleWifiChange("authentication", value.target.value);
-                  handleNetworkType(value);
                 }}
               >
                 <MenuItem value={"WEP"}>WEP</MenuItem>
@@ -356,6 +414,8 @@ export const InputGenerateCode = (props) => {
               </Select>
             </FormControl>
             <TextField
+              inputProps={{ maxLength: 100 }}
+              value={wifi.id}
               onChange={(value) => {
                 handleWifiChange("id", value.target.value);
               }}
@@ -367,9 +427,11 @@ export const InputGenerateCode = (props) => {
               onChange={(value) => {
                 handleWifiChange("password", value.target.value);
               }}
+              value={wifi.password}
               className="text-fields"
               label="Password"
               variant="outlined"
+              inputProps={{ maxLength: 100 }}
             />
           </div>
         </div>
@@ -380,16 +442,20 @@ export const InputGenerateCode = (props) => {
           <div className="div-inputs-event">
             <div className="div-inputs-texfile">
               <TextField
+                value={eventData.title}
                 onChange={(e) => handleEventChange("title", e.target.value)}
                 style={{ margin: "10px 10px 0px 0px", width: "270px" }}
                 label="Event title"
                 variant="outlined"
+                inputProps={{ maxLength: 100 }}
               />
               <TextField
+                value={eventData.location}
                 onChange={(e) => handleEventChange("location", e.target.value)}
                 style={{ margin: "10px 10px 0px 0px", width: "270px" }}
                 label="Location"
                 variant="outlined"
+                inputProps={{ maxLength: 100 }}
               />
             </div>
             <div className="div-inputs-texfile">
@@ -398,10 +464,7 @@ export const InputGenerateCode = (props) => {
                   <DateTimeField
                     onChange={(value) => {
                       if (value && value["$d"]) {
-                        handleEventChange(
-                          "startTime",
-                          handleformattedDate(value["$d"])
-                        );
+                        handleEventChange("startTime", value["$d"]);
                       }
                     }}
                     style={{ margin: "10px 10px 0px 0px", padding: "0px" }}
@@ -414,10 +477,7 @@ export const InputGenerateCode = (props) => {
                   <DateTimeField
                     onChange={(value) => {
                       if (value && value["$d"]) {
-                        handleEventChange(
-                          "endTime",
-                          handleformattedDate(value["$d"])
-                        );
+                        handleEventChange("endTime", value["$d"]);
                       }
                     }}
                     style={{ margin: "10px 10px 0px 0px", padding: "0px" }}
@@ -436,6 +496,8 @@ export const InputGenerateCode = (props) => {
               variant="outlined"
               multiline
               rows={4}
+              inputProps={{ maxLength: 300 }}
+              value={eventData.notes}
             />
           </div>
         </div>
