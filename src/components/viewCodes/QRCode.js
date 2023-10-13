@@ -225,6 +225,7 @@ END:VCALENDAR`;
       let inp = checkInput(props);
       const updateCode = {
         title: textDescription,
+        type: props.activeButton,
         link: linkData,
         input: inp,
       };

@@ -157,7 +157,7 @@ export const InputGenerateCode = (props) => {
   const handleSkypeChange = (field, value) => {
     let newData = { ...skype, [field]: value };
     setSkype(newData);
-
+    console.log("eeeeee", newData);
     props.skypeData(newData);
   };
 
@@ -329,7 +329,7 @@ export const InputGenerateCode = (props) => {
             <FormControl>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue={skype.type}
+                value={skype.type || "call"}
                 name="radio-buttons-group"
                 row
               >

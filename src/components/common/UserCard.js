@@ -162,7 +162,6 @@ export default function UserCard(props) {
           sx={{
             display: "flex",
             flexDirection: "row",
-
             alignItems: "center",
             paddingLeft: 2,
             paddingBottom: 1,

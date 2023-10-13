@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -25,15 +25,14 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import QrCode2OutlinedIcon from "@mui/icons-material/QrCode2Outlined";
 import { Outlet, useNavigate } from "react-router-dom";
-import Profile from "./Profile";
-import Settings from "./Settings";
+
 import {
   AccountCircleOutlined,
   GroupsOutlined,
   Person,
 } from "@mui/icons-material";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import AccessControl from "./AccessControl";
+import { sidebarContext } from "../../store/sidebarContext";
 
 const drawerWidth = 240;
 
@@ -85,24 +84,27 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function Sidebar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [menuData, setMenuData] = useState("Home");
   const navigate = useNavigate();
-  const homePage = ["/Home", "/Create", "/View"];
+  const homePage = ["/Home", "/Create", "/View", "/Edit"];
   const isHomePage = homePage.some((val) =>
     window.location.toString().includes(val)
   );
+
+  const { selected, setSelected } = useContext(sidebarContext);
+
   // const profilePage
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-  const [selected, setSelected] = useState(menuData);
+  //const [selected, setSelected] = useState(menuData);
 
   const handleDrawerClose = () => {
     setOpen(false);
   };
   const handleMenuClick = (e) => {
     navigate("/" + e);
+    handleDrawerOpen();
     setSelected(e);
   };
 
@@ -286,6 +288,26 @@ export default function Sidebar() {
                   </ListItemButton>
                   <Divider />
                 </ListItem>
+                {/* <ListItem
+                  disablePadding
+                  style={{
+                    backgroundColor:
+                      selected === "Dynamic" ? "#5BC0DE" : "#f1f5ff",
+                    color: selected === "Dynamic" ? "white" : "#777777",
+                  }}
+                >
+                  <ListItemButton onClick={() => handleMenuClick("Create")}>
+                    <ListItemIcon>
+                      <AddCircleOutlineOutlinedIcon
+                        style={{
+                          color: selected === "Dynamic" ? "white" : "#777777",
+                        }}
+                      />
+                    </ListItemIcon>
+                    <ListItemText primary="Dynamic QR" />
+                  </ListItemButton>
+                  <Divider />
+                </ListItem> */}
               </>
             )}
 

@@ -2,22 +2,18 @@ import React from "react";
 import { Button } from "@mui/material";
 import "./NavGenerateCode.css";
 const NavButton = (props) => {
-  const { name, handleNavigation, activeButton, disabled } = props;
+  const { name, handleNavigation, activeButton } = props;
   const handleNav = (componentName) => {
     handleNavigation(componentName);
   };
 
   return (
     <Button
-      className={`btn-nav customBtn ${activeButton === name ? "active" : ""} ${
-        disabled ? "disabled" : ""
-      }`}
+      className={`btn-nav customBtn ${activeButton === name ? "active" : ""}`}
       onClick={() => {
-        if (!disabled) {
-          handleNav(name);
-        }
+        // Call the parent handleNavigation function
+        handleNav(name);
       }}
-      disabled={disabled}
     >
       {props.children}
       <span className="a-btn">{name}</span>
