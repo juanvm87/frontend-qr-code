@@ -9,6 +9,7 @@ import QRCode from "react-qr-code";
 import { Button, Link } from "@mui/material";
 import { useNavigate } from "react-router";
 import { handleDownload } from "../helperFunction/handleDownload";
+import "./UserCard.css";
 
 export default function UserCard(props) {
   const qrCodeRef = useRef(null);
@@ -46,46 +47,17 @@ export default function UserCard(props) {
   };
 
   return (
-    <Card
-      elevation={0}
-      sx={{
-        position: "relative",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        margin: 2,
-        paddingTop: "1rem",
-        paddingLeft: "2rem",
-        backgroundColor: "#f6f6f6",
-        borderRadius: 0,
-      }}
-    >
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <CardContent sx={{ flex: "1 0 auto" }}>
+    <Card className="card-container" elevation={0}>
+      <Box className="box-info">
+        <CardContent className="card-content-info">
           {props.dynamic && (
-            <Typography
-              sx={{
-                backgroundColor: "blue",
-                color: "white",
-                position: "absolute",
-                fontSize: "0.7rem",
-                top: 0,
-                left: 0,
-                paddingLeft: "1.5rem",
-                paddingRight: "1.75rem",
-                paddingBottom: "0.25rem",
-                paddingTop: "0.25rem",
-                transform: "translate(-25px,16px) rotate(-45deg)",
-              }}
-            >
-              DYNAMIC
-            </Typography>
+            <Typography className="dynamic-label">DYNAMIC</Typography>
           )}
           <Typography component="div" fontWeight="bolder" variant="h5">
             {props.qrData.title}
           </Typography>
 
-          <Box sx={{ display: "flex", flexDirection: "row", paddingTop: 1 }}>
+          <Box className="createon-box">
             <Typography
               variant="subtitle1"
               sx={{ color: "#a9a9c1" }}
@@ -126,13 +98,13 @@ export default function UserCard(props) {
               </Typography>
             </div>
 
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
+            <Box sx={{ display: "flex", flexWrap: "wrap" }}>
               <Typography
                 variant="subtitle1"
                 sx={{ color: "#a9a9c1" }}
                 component="div"
               >
-                Created by :
+                User ID :
               </Typography>
               <Typography
                 variant="subtitle1"
@@ -143,7 +115,7 @@ export default function UserCard(props) {
               </Typography>
               <Typography
                 variant="subtitle1"
-                sx={{ color: "#a9a9c1" }}
+                sx={{ color: "#a9a9c1", marginLeft: "5px" }}
                 component="div"
               >
                 Qr Pin :
@@ -161,7 +133,7 @@ export default function UserCard(props) {
         <Box
           sx={{
             display: "flex",
-            flexDirection: "row",
+            flexWrap: "wrap",
             alignItems: "center",
             paddingLeft: 2,
             paddingBottom: 1,

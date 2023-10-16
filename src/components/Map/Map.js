@@ -55,6 +55,7 @@ const Map = (props) => {
       <div className="container-location">
         <div className="text-field-map">
           <TextField
+            sx={{ margin: "5px" }}
             value={location}
             onChange={(event) => setLocation(event.target.value)}
             onKeyDown={handleEnter}
@@ -62,12 +63,18 @@ const Map = (props) => {
             variant="outlined"
             autoComplete="off"
           />
-          <Button className="btn-map" title="Generate" onClick={getReference}>
+          <Button
+            sx={{ margin: "5px" }}
+            className="btn-map"
+            title="Generate"
+            onClick={getReference}
+          >
             <SearchIcon />
           </Button>
         </div>
 
         <TextField
+          sx={{ margin: "5px" }}
           onChange={(event) => {
             setLatitude(event.target.value);
           }}
@@ -80,6 +87,7 @@ const Map = (props) => {
           }}
         />
         <TextField
+          sx={{ margin: "5px" }}
           onChange={(event) => {
             setLongitude(event.target.value);
           }}

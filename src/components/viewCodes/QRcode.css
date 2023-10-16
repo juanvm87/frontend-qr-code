@@ -1,18 +1,39 @@
-.qr-card-content {
-
+.qr-card {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     align-content: center;
     flex-direction: column;
+    height: 350px;
+    width: 300px;
+}
+
+.container-btn-qr {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.container-save {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.download-btn-qr {
+    color: blue !important;
+}
+
+.download-btn-qr:hover {
+    background-color: rgb(91, 192, 222) !important;
+    color: white !important;
 
 
 }
 
-.container-btn-qr {
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-
+.file-type-download {
+    font-size: 2rem;
 }

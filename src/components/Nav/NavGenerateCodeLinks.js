@@ -199,7 +199,7 @@ const NavGenerateCodeLinks = (props) => {
             handleNavigation={handleNavigation}
             activeButton={activeButton}
           >
-            <AiFillSkype style={{ fontSize: "25px" }} />
+            <AiFillSkype style={{ fontSize: "20px" }} />
           </NavButton>
 
           <NavButton
@@ -208,7 +208,7 @@ const NavGenerateCodeLinks = (props) => {
             handleNavigation={handleNavigation}
             activeButton={activeButton}
           >
-            <BiLogoZoom style={{ fontSize: "25px" }} />
+            <BiLogoZoom style={{ fontSize: "20px" }} />
           </NavButton>
 
           <NavButton

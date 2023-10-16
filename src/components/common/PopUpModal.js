@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import "./PopUpModal.css";
 import { TextField } from "@mui/material";
 
 const style = {
@@ -44,12 +45,12 @@ export function PopUpModal(props) {
   return (
     <>
       {!isUpdating && (
-        <Button sx={{ width: "100%" }} onClick={handleOpen}>
+        <Button className="save-update-buttons" onClick={handleOpen}>
           Save
         </Button>
       )}
       {isUpdating && (
-        <Button onClick={handleOpen} sx={{ width: "100%" }}>
+        <Button className="save-update-buttons" onClick={handleOpen}>
           Update
         </Button>
       )}
@@ -60,7 +61,7 @@ export function PopUpModal(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box className="box-popup" sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Add Title
           </Typography>

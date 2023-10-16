@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -15,12 +15,9 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import Home from "../Home";
-import Create from "../Create";
-import View from "../View";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { Icon, ListItemIcon } from "@mui/material";
+import { ListItemIcon } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import QrCode2OutlinedIcon from "@mui/icons-material/QrCode2Outlined";
@@ -190,6 +187,7 @@ export default function Sidebar() {
         </AppBar>
 
         <Drawer
+          style={{ position: "absolute" }}
           sx={{
             width: drawerWidth,
             flexShrink: 0,
@@ -383,7 +381,7 @@ export default function Sidebar() {
             )}
           </List>
         </Drawer>
-        <Main open={open}>
+        <Main open={open} sx={{ margin: 0 }}>
           <DrawerHeader />
           <Outlet />
           {/*   {window.location.toString().includes("/Home") && <Home />}

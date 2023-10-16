@@ -208,20 +208,19 @@ export const InputGenerateCode = (props) => {
       {props.activeButton === "Email" && (
         <div className="div-inputs">
           <h2>Email</h2>
-          <div className="div-sms">
-            <div className="container-fields">
+          <div className="div-email">
+            <div className="container-fields-email">
               <TextField
-                sx={{ mr: 2 }}
                 onChange={(event) => {
                   setEmail((prev) => ({ ...prev, to: event.target.value }));
 
                   handleEmailChange();
                 }}
                 value={email.to}
-                className="text-fields"
                 label="Email to"
                 variant="outlined"
                 inputProps={{ maxLength: 50 }}
+                sx={{ m: 1 }}
               />
               <TextField
                 value={email.subject}
@@ -232,10 +231,10 @@ export const InputGenerateCode = (props) => {
                   }));
                   handleEmailChange();
                 }}
-                className="text-fields"
                 label="Subject"
                 variant="outlined"
                 inputProps={{ maxLength: 50 }}
+                sx={{ m: 1 }}
               />
             </div>
             <TextField
@@ -249,7 +248,7 @@ export const InputGenerateCode = (props) => {
               multiline
               rows={6}
               inputProps={{ maxLength: 300 }}
-              style={{ marginTop: "10px" }}
+              sx={{ m: 1 }}
             />
           </div>
         </div>
@@ -393,11 +392,8 @@ export const InputGenerateCode = (props) => {
       {props.activeButton === "Wi-Fi" && (
         <div className="div-inputs">
           <h2>Wi-Fi</h2>
-          <div className="container-fields">
-            <FormControl
-              sx={{ minWidth: "20%", margin: "0 10px 0 0" }}
-              size="medium"
-            >
+          <div className="container-fields-wifi">
+            <FormControl sx={{ minWidth: "20%", margin: "5px" }} size="medium">
               <InputLabel id="demo-select-small-label">Network Type</InputLabel>
               <Select
                 labelId="demo-select-small-label"
@@ -416,6 +412,7 @@ export const InputGenerateCode = (props) => {
             <TextField
               inputProps={{ maxLength: 100 }}
               value={wifi.id}
+              sx={{ margin: "5px" }}
               onChange={(value) => {
                 handleWifiChange("id", value.target.value);
               }}
@@ -431,6 +428,7 @@ export const InputGenerateCode = (props) => {
               className="text-fields"
               label="Password"
               variant="outlined"
+              sx={{ margin: "5px" }}
               inputProps={{ maxLength: 100 }}
             />
           </div>
@@ -440,8 +438,9 @@ export const InputGenerateCode = (props) => {
         <div className="div-inputs">
           <h2>Event</h2>
           <div className="div-inputs-event">
-            <div className="div-inputs-texfile">
+            <div className="div-inputs-texfile-event">
               <TextField
+                className="event-title"
                 value={eventData.title}
                 onChange={(e) => handleEventChange("title", e.target.value)}
                 style={{ margin: "10px 10px 0px 0px", width: "270px" }}
@@ -458,16 +457,17 @@ export const InputGenerateCode = (props) => {
                 inputProps={{ maxLength: 100 }}
               />
             </div>
-            <div className="div-inputs-texfile">
+            <div className="div-inputs-texfile-event">
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DateTimeField"]}>
                   <DateTimeField
+                    className="dateTime-event"
                     onChange={(value) => {
                       if (value && value["$d"]) {
                         handleEventChange("startTime", value["$d"]);
                       }
                     }}
-                    style={{ margin: "10px 10px 0px 0px", padding: "0px" }}
+                    sx={{ margin: "5px 5px 0px 0px" }}
                     label="Start Event"
                   />
                 </DemoContainer>
@@ -475,12 +475,13 @@ export const InputGenerateCode = (props) => {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DateTimeField"]}>
                   <DateTimeField
+                    className="dateTime-event"
                     onChange={(value) => {
                       if (value && value["$d"]) {
                         handleEventChange("endTime", value["$d"]);
                       }
                     }}
-                    style={{ margin: "10px 10px 0px 0px", padding: "0px" }}
+                    sx={{ margin: "5px 5px 0px 0px" }}
                     label="End Event"
                   />
                 </DemoContainer>
