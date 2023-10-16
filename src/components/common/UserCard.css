@@ -1,0 +1,68 @@
+/* Card container */
+.card-container {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-between;
+    margin: 1rem;
+    padding-top: 1rem;
+    padding-left: 2rem;
+    background-color: #f6f6f6 !important;
+    border-radius: 0;
+}
+
+.box-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-content-info {
+    flex: 1 0 auto;
+}
+
+/* Dynamic label */
+.dynamic-label {
+    background-color: blue;
+    color: white;
+    position: absolute;
+    font-size: 0.7rem;
+    top: 0;
+    left: 0;
+    padding-left: 1.5rem;
+    padding-right: 1.75rem;
+    padding-bottom: 0.25rem;
+    padding-top: 0.25rem;
+    transform: translate(-25px, 16px) rotate(-45deg);
+}
+
+.createon-box {
+    display: flex;
+    flex-direction: row;
+    padding-top: 1;
+}
+
+.div-
+
+/* QR Type */
+.qr-type-label {
+    background-color: #a9a9c1;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* User ID and QR Pin */
+.user-info-label {
+    color: #a9a9c1;
+    margin-left: 5px;
+}
+
+/* Buttons */
+.action-button {
+    cursor: pointer;
+}
+
+/* QR Code */
+.qr-code-view {
+    width: 150px;
+    height: 150px;
+}

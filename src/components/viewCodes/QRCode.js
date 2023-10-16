@@ -24,16 +24,11 @@ const QRcode = (props) => {
     try {
       if (idFromURL) {
         setIsUpdating(true);
-      } else {
-        setIsUpdating(false);
-      }
-
-      if (idFromURL) {
         const response = await getQr(idFromURL);
-
         setQrData(response.data);
         setLinkData(response.data.link);
       } else {
+        setIsUpdating(false);
         setQrData("");
       }
     } catch (error) {
@@ -225,6 +220,7 @@ END:VCALENDAR`;
       let inp = checkInput(props);
       const updateCode = {
         title: textDescription,
+        type: props.activeButton,
         link: linkData,
         input: inp,
       };
@@ -257,64 +253,61 @@ END:VCALENDAR`;
     }
   };
   return (
-    <Card>
-      <CardContent className="qr-card-content">
-        <QRCode
-          id="qr-picture"
-          className="qr-code"
-          value={linkData}
-          ref={qrCodeRef}
-        />
-        {linkData && !qrData && (
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div className="container-btn-qr">
-              <Button
-                className="btn-qr"
-                onClick={() => {
-                  setDownloadType("pdf");
-                }}
-              >
-                <BsFiletypePdf size={"2rem"} />
-              </Button>
-              <Button
-                className="btn-qr"
-                onClick={() => {
-                  setDownloadType("png");
-                }}
-              >
-                <BsFiletypePng size={"2rem"} />
-              </Button>
-              <Button
-                className="btn-qr"
-                onClick={() => {
-                  setDownloadType("svg");
-                }}
-              >
-                <BsFiletypeSvg size={"2rem"} />
-              </Button>
-            </div>
-            <div>
-              <PopUpModal
-                saveData={saveData}
-                setDownloadType={setDownloadType}
-                isUpdating={isUpdating}
-              />
-            </div>
+    <Card className="qr-card">
+      <QRCode
+        size="13rem"
+        id="qr-picture"
+        className="qr-code-img"
+        value={linkData}
+        ref={qrCodeRef}
+      />
+      {linkData && !qrData && (
+        <div className="container-save">
+          <div className="container-btn-qr">
+            <Button
+              className="download-btn-qr"
+              onClick={() => {
+                setDownloadType("pdf");
+              }}
+            >
+              <BsFiletypePdf className="file-type-download" />
+            </Button>
+            <Button
+              className="download-btn-qr"
+              onClick={() => {
+                setDownloadType("png");
+              }}
+            >
+              <BsFiletypePng className="file-type-download" />
+            </Button>
+            <Button
+              className="download-btn-qr"
+              onClick={() => {
+                setDownloadType("svg");
+              }}
+            >
+              <BsFiletypeSvg className="file-type-download" />
+            </Button>
           </div>
-        )}
-        {isUpdating && (
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div>
-              <PopUpModal
-                saveData={saveData}
-                setDownloadType={setDownloadType}
-                isUpdating={isUpdating}
-                handleUpdate={handleUpdate}
-              />
-            </div>
+          <div>
+            <PopUpModal
+              saveData={saveData}
+              setDownloadType={setDownloadType}
+              isUpdating={isUpdating}
+            />
           </div>
-        )}
-      </CardContent>
+        </div>
+      )}
+      {isUpdating && (
+        <div className="">
+          <PopUpModal
+            saveData={saveData}
+            setDownloadType={setDownloadType}
+            isUpdating={isUpdating}
+            handleUpdate={handleUpdate}
+          />
+        </div>
+      )}
     </Card>
   );
 };

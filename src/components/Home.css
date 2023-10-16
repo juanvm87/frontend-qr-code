@@ -1,0 +1,51 @@
+/* CSS for Box Component */
+.box-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 70vh;
+}
+
+/* CSS for Button Component */
+.home-button {
+    background-color: rgb(91, 192, 222) !important;
+    width: 18rem;
+    height: 20vh;
+}
+
+/* CSS for the container inside the Button */
+.container-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+/* CSS for the icon inside the Button */
+.home-icon-button {
+    font-size: 6rem !important;
+}
+
+/* CSS for the paragraph inside the Button */
+.home-p-button {
+    font-size: 1.1rem;
+    margin-top: 0.2%;
+}
+
+@media (max-width: 768px) {
+
+    .box-buttons {
+
+        flex-direction: column;
+
+    }
+
+    .home-button {
+        background-color: rgb(91, 192, 222) !important;
+        width: 18rem;
+        height: 30vh;
+    }
+
+}
