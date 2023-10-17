@@ -142,7 +142,6 @@ export const InputGenerateCode = (props) => {
 
   const handleWhatsAppChange = (field, value) => {
     let newData = { ...whatsApp, [field]: value };
-    console.log("newData whatsApp", newData);
     setWhatsApp(newData);
     if (whatsApp.phone.length > 6) {
       props.whatsAppData(newData);
@@ -157,7 +156,7 @@ export const InputGenerateCode = (props) => {
   const handleSkypeChange = (field, value) => {
     let newData = { ...skype, [field]: value };
     setSkype(newData);
-    console.log("eeeeee", newData);
+
     props.skypeData(newData);
   };
 

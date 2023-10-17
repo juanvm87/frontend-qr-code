@@ -124,7 +124,7 @@ export default function Sidebar() {
     <>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar position="fixed" sx={{ backgroundColor: "#ffffff" }}>
+        <AppBar position="fixed" sx={{ backgroundColor: "rgb(91, 192, 222)" }}>
           <Toolbar
             style={{
               display: "flex",
@@ -154,7 +154,7 @@ export default function Sidebar() {
                 fontWeight="bold"
                 noWrap
                 component="div"
-                style={{ color: "#32c0c3" }}
+                style={{ color: "white" }}
               >
                 QR PLATFORM
               </Typography>
@@ -165,7 +165,7 @@ export default function Sidebar() {
                 flexDirection: "row",
                 alignItems: "center",
                 gap: "1.5rem",
-                color: "#777777",
+                color: "white",
                 cursor: "pointer",
               }}
             >
@@ -187,6 +187,7 @@ export default function Sidebar() {
         </AppBar>
 
         <Drawer
+          className="mydrawer"
           style={{ position: "absolute" }}
           sx={{
             width: drawerWidth,

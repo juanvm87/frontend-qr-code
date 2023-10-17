@@ -40,29 +40,3 @@
     flex-direction: row;
     padding-top: 1;
 }
-
-.div-
-
-/* QR Type */
-.qr-type-label {
-    background-color: #a9a9c1;
-    padding: 5px;
-    border-radius: 5px;
-}
-
-/* User ID and QR Pin */
-.user-info-label {
-    color: #a9a9c1;
-    margin-left: 5px;
-}
-
-/* Buttons */
-.action-button {
-    cursor: pointer;
-}
-
-/* QR Code */
-.qr-code-view {
-    width: 150px;
-    height: 150px;
-}

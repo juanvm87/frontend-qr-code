@@ -1,3 +1,4 @@
+import { async } from "q";
 import http from "./http-common.js";
 
 // ********* Super Panel API **********
@@ -17,8 +18,14 @@ export const updateQr = async (qrId, updateQrData) => {
   return await http.patch(`qr/${qrId}`, updateQrData);
 };
 export const signup = async (data) => {
-  return await http.post("auth/signup", data);
+  return await http.post("user/signup", data);
 };
 export const signin = async (data) => {
-  return await http.post("auth/login", data);
+  return await http.post("user/login", data);
+};
+export const userUpdate = async (data) => {
+  return await http.patch(`user`, data);
+};
+export const getUser = async () => {
+  return await http.get(`user/id`);
 };
