@@ -52,7 +52,7 @@ function Login() {
             localStorage.setItem("_id", res.data._id);
             localStorage.setItem("token", res.data.token);
             setTimeout(() => {
-              navigate("/Home");
+              navigate("/home");
             }, 500);
           } else if (res.status === 200) {
             setOpenSnackbar(true);
@@ -137,14 +137,14 @@ function Login() {
             }}
           />
           <i
-            class="fa-solid fa-lock"
+            className="fa-solid fa-lock"
             id={
               formValues.formpassword == ""
                 ? "login_password_logo"
                 : "login_password_logomotion"
             }
           ></i>
-          <a className="text_decoration_off" href="/ForgotPassword">
+          <a className="text_decoration_off" href="/forgotPassword">
             <p className="login_forgot_password">Forgot Password?</p>
           </a>
 
@@ -156,7 +156,7 @@ function Login() {
           >
             Login
           </button>
-          <a className="text_decoration_off" href="/Register">
+          <a className="text_decoration_off" href="/register">
             <p className="login_create_account">
               Don't have an account? Register
             </p>

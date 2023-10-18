@@ -19,7 +19,7 @@ const ButtonCenter = () => {
         variant="contained"
         onClick={() => {
           setSelected("Create");
-          handleNavigate("/Create");
+          handleNavigate("/create");
         }}
       >
         <div className="container-button">
@@ -31,7 +31,7 @@ const ButtonCenter = () => {
         className="home-button"
         onClick={() => {
           setSelected("View");
-          handleNavigate("/View");
+          handleNavigate("/view");
         }}
         variant="contained"
       >

@@ -18,18 +18,18 @@ export default function RoutingComponent() {
       <Routes>
         <Route path="/" element={<PrivateComponent />}>
           <Route path="/" element={<Sidebar />}>
-            <Route path="/Home" element={<Home />} />
-            <Route path="/Create" element={<Create />} />
-            <Route path="/Edit/:id" element={<Create />} />
-            <Route path="/View" element={<View />} />
-            <Route path="/Profile" element={<Profile />} />
-            <Route path="/Settings" element={<Settings />} />
-            <Route path="/AccessControl" element={<AccessControl />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/create" element={<Create />} />
+            <Route path="/edit/:id" element={<Create />} />
+            <Route path="/view" element={<View />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/accessControl" element={<AccessControl />} />
           </Route>
         </Route>
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Register" element={<Register />} />
-        <Route path="/ForgotPassword" element={<ForgotPassword />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
       </Routes>
     </BrowserRouter>
   );

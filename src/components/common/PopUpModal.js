@@ -61,7 +61,7 @@ export function PopUpModal(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box className="box-popup" sx={style}>
+        <Box className="box-popup">
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Add Title
           </Typography>

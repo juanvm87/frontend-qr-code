@@ -226,7 +226,7 @@ END:VCALENDAR`;
       };
       updateQr(idFromURL, updateCode);
       setTimeout(() => {
-        navigate("/View");
+        navigate("/view");
       }, 500);
     } catch (error) {
       console.error(error);
@@ -245,7 +245,7 @@ END:VCALENDAR`;
       };
       createQrAPI(newData);
       setTimeout(() => {
-        navigate("/View");
+        navigate("/view");
       }, 500);
     } catch (error) {
       console.error(error);
@@ -255,7 +255,7 @@ END:VCALENDAR`;
   return (
     <Card className="qr-card">
       <QRCode
-        size="13rem"
+        size={225}
         id="qr-picture"
         className="qr-code-img"
         value={linkData}

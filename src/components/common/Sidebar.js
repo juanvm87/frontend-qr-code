@@ -82,7 +82,7 @@ export default function Sidebar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
-  const homePage = ["/Home", "/Create", "/View", "/Edit"];
+  const homePage = ["/home", "/create", "/view", "/edit"];
   const isHomePage = homePage.some((val) =>
     window.location.toString().includes(val)
   );
@@ -107,16 +107,16 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate("/Login");
+    navigate("/login");
     // alert("Redireted to Login")
   };
   const handleSettings = () => {
-    navigate("/Settings");
+    navigate("/settings");
     setSelected("Settings");
     // alert("Redirected to Settings")
   };
   const handleProfile = () => {
-    navigate("/Profile");
+    navigate("/profile");
     setSelected("Profile");
     // alert("Redirected to Profile")
   };
@@ -385,15 +385,15 @@ export default function Sidebar() {
         <Main open={open} sx={{ margin: 0 }}>
           <DrawerHeader />
           <Outlet />
-          {/*   {window.location.toString().includes("/Home") && <Home />}
-          {window.location.toString().includes("/Create") && <Create />}
-          {window.location.toString().includes("/View") && <View />}
-          {window.location.toString().includes("/Profile") && <Profile />}
-          {window.location.toString().includes("/Settings") && <Settings />}
-          {window.location.toString().includes("/AccessControl") && (
+          {/*   {window.location.toString().includes("/home") && <Home />}
+          {window.location.toString().includes("/create") && <Create />}
+          {window.location.toString().includes("/view") && <View />}
+          {window.location.toString().includes("/profile") && <Profile />}
+          {window.location.toString().includes("/settings") && <Settings />}
+          {window.location.toString().includes("/accessControl") && (
             <AccessControl />
           )}
-          {window.location.toString().includes("/Edit/:id") && <Create />} */}
+          {window.location.toString().includes("/edit/:id") && <Create />} */}
         </Main>
       </Box>
     </>

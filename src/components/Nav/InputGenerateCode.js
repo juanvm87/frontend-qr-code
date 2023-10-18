@@ -32,10 +32,11 @@ export const InputGenerateCode = (props) => {
   const [whatsApp, setWhatsApp] = useState({ phone: "", text: " " });
   const [wifi, setWifi] = useState({
     authentication: "",
-    id: " ",
+    id: "",
     password: "",
     hidden: false,
   });
+  const [isEncrypted, setIsEncrypted] = useState(false);
   const [zoom, setZoom] = useState({ id: "", password: "" });
   const [skype, setSkype] = useState({ id: "", type: "call" });
   const [eventData, setEventData] = useState({
@@ -45,6 +46,7 @@ export const InputGenerateCode = (props) => {
     endTime: "",
     notes: "",
   });
+
   useEffect(() => {
     const getQrData = () => {
       if (props.qrData.type === "Link") {
@@ -164,6 +166,11 @@ export const InputGenerateCode = (props) => {
     let newData = { ...wifi, [field]: value };
     setWifi(newData);
     props.wifiData(newData);
+    if (value === "no_password") {
+      setIsEncrypted(true);
+    } else {
+      setIsEncrypted(false);
+    }
   };
 
   const handleEventChange = (field, value) => {
@@ -405,31 +412,34 @@ export const InputGenerateCode = (props) => {
               >
                 <MenuItem value={"WEP"}>WEP</MenuItem>
                 <MenuItem value={"WPA"}>WPA/WPA2</MenuItem>
-                <MenuItem value={"nopass"}>No encryption</MenuItem>
+                <MenuItem value={"no_password"}>No encryption</MenuItem>
               </Select>
             </FormControl>
-            <TextField
-              inputProps={{ maxLength: 100 }}
-              value={wifi.id}
-              sx={{ margin: "5px" }}
-              onChange={(value) => {
-                handleWifiChange("id", value.target.value);
-              }}
-              className="text-fields"
-              label="Network Name (SSID)"
-              variant="outlined"
-            />
-            <TextField
-              onChange={(value) => {
-                handleWifiChange("password", value.target.value);
-              }}
-              value={wifi.password}
-              className="text-fields"
-              label="Password"
-              variant="outlined"
-              sx={{ margin: "5px" }}
-              inputProps={{ maxLength: 100 }}
-            />
+            <div>
+              <TextField
+                onChange={(value) => {
+                  handleWifiChange("id", value.target.value);
+                }}
+                value={wifi.id}
+                sx={{ margin: "5px" }}
+                className="text-fields"
+                label="Network Name (SSID)"
+                variant="outlined"
+                inputProps={{ maxLength: 100 }}
+              />
+              <TextField
+                onChange={(value) => {
+                  handleWifiChange("password", value.target.value);
+                }}
+                disabled={isEncrypted}
+                value={wifi.password}
+                className="text-fields"
+                label="Password"
+                variant="outlined"
+                sx={{ margin: "5px" }}
+                inputProps={{ maxLength: 100 }}
+              />
+            </div>
           </div>
         </div>
       )}
@@ -442,7 +452,7 @@ export const InputGenerateCode = (props) => {
                 className="event-title"
                 value={eventData.title}
                 onChange={(e) => handleEventChange("title", e.target.value)}
-                style={{ margin: "10px 10px 0px 0px", width: "270px" }}
+                style={{ margin: "5px", width: "270px" }}
                 label="Event title"
                 variant="outlined"
                 inputProps={{ maxLength: 100 }}
@@ -450,7 +460,7 @@ export const InputGenerateCode = (props) => {
               <TextField
                 value={eventData.location}
                 onChange={(e) => handleEventChange("location", e.target.value)}
-                style={{ margin: "10px 10px 0px 0px", width: "270px" }}
+                style={{ margin: "5px", width: "270px" }}
                 label="Location"
                 variant="outlined"
                 inputProps={{ maxLength: 100 }}
@@ -458,7 +468,10 @@ export const InputGenerateCode = (props) => {
             </div>
             <div className="div-inputs-texfile-event">
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DateTimeField"]}>
+                <DemoContainer
+                  sx={{ margin: "5px " }}
+                  components={["DateTimeField"]}
+                >
                   <DateTimeField
                     className="dateTime-event"
                     onChange={(value) => {
@@ -466,13 +479,15 @@ export const InputGenerateCode = (props) => {
                         handleEventChange("startTime", value["$d"]);
                       }
                     }}
-                    sx={{ margin: "5px 5px 0px 0px" }}
                     label="Start Event"
                   />
                 </DemoContainer>
               </LocalizationProvider>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DateTimeField"]}>
+                <DemoContainer
+                  sx={{ margin: "5px " }}
+                  components={["DateTimeField"]}
+                >
                   <DateTimeField
                     className="dateTime-event"
                     onChange={(value) => {
@@ -480,7 +495,6 @@ export const InputGenerateCode = (props) => {
                         handleEventChange("endTime", value["$d"]);
                       }
                     }}
-                    sx={{ margin: "5px 5px 0px 0px" }}
                     label="End Event"
                   />
                 </DemoContainer>
@@ -491,7 +505,7 @@ export const InputGenerateCode = (props) => {
               onChange={(event) => {
                 handleEventChange("notes", event.target.value);
               }}
-              style={{ minWidth: "100%", margin: "10px 10px 0px 0px" }}
+              style={{ minWidth: "100%", margin: "5px" }}
               label="Notes"
               variant="outlined"
               multiline

@@ -40,7 +40,7 @@ export default function UserCard(props) {
   }, [downloadType]);
 
   const handleNavigation = () => {
-    navigateTo(`/Edit/${props.qrData._id}`);
+    navigateTo(`/edit/${props.qrData._id}`);
   };
   const copyToClipboard = (value) => {
     navigator.clipboard.writeText(value);

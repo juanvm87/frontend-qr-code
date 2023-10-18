@@ -72,33 +72,34 @@ const Map = (props) => {
             <SearchIcon />
           </Button>
         </div>
-
-        <TextField
-          sx={{ margin: "5px" }}
-          onChange={(event) => {
-            setLatitude(event.target.value);
-          }}
-          value={latitude}
-          label="latitude"
-          className="text-field-map"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <TextField
-          sx={{ margin: "5px" }}
-          onChange={(event) => {
-            setLongitude(event.target.value);
-          }}
-          value={longitude}
-          label="longitude"
-          className="text-field-map"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+        <div>
+          <TextField
+            sx={{ margin: "5px" }}
+            onChange={(event) => {
+              setLatitude(event.target.value);
+            }}
+            value={latitude}
+            label="latitude"
+            className="text-field-map"
+            type="number"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <TextField
+            sx={{ margin: "5px" }}
+            onChange={(event) => {
+              setLongitude(event.target.value);
+            }}
+            value={longitude}
+            label="longitude"
+            className="text-field-map"
+            type="number"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </div>
       </div>
 
       <MapFrame latitude={latitude} longitude={longitude} />

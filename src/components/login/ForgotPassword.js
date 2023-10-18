@@ -29,7 +29,7 @@ function ForgotPassword() {
     const auth = localStorage.getItem("token");
     console.log("Auth-->", auth);
     if (auth) {
-      navigate("/Home");
+      navigate("/home");
     }
   });
 
@@ -101,7 +101,7 @@ function ForgotPassword() {
         />
 
         <i
-          class="fa-solid fa-envelope"
+          className="fa-solid fa-envelope"
           id={
             formValues.formemail === ""
               ? "register_email_logo"
@@ -110,7 +110,7 @@ function ForgotPassword() {
         ></i>
 
         {/* <i
-          class="fa-solid fa-clone"
+          className="fa-solid fa-clone"
           id={
             formValues.formconfirmpassword === ""
               ? "register_confirmpassword_logo"
@@ -134,7 +134,7 @@ function ForgotPassword() {
 
         <p className="existing_account">
           Back to
-          <a className="text_decoration" href="/Login">
+          <a className="text_decoration" href="/login">
             <span className="login">login</span>
           </a>
         </p>
