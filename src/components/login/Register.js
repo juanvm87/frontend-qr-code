@@ -37,9 +37,9 @@ function Register() {
 
   useEffect(() => {
     const auth = localStorage.getItem("token");
-    console.log("Auth-->", auth);
+
     if (auth) {
-      navigate("/Home");
+      navigate("/home");
     }
   });
 
@@ -57,7 +57,7 @@ function Register() {
             setOpenSnackbar(true);
             setMessage("Register Successfully!!!");
             setTimeout(() => {
-              navigate("/Login");
+              navigate("/login");
             }, 500);
           }
         })
@@ -152,7 +152,7 @@ function Register() {
         />
 
         <i
-          class="fa-solid fa-envelope"
+          className="fa-solid fa-envelope"
           id={
             formValues.formemail == ""
               ? "register_email_logo"
@@ -189,7 +189,7 @@ function Register() {
           required
         />
         <i
-          class="fa-solid fa-lock"
+          className="fa-solid fa-lock"
           id={
             formValues.formpassword == ""
               ? "register_password_logo"
@@ -213,7 +213,7 @@ function Register() {
           required
         />
         <i
-          class="fa-solid fa-clone"
+          className="fa-solid fa-clone"
           id={
             formValues.formconfirmpassword == ""
               ? "register_confirmpassword_logo"

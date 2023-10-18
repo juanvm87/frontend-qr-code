@@ -8,7 +8,7 @@ const PrivateComponent = () => {
 
   useEffect(() => {
     if (!auth) {
-      navigateTo("/Login");
+      navigateTo("/login");
       return;
     }
   }, []);
