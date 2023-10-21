@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button, TextField } from "@mui/material";
+import { Button, IconButton, InputAdornment, TextField } from "@mui/material";
 import axios from "axios";
 import "./Map.css";
 import MapFrame from "./MapFrame"; // Import the MapFrame component
 import SearchIcon from "@mui/icons-material/Search";
+
 const Map = (props) => {
   const [location, setLocation] = useState("");
   const [latitude, setLatitude] = useState("");
@@ -62,15 +63,16 @@ const Map = (props) => {
             label="Location"
             variant="outlined"
             autoComplete="off"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment>
+                  <IconButton onClick={getReference}>
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
-          <Button
-            sx={{ margin: "5px" }}
-            className="btn-map"
-            title="Generate"
-            onClick={getReference}
-          >
-            <SearchIcon />
-          </Button>
         </div>
         <div>
           <TextField

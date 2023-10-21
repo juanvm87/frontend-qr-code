@@ -13,6 +13,7 @@ import { getQrByPin } from "../services/RestApi";
 import "./QRInfo.css";
 import QRCode from "react-qr-code";
 import Header from "./common/Header";
+import { TextWithSeeMore } from "./common/TextWithSeeMore";
 
 const QRInfo = () => {
   const qrCodeRef = useRef(null);
@@ -65,12 +66,14 @@ const QRInfo = () => {
       <Box className="qrinfo-body-box">
         <Box className="qr-box-input">
           <TextField
+            autoComplete="off"
             onChange={(e) =>
               setQrInputInfo((prev) => ({ ...prev, userId: e.target.value }))
             }
             label="USER ID"
           />
           <TextField
+            autoComplete="off"
             onChange={(e) =>
               setQrInputInfo((prev) => ({ ...prev, pin: e.target.value }))
             }
@@ -85,7 +88,6 @@ const QRInfo = () => {
                 <Box className="qr-details">
                   <Box className="box-qr-img">
                     <Box className="box-pin-id-type">
-                      {" "}
                       <Typography variant="body1">
                         Owner ID: {qr.ownerId}
                       </Typography>
@@ -100,7 +102,10 @@ const QRInfo = () => {
                       ref={qrCodeRef}
                     />
                   </Box>
-                  <Box className="text-details">
+                  <Box
+                    className="text-details"
+                    style={{ wordWrap: "break-word" }}
+                  >
                     <CardHeader title={qr.title} />
                     <Typography variant="body1">
                       Created : {new Date(qr.createdAt).toLocaleString()}
@@ -112,6 +117,23 @@ const QRInfo = () => {
                       <Typography variant="body1">
                         Link : {qr.input.link}
                       </Typography>
+                    )}
+                    {qr.type === "Text" && (
+                      <TextWithSeeMore text={qr.input.text} maxChars={50} />
+                    )}
+                    {qr.type === "Email" && (
+                      <>
+                        <Typography variant="body1">
+                          Email to : {qr.input.email}
+                        </Typography>
+                        <Typography variant="body1">
+                          Subject : {qr.input.subject}
+                        </Typography>
+                        <TextWithSeeMore text={qr.input.text} maxChars={50} />
+                      </>
+                    )}
+                    {qr.type === "" && (
+                      <TextWithSeeMore text={qr.input.text} maxChars={50} />
                     )}
                   </Box>
                 </Box>

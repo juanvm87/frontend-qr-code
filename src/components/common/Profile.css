@@ -1,14 +1,3 @@
-.box {
-  height: 100px;
-  width: 100px;
-  background-color: #fff;
-  color: #02c1ec;
-  font-size: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .pfp {
   background-color: #bdbdbd;
   border-radius: 50%;
