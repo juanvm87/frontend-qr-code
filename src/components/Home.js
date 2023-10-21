@@ -21,6 +21,7 @@ const ButtonCenter = () => {
         onClick={() => {
           setSelected("Create");
           handleNavigate("/create");
+          handleNavigate("/create");
         }}
       >
         <div className="container-button">
