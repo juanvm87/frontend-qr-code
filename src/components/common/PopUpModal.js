@@ -6,18 +6,6 @@ import Modal from "@mui/material/Modal";
 import "./PopUpModal.css";
 import { TextField } from "@mui/material";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 500,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
 export function PopUpModal(props) {
   const [open, setOpen] = useState(false);
   const [textValue, setTextValue] = useState(""); // State to store input value

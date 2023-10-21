@@ -11,6 +11,7 @@ import Create from "./components/Create";
 import View from "./components/View";
 import AccessControl from "./components/common/AccessControl";
 import ForgotPassword from "./components/login/ForgotPassword";
+import QRInfo from "./components/QRInfo";
 
 export default function RoutingComponent() {
   return (
@@ -19,6 +20,7 @@ export default function RoutingComponent() {
         <Route path="/" element={<PrivateComponent />}>
           <Route path="/" element={<Sidebar />}>
             <Route path="/home" element={<Home />} />
+            <Route path="/qr-info" element={<QRInfo />} />
             <Route path="/create" element={<Create />} />
             <Route path="/edit/:id" element={<Create />} />
             <Route path="/view" element={<View />} />

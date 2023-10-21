@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import UserCard from "./common/UserCard";
 import { Typography } from "@mui/material";
 import { getAllOwnerQr } from "../services/RestApi";
+import Header from "./common/Header";
 
 export default function View() {
   const [data, setData] = useState([]);
@@ -21,13 +22,7 @@ export default function View() {
   }, []);
   return (
     <div>
-      <Typography
-        variant="h5"
-        fontWeight="bolder"
-        sx={{ color: "gray", paddingLeft: 10 }}
-      >
-        QR Code List
-      </Typography>
+      <Header letters={"QCL"} information={"QR Code List"} />
       {data
         .map((card) => {
           return (

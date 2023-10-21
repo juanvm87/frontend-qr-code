@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import { Button, Snackbar } from "@mui/material";
 import { getUser, userUpdate } from "../../services/RestApi";
+import Header from "./Header";
 
 function Profile() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [userNumber, setUserNumber] = useState("");
+
   const [editingMode, setEditingMode] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [message, setMessage] = useState("");
@@ -26,6 +29,8 @@ function Profile() {
         setPhone(user.data.phone);
         setName(user.data.name);
         setEmail(user.data.email);
+        setUserNumber(user.data.userId);
+        console.log(user.data);
       }
     };
     fetchUserInfo();
@@ -71,21 +76,19 @@ function Profile() {
   return (
     // Navbar
     <div className="Profile_bodies">
-      <div className="profile-heading">
-        <div className="box">UP</div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <h1
-            className="floating-heading"
-            style={{ color: "#ffffff", fontWeight: 400 }}
-          >
-            User Profile
-          </h1>
-          <div className="line"></div>
-        </div>
-      </div>
+      <Header letters={"UP"} information={"User Profile"} />
 
       <div className="profile-sections">
         <div className="profile-details">
+          <div className="label-inp">
+            <label className="lbl">User Number</label>
+            <input
+              className="inp"
+              disabled={true}
+              type="text"
+              value={userNumber}
+            />
+          </div>
           <div className="label-inp">
             <label className="lbl">Name</label>
             <input

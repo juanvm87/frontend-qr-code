@@ -1,31 +1,3 @@
-.profile-heading {
-  width: 100%;
-  display: flex;
-  padding: 2rem;
-  /* background-color: #111fff; */
-  background-image: linear-gradient(to right, #3cde93, #0899c6, #02c1ec);
-  gap: 2rem;
-  overflow: hidden;
-}
-
-.floating-heading {
-  transform: translateY(0);
-  animation: fl1 3s infinite linear;
-}
-
-.floating-heading::before {
-  content: attr(data-text);
-  position: absolute;
-  clip-path: polygon(0, 0, 100%, 0, 100%, 50%, 0, 50%);
-  animation: fl1 3s infinite linear;
-}
-
-@keyframes fl1 {
-  30% {
-    transform: translateY(10%);
-  }
-}
-
 .box {
   height: 100px;
   width: 100px;
@@ -44,7 +16,8 @@
 
 .profile-sections {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
   padding: 1rem 2rem;
 }
 

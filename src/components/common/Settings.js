@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Checkbox, FormControlLabel, Snackbar } from "@mui/material";
 import { userUpdate } from "../../services/RestApi";
-import { async } from "q";
+import Header from "./Header";
 
 function Settings() {
   const [newPass, setNewPass] = useState("");
@@ -76,18 +76,7 @@ function Settings() {
   return (
     <>
       <div className="Settings_bodies">
-        <div className="profile-heading">
-          <div className="box">S</div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <h1
-              className="floating-heading"
-              style={{ color: "#ffffff", fontWeight: 400 }}
-            >
-              Settings
-            </h1>
-            <div className="line"></div>
-          </div>
-        </div>
+        <Header letters={"S"} information={"Settings"} />
 
         <div className="profile-sections">
           <div className="profile-details">

@@ -25,6 +25,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 
 import {
   AccountCircleOutlined,
+  GetApp,
   GroupsOutlined,
   Person,
 } from "@mui/icons-material";
@@ -82,7 +83,7 @@ export default function Sidebar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
-  const homePage = ["/home", "/create", "/view", "/edit"];
+  const homePage = ["/home", "/create", "/view", "/edit", "/qr-info"];
   const isHomePage = homePage.some((val) =>
     window.location.toString().includes(val)
   );
@@ -101,8 +102,8 @@ export default function Sidebar() {
   };
   const handleMenuClick = (e) => {
     navigate("/" + e);
-    handleDrawerOpen();
     setSelected(e);
+    handleDrawerClose();
   };
 
   const handleLogout = () => {
@@ -243,51 +244,69 @@ export default function Sidebar() {
               </ListItemButton>
               <Divider />
             </ListItem>
-            {isHomePage && (
-              <>
-                <ListItem
-                  disablePadding
-                  style={{
-                    backgroundColor:
-                      selected === "Create" ? "#5BC0DE" : "#f1f5ff",
-                    color: selected === "Create" ? "white" : "#777777",
-                  }}
-                >
-                  <ListItemButton onClick={() => handleMenuClick("Create")}>
-                    <ListItemIcon>
-                      <AddCircleOutlineOutlinedIcon
-                        style={{
-                          color: selected === "Create" ? "white" : "#777777",
-                        }}
-                      />
-                    </ListItemIcon>
-                    <ListItemText primary="Create" />
-                  </ListItemButton>
-                  <Divider />
-                </ListItem>
 
-                <ListItem
-                  disablePadding
-                  style={{
-                    backgroundColor:
-                      selected === "View" ? "#5BC0DE" : "#f1f5ff",
-                    color: selected === "View" ? "white" : "#777777",
-                  }}
-                >
-                  <ListItemButton onClick={() => handleMenuClick("View")}>
-                    <ListItemIcon>
-                      {" "}
-                      <QrCode2OutlinedIcon
-                        style={{
-                          color: selected === "View" ? "white" : "#777777",
-                        }}
-                      />{" "}
-                    </ListItemIcon>
-                    <ListItemText primary="View" />
-                  </ListItemButton>
-                  <Divider />
-                </ListItem>
-                {/* <ListItem
+            <ListItem
+              disablePadding
+              style={{
+                backgroundColor: selected === "Create" ? "#5BC0DE" : "#f1f5ff",
+                color: selected === "Create" ? "white" : "#777777",
+              }}
+            >
+              <ListItemButton onClick={() => handleMenuClick("Create")}>
+                <ListItemIcon>
+                  <AddCircleOutlineOutlinedIcon
+                    style={{
+                      color: selected === "Create" ? "white" : "#777777",
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Create" />
+              </ListItemButton>
+              <Divider />
+            </ListItem>
+
+            <ListItem
+              disablePadding
+              style={{
+                backgroundColor: selected === "View" ? "#5BC0DE" : "#f1f5ff",
+                color: selected === "View" ? "white" : "#777777",
+              }}
+            >
+              <ListItemButton onClick={() => handleMenuClick("View")}>
+                <ListItemIcon>
+                  {" "}
+                  <QrCode2OutlinedIcon
+                    style={{
+                      color: selected === "View" ? "white" : "#777777",
+                    }}
+                  />{" "}
+                </ListItemIcon>
+                <ListItemText primary="View" />
+              </ListItemButton>
+              <Divider />
+            </ListItem>
+
+            <ListItem
+              disablePadding
+              style={{
+                backgroundColor: selected === "qr-info" ? "#5BC0DE" : "#f1f5ff",
+                color: selected === "qr-info" ? "white" : "#777777",
+              }}
+            >
+              <ListItemButton onClick={() => handleMenuClick("qr-info")}>
+                <ListItemIcon>
+                  {" "}
+                  <GetApp
+                    style={{
+                      color: selected === "qr-info" ? "white" : "#777777",
+                    }}
+                  />{" "}
+                </ListItemIcon>
+                <ListItemText primary="Access to QR" />
+              </ListItemButton>
+              <Divider />
+            </ListItem>
+            {/* <ListItem
                   disablePadding
                   style={{
                     backgroundColor:
@@ -307,79 +326,75 @@ export default function Sidebar() {
                   </ListItemButton>
                   <Divider />
                 </ListItem> */}
-              </>
-            )}
 
-            {!isHomePage && (
-              <>
-                <ListItem
-                  disablePadding
-                  style={{
-                    backgroundColor:
-                      selected === "Profile" ? "#5BC0DE" : "#f1f5ff",
-                    color: selected === "Profile" ? "white" : "#777777",
-                  }}
-                >
-                  <ListItemButton onClick={() => handleMenuClick("Profile")}>
-                    <ListItemIcon>
-                      <AccountCircleOutlined
-                        style={{
-                          color: selected === "Profile" ? "white" : "#777777",
-                        }}
-                      />
-                    </ListItemIcon>
-                    <ListItemText primary="Profile" />
-                  </ListItemButton>
-                  <Divider />
-                </ListItem>
+            <>
+              <ListItem
+                disablePadding
+                style={{
+                  backgroundColor:
+                    selected === "Profile" ? "#5BC0DE" : "#f1f5ff",
+                  color: selected === "Profile" ? "white" : "#777777",
+                }}
+              >
+                <ListItemButton onClick={() => handleMenuClick("Profile")}>
+                  <ListItemIcon>
+                    <AccountCircleOutlined
+                      style={{
+                        color: selected === "Profile" ? "white" : "#777777",
+                      }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText primary="Profile" />
+                </ListItemButton>
+                <Divider />
+              </ListItem>
 
-                <ListItem
-                  disablePadding
-                  style={{
-                    backgroundColor:
-                      selected === "Settings" ? "#5BC0DE" : "#f1f5ff",
-                    color: selected === "Settings" ? "white" : "#777777",
-                  }}
+              <ListItem
+                disablePadding
+                style={{
+                  backgroundColor:
+                    selected === "Settings" ? "#5BC0DE" : "#f1f5ff",
+                  color: selected === "Settings" ? "white" : "#777777",
+                }}
+              >
+                <ListItemButton onClick={() => handleMenuClick("Settings")}>
+                  <ListItemIcon>
+                    {" "}
+                    <SettingsOutlinedIcon
+                      style={{
+                        color: selected === "Settings" ? "white" : "#777777",
+                      }}
+                    />{" "}
+                  </ListItemIcon>
+                  <ListItemText primary="Settings" />
+                </ListItemButton>
+                <Divider />
+              </ListItem>
+              <ListItem
+                disablePadding
+                style={{
+                  backgroundColor:
+                    selected === "AccessControl" ? "#5BC0DE" : "#f1f5ff",
+                  color: selected === "AccessControl" ? "white" : "#777777",
+                }}
+              >
+                <ListItemButton
+                  onClick={() => handleMenuClick("AccessControl")}
                 >
-                  <ListItemButton onClick={() => handleMenuClick("Settings")}>
-                    <ListItemIcon>
-                      {" "}
-                      <SettingsOutlinedIcon
-                        style={{
-                          color: selected === "Settings" ? "white" : "#777777",
-                        }}
-                      />{" "}
-                    </ListItemIcon>
-                    <ListItemText primary="Settings" />
-                  </ListItemButton>
-                  <Divider />
-                </ListItem>
-                <ListItem
-                  disablePadding
-                  style={{
-                    backgroundColor:
-                      selected === "AccessControl" ? "#5BC0DE" : "#f1f5ff",
-                    color: selected === "AccessControl" ? "white" : "#777777",
-                  }}
-                >
-                  <ListItemButton
-                    onClick={() => handleMenuClick("AccessControl")}
-                  >
-                    <ListItemIcon>
-                      {" "}
-                      <GroupsOutlined
-                        style={{
-                          color:
-                            selected === "AccessControl" ? "white" : "#777777",
-                        }}
-                      />{" "}
-                    </ListItemIcon>
-                    <ListItemText primary="Access Control" />
-                  </ListItemButton>
-                  <Divider />
-                </ListItem>
-              </>
-            )}
+                  <ListItemIcon>
+                    {" "}
+                    <GroupsOutlined
+                      style={{
+                        color:
+                          selected === "AccessControl" ? "white" : "#777777",
+                      }}
+                    />{" "}
+                  </ListItemIcon>
+                  <ListItemText primary="Access Control" />
+                </ListItemButton>
+                <Divider />
+              </ListItem>
+            </>
           </List>
         </Drawer>
         <Main open={open} sx={{ margin: 0 }}>

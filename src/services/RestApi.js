@@ -29,3 +29,6 @@ export const userUpdate = async (data) => {
 export const getUser = async () => {
   return await http.get(`user/id`);
 };
+export const getQrByPin = async (data) => {
+  return await http.get(`qr/owner/${data.userId}/pin/${data.pin}`);
+};

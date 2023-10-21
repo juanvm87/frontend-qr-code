@@ -3,7 +3,8 @@ import { Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { sidebarContext } from "../store/sidebarContext";
 import QrCode2OutlinedIcon from "@mui/icons-material/QrCode2Outlined";
-import PageviewIcon from "@mui/icons-material/Pageview";
+import GetAppIcon from "@mui/icons-material/GetApp";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import "./Home.css";
 const ButtonCenter = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const ButtonCenter = () => {
       >
         <div className="container-button">
           <QrCode2OutlinedIcon className="home-icon-button" />
-          <p className="home-p-button">Create</p>
+          <p className="home-p-button">CREATE QR</p>
         </div>
       </Button>
       <Button
@@ -35,9 +36,20 @@ const ButtonCenter = () => {
         }}
         variant="contained"
       >
+        <FormatListBulletedIcon className="home-icon-button" />
+        <p className="home-p-button">VIEW</p>
+      </Button>
+      <Button
+        className="home-button"
+        onClick={() => {
+          setSelected("qr-info");
+          handleNavigate("/qr-info");
+        }}
+        variant="contained"
+      >
         <div className="container-button">
-          <PageviewIcon className="home-icon-button" />
-          <p className="home-p-button">View</p>
+          <GetAppIcon className="home-icon-button" />
+          <p className="home-p-button">Access to QR</p>
         </div>
       </Button>
     </Box>
