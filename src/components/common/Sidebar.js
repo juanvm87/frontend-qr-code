@@ -401,21 +401,6 @@ export default function Sidebar() {
         <Main open={open} sx={{ margin: 0 }}>
           <DrawerHeader />
           <Outlet />
-          {/*   {window.location.toString().includes("/home") && <Home />}
-          {window.location.toString().includes("/create") && <Create />}
-          {window.location.toString().includes("/view") && <View />}
-          {window.location.toString().includes("/profile") && <Profile />}
-          {window.location.toString().includes("/settings") && <Settings />}
-          {window.location.toString().includes("/accessControl") && (
-          {/*   {window.location.toString().includes("/home") && <Home />}
-          {window.location.toString().includes("/create") && <Create />}
-          {window.location.toString().includes("/view") && <View />}
-          {window.location.toString().includes("/profile") && <Profile />}
-          {window.location.toString().includes("/settings") && <Settings />}
-          {window.location.toString().includes("/accessControl") && (
-            <AccessControl />
-          )}
-          {window.location.toString().includes("/edit/:id") && <Create />} */}
         </Main>
       </Box>
     </>
