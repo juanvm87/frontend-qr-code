@@ -108,18 +108,16 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate("/login");
+
     navigate("/login");
     // alert("Redireted to Login")
   };
   const handleSettings = () => {
     navigate("/settings");
-    navigate("/settings");
     setSelected("Settings");
     // alert("Redirected to Settings")
   };
   const handleProfile = () => {
-    navigate("/profile");
     navigate("/profile");
     setSelected("Profile");
     // alert("Redirected to Profile")
@@ -417,7 +415,6 @@ export default function Sidebar() {
           {window.location.toString().includes("/accessControl") && (
             <AccessControl />
           )}
-          {window.location.toString().includes("/edit/:id") && <Create />} */}
           {window.location.toString().includes("/edit/:id") && <Create />} */}
         </Main>
       </Box>
