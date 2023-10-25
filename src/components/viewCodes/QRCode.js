@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { Button, Card, CardContent } from "@mui/material";
 import QRCode from "react-qr-code";
 import "./QRcode.css";
@@ -10,12 +10,14 @@ import { PopUpModal } from "../common/PopUpModal";
 import { handleformattedDate } from "../helperFunction/formatedDate";
 import { handleDownload } from "../helperFunction/handleDownload";
 import { useNavigate } from "react-router-dom";
+import { MyHandleContext } from "../../store/handleContext";
 
 const QRcode = (props) => {
   const [linkData, setLinkData] = useState("");
   const [downloadType, setDownloadType] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
   const [qrData, setQrData] = useState({});
+  const { selected, setSelected } = useContext(MyHandleContext);
   const idFromURL = useParams().id;
   const qrCodeRef = useRef(null);
   const navigate = useNavigate();
@@ -225,6 +227,7 @@ END:VCALENDAR`;
         input: inp,
       };
       updateQr(idFromURL, updateCode);
+      setSelected("View");
       setTimeout(() => {
         navigate("/view");
       }, 500);
@@ -244,6 +247,7 @@ END:VCALENDAR`;
         ownerId: "",
       };
       createQrAPI(newData);
+      setSelected("View");
       setTimeout(() => {
         navigate("/view");
       }, 500);

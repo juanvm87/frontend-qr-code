@@ -30,7 +30,7 @@ import {
   Person,
 } from "@mui/icons-material";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import { sidebarContext } from "../../store/sidebarContext";
+import { MyHandleContext } from "../../store/handleContext";
 
 const drawerWidth = 240;
 
@@ -83,12 +83,8 @@ export default function Sidebar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
-  const homePage = ["/home", "/create", "/view", "/edit", "/qr-info"];
-  const isHomePage = homePage.some((val) =>
-    window.location.toString().includes(val)
-  );
 
-  const { selected, setSelected } = useContext(sidebarContext);
+  const { selected, setSelected } = useContext(MyHandleContext);
 
   // const profilePage
 

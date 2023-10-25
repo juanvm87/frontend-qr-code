@@ -13,6 +13,13 @@ const PrivateComponent = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (auth) {
+      navigateTo("/home");
+      return;
+    }
+  }, []);
+
   return <Outlet />;
 };
 

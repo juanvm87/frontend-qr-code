@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import UserCard from "./common/UserCard";
-import { Typography } from "@mui/material";
 import { getAllOwnerQr } from "../services/RestApi";
 import Header from "./common/Header";
 

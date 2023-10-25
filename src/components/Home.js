@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 import { Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { sidebarContext } from "../store/sidebarContext";
+import { MyHandleContext } from "../store/handleContext";
 import QrCode2OutlinedIcon from "@mui/icons-material/QrCode2Outlined";
 import GetAppIcon from "@mui/icons-material/GetApp";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import "./Home.css";
 const ButtonCenter = () => {
   const navigate = useNavigate();
-  const { selected, setSelected } = useContext(sidebarContext);
+  const { selected, setSelected } = useContext(MyHandleContext);
 
   const handleNavigate = (page) => {
     navigate(page);
@@ -20,7 +20,6 @@ const ButtonCenter = () => {
         variant="contained"
         onClick={() => {
           setSelected("Create");
-          handleNavigate("/create");
           handleNavigate("/create");
         }}
       >
@@ -37,8 +36,10 @@ const ButtonCenter = () => {
         }}
         variant="contained"
       >
-        <FormatListBulletedIcon className="home-icon-button" />
-        <p className="home-p-button">VIEW</p>
+        <div className="container-button">
+          <FormatListBulletedIcon className="home-icon-button" />
+          <p className="home-p-button">VIEW</p>
+        </div>
       </Button>
       <Button
         className="home-button"

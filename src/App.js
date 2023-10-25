@@ -1,22 +1,13 @@
 import RoutingComponent from "./RoutingComponent";
-import Sidebar from "./components/common/Sidebar";
-import Profile from "./components/common/Profile";
-import Settings from "./components/common/Settings";
-import QRcode from "./components/viewCodes/QRCode";
-import { SidebarContextProvider } from "./store/sidebarContext";
+import { ContextProvider } from "./store/handleContext";
 
 function App() {
   return (
-    <SidebarContextProvider>
+    <ContextProvider>
       <div className="App">
-        {/* <Settings/> */}
-        {/* <Sidebar/> */}
-        {/* <Profile /> */}
         <RoutingComponent />
-        {/* <QRcode/> */}
-        {/* <GenerateCode/> */}
       </div>
-    </SidebarContextProvider>
+    </ContextProvider>
   );
 }
 

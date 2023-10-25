@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, IconButton, InputAdornment, TextField } from "@mui/material";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
 import axios from "axios";
 import "./Map.css";
 import MapFrame from "./MapFrame"; // Import the MapFrame component
@@ -26,7 +26,6 @@ const Map = (props) => {
           : "";
       props.locationData({ link: data, place: location });
     };
-
     handleData();
   }, [latitude, longitude]);
 

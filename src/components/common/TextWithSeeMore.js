@@ -15,7 +15,7 @@ export const TextWithSeeMore = ({ text, maxChars = 100 }) => {
           {text.slice(0, maxChars)}
           <span>...</span>
           <span
-            style={{ color: "gray", cursor: "pointer" }}
+            style={{ color: "rgb(68 151 237)", cursor: "pointer" }}
             onClick={toggleExpanded}
           >
             See more
@@ -27,8 +27,9 @@ export const TextWithSeeMore = ({ text, maxChars = 100 }) => {
       {expanded && (
         <>
           {text.slice(maxChars)}
+          <br />
           <span
-            style={{ color: "blue", cursor: "pointer" }}
+            style={{ color: "#8bc5f8", cursor: "pointer" }}
             onClick={toggleExpanded}
           >
             See less

@@ -10,7 +10,7 @@
 .qr-box-input {
     display: flex;
     flex-direction: column;
-
+    align-items: center;
 }
 
 .box-qr-img {
@@ -29,17 +29,61 @@
     margin: 10px;
 }
 
-.qr-box-details .MuiCard-root {
-    padding: 20px;
+.card-info {
+    padding: 15px;
+}
+
+.btn-checkqr {
+    background-color: rgb(91, 192, 222) !important;
+    color: #fff !important;
+    margin-top: 5px !important;
+    width: 90%;
 }
 
 .qr-details {
     max-width: 332px;
 }
 
-.text-details {}
+/* header */
 
+.profile-heading {
+    width: 100%;
+    display: flex;
+    padding: 1.5rem;
+    align-items: center;
+    /* background-color: #111fff; */
+    background-image: linear-gradient(to right, #3cde93, #0899c6, #02c1ec);
+    gap: 2rem;
+    overflow: hidden;
+    flex-wrap: wrap;
+}
 
-.qr-box-details .MuiCardHeader-root {}
+.floating-heading {
+    margin: 10px;
+    transform: translateY(0);
+    animation: fl1 3s infinite linear;
+}
 
-.qr-box-details .MuiCardContent-root {}
+.floating-heading::before {
+    content: attr(data-text);
+    position: absolute;
+    clip-path: polygon(0, 0, 100%, 0, 100%, 50%, 0, 50%);
+    animation: fl1 3s infinite linear;
+}
+
+@keyframes fl1 {
+    30% {
+        transform: translateY(10%);
+    }
+}
+
+.box {
+    height: 120px;
+    width: 120px;
+    background-color: #fff;
+    color: #02c1ec;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

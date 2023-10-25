@@ -399,7 +399,7 @@ export const InputGenerateCode = (props) => {
         <div className="div-inputs">
           <h2>Wi-Fi</h2>
           <div className="container-fields-wifi">
-            <FormControl sx={{ minWidth: "20%", margin: "5px" }} size="medium">
+            <FormControl sx={{ minWidth: "30%", margin: "5px" }}>
               <InputLabel id="demo-select-small-label">Network Type</InputLabel>
               <Select
                 labelId="demo-select-small-label"
@@ -415,7 +415,7 @@ export const InputGenerateCode = (props) => {
                 <MenuItem value={"no_password"}>No encryption</MenuItem>
               </Select>
             </FormControl>
-            <div>
+            <div style={{ display: "flow" }}>
               <TextField
                 onChange={(value) => {
                   handleWifiChange("id", value.target.value);

@@ -1,20 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 // import { useTheme } from '@mui/material/styles';
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import QRCode from "react-qr-code";
-import { Button, Link } from "@mui/material";
+import { Button } from "@mui/material";
 import { useNavigate } from "react-router";
 import { handleDownload } from "../helperFunction/handleDownload";
 import "./UserCard.css";
+import { MyHandleContext } from "../../store/handleContext";
 
 export default function UserCard(props) {
   const qrCodeRef = useRef(null);
   const navigateTo = useNavigate();
   const [downloadType, setDownloadType] = useState(null);
+  const { resetInfo, setResetInfo } = useContext(MyHandleContext);
+  const { accessQr, setAccessQr } = useContext(MyHandleContext);
 
   const dataModify = (date) => {
     const currentDate = new Date(date);
@@ -45,7 +47,6 @@ export default function UserCard(props) {
   const copyToClipboard = (value) => {
     navigator.clipboard.writeText(value);
   };
-
   return (
     <Card className="card-container" elevation={0}>
       <Box className="box-info">
@@ -145,7 +146,6 @@ export default function UserCard(props) {
           <p> | </p>
           <Button
             onClick={(value) => {
-              console.log(props.qrData);
               copyToClipboard(props.qrData.link);
             }}
             style={{ cursor: "pointer" }}
@@ -181,7 +181,7 @@ export default function UserCard(props) {
           </Button> */}
         </Box>
       </Box>
-      <Box sx={{ width: 170, flexShrink: 0 }}>
+      <Box className="box-qr-btn" sx={{ width: 170, flexShrink: 0 }}>
         <QRCode
           size={150}
           id={props.qrData.pin}
@@ -189,6 +189,20 @@ export default function UserCard(props) {
           value={props.qrData.link}
           ref={qrCodeRef}
         />
+        <Button
+          onClick={() => {
+            setAccessQr({
+              userId: props.qrData.ownerId,
+              qrId: props.qrData.pin,
+            });
+            navigateTo(`/qr-info`);
+            setResetInfo(false);
+          }}
+          sx={{ fontSize: "0.8rem" }}
+          className="access-qr-btn"
+        >
+          Access to QR
+        </Button>
       </Box>
     </Card>
   );

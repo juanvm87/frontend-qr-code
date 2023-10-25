@@ -20,7 +20,6 @@ export function PopUpModal(props) {
     const checkIfIsUpdating = () => {
       setIsUpdating(props.isUpdating);
     };
-    console.log("updating", isUpdating);
     checkIfIsUpdating();
   }, []);
   // Handle input change
