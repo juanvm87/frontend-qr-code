@@ -17,6 +17,7 @@ export default function UserCard(props) {
   const [downloadType, setDownloadType] = useState(null);
   const { resetInfo, setResetInfo } = useContext(MyHandleContext);
   const { accessQr, setAccessQr } = useContext(MyHandleContext);
+  const { selected, setSelected } = useContext(MyHandleContext);
 
   const dataModify = (date) => {
     const currentDate = new Date(date);
@@ -197,6 +198,7 @@ export default function UserCard(props) {
             });
             navigateTo(`/qr-info`);
             setResetInfo(false);
+            setSelected("qr-info");
           }}
           sx={{ fontSize: "0.8rem" }}
           className="access-qr-btn"

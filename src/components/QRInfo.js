@@ -1,4 +1,13 @@
-import { Box, Button, Snackbar, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  Link,
+  Snackbar,
+  TextField,
+  Typography,
+} from "@mui/material";
+import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { getQrByPin } from "../services/RestApi";
 import "./QRInfo.css";
@@ -19,6 +28,11 @@ const QRInfo = () => {
   const [message, setMessage] = useState("");
   const [horizontal] = useState("right");
   const [vertical] = useState("top");
+  const isType =
+    qr.type !== "SMS" &&
+    qr.type !== "Phone" &&
+    qr.type !== "Text" &&
+    qr.type !== "Event";
 
   useEffect(() => {
     function openSnackBarTime() {
@@ -52,20 +66,22 @@ const QRInfo = () => {
         setQr(reply.data);
         setIsChacking(true);
       }
-
-      /*   const windowObjectReference = window.open(
-        reply.data.link,
-        "SingleSecondaryWindowName"
-      ); */
-      //Email:
-      // "mailto:juan@gmail.com?subject=22222&body=hello"
-      //Event:
-      //
     } catch (error) {
       setMessage(error.response.data.message);
       setOpenSnackbar(true);
     }
   };
+  useEffect(() => {
+    if (isChecking) {
+      if (qr.type === "Email") {
+        setQr((prevQr) => ({
+          ...prevQr,
+          link: `mailto:${qr.input.email}?subject=${qr.input.subject}&body=${qr.input.text}`,
+        }));
+      }
+      // Log the value of qr when isChecking is true
+    }
+  }, [isChecking]);
 
   return (
     <>
@@ -73,7 +89,10 @@ const QRInfo = () => {
         <div>
           <Header letters={"AQ"} information={"Access to QR"} />
           <Box className="qrinfo-body-box">
-            <Box className="qr-box-input">
+            <Card
+              style={{ backgroundColor: "#f1f5ff", color: "#777777" }}
+              className="card-input"
+            >
               <TextField
                 value={qrInputInfo.userId}
                 autoComplete="off"
@@ -96,14 +115,14 @@ const QRInfo = () => {
               <Button className="btn-checkqr" onClick={handleCheckQR}>
                 CHECK QR
               </Button>
-            </Box>
+            </Card>
           </Box>
         </div>
       )}
       {isChecking && (
         <>
           <div className="profile-heading">
-            <div className="box">
+            <div className="box-info-search">
               <QRCode
                 size={115}
                 id={qr.pin}
@@ -114,7 +133,7 @@ const QRInfo = () => {
             </div>
             <div style={{ display: "flex", flexWrap: "wrap" }}>
               <h2 className="floating-heading" style={{ color: "#ffffff" }}>
-                Owner ID: {qr.ownerId}
+                User ID: {qr.ownerId}
               </h2>
               <h2 className="floating-heading" style={{ color: "#ffffff" }}>
                 QR pin: {qr.pin}
@@ -123,129 +142,196 @@ const QRInfo = () => {
           </div>
 
           <Box className="qr-box-details">
-            <Box className="qr-details">
-              <Box className="box-pin-id-type">
-                <Typography variant="body1">Type: {qr.type}</Typography>
-              </Box>
-
-              <Box className="text-details" style={{ wordWrap: "break-word" }}>
-                <Typography title={qr.title} variant="body1" />
-                <Typography variant="body1">
-                  Created: {new Date(qr.createdAt).toLocaleString()}
-                </Typography>
-                <Typography variant="body1">
-                  Last Updated: {new Date(qr.updatedAt).toLocaleString()}
-                </Typography>
-
-                {qr.type === "Link" && (
-                  <Typography variant="body1">Link: {qr.input.link}</Typography>
+            <Card
+              style={{ backgroundColor: "#f1f5ff", color: "#777777" }}
+              className="qr-details-card"
+            >
+              <Box
+                className="text-details"
+                p={3}
+                style={{ wordWrap: "break-word" }}
+              >
+                {isType && (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      justifyContent: "flex-end",
+                    }}
+                  >
+                    <a
+                      href={qr.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="circle-button-link"
+                    >
+                      <QrCodeScannerIcon fontSize="large" />
+                    </a>
+                  </Box>
                 )}
-                {qr.type === "Text" && (
-                  <TextWithSeeMore text={qr.input.text} maxChars={50} />
-                )}
-                {qr.type === "Email" && (
-                  <>
-                    <Typography variant="body1">
-                      Email to: {qr.input.email}
-                    </Typography>
-                    <Typography variant="body1">
-                      Subject: {qr.input.subject}
-                    </Typography>
-                    <TextWithSeeMore text={qr.input.text} maxChars={55} />
-                  </>
-                )}
-                {qr.type === "Zoom" && (
-                  <>
-                    <Typography variant="body1">
-                      Id Meeting: {qr.input.idMeeting}
-                    </Typography>
-                    <Typography variant="body1">
-                      Password: {qr.input.password}
-                    </Typography>
-                  </>
-                )}
-
-                {qr.type === "Location" && (
-                  <>
-                    <Typography variant="body1">
-                      Location: {qr.input.place}
-                    </Typography>
-                    <Typography variant="body1">
-                      latitude: {qr.input.latitude}
-                    </Typography>
-                    <Typography variant="body1">
-                      longitude: {qr.input.longitude}
-                    </Typography>
-                  </>
-                )}
-                {qr.type === "Phone" && (
-                  <Typography variant="body1">
-                    Phone: {qr.input.phone}
+                <Typography variant="h3">{qr.title}</Typography>
+                <div className="type-tag">
+                  <Typography className="type-tag-letters" variant="subtitle2">
+                    {qr.type}
                   </Typography>
-                )}
-                {qr.type === "SMS" && (
-                  <>
-                    <Typography variant="body1">
-                      Phone: {qr.input.phone}
+                </div>
+                <div className="qr-details-content">
+                  {qr.type === "Link" && (
+                    <Typography variant="h5">
+                      <span style={{ fontWeight: "bold" }}>Link:</span>{" "}
+                      {qr.input.link}
                     </Typography>
+                  )}
+                  {qr.type === "Text" && (
                     <TextWithSeeMore
-                      text={`Text: ${qr.input.text}`}
+                      title="Text:"
+                      text={qr.input.text}
                       maxChars={50}
                     />
-                  </>
-                )}
-                {qr.type === "WhatsApp" && (
-                  <>
-                    <Typography variant="body1">
-                      Phone: {qr.input.phone}
+                  )}
+                  {qr.type === "Email" && (
+                    <div>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>Email to:</span>{" "}
+                        {qr.input.email}
+                      </Typography>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>Subject:</span>{" "}
+                        {qr.input.subject}
+                      </Typography>
+                      <TextWithSeeMore
+                        title="Text:"
+                        text={qr.input.text}
+                        maxChars={50}
+                      />
+                    </div>
+                  )}
+                  {qr.type === "Zoom" && (
+                    <>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>Id Meeting:</span>{" "}
+                        {qr.input.idMeeting}
+                      </Typography>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>Password:</span>{" "}
+                        {qr.input.password}
+                      </Typography>
+                    </>
+                  )}
+
+                  {qr.type === "Location" && (
+                    <>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>Location:</span>{" "}
+                        {qr.input.place}
+                      </Typography>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>latitude:</span>{" "}
+                        {qr.input.latitude}
+                      </Typography>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>longitude:</span>{" "}
+                        {qr.input.longitude}
+                      </Typography>
+                    </>
+                  )}
+
+                  {qr.type === "Phone" && (
+                    <Typography variant="h5">
+                      <span style={{ fontWeight: "bold" }}>Phone:</span>{" "}
+                      {qr.input.phone}
                     </Typography>
-                    <TextWithSeeMore
-                      text={`Text: ${qr.input.text}`}
-                      maxChars={50}
-                    />
-                  </>
-                )}
-                {qr.type === "Event" && (
-                  <>
-                    <Typography variant="body1">
-                      Title: {qr.input.title}
-                    </Typography>
-                    <Typography variant="body1">
-                      Location: {qr.input.location}
-                    </Typography>
-                    <Typography variant="body1">
-                      Start: {new Date(qr.input.startTime).toLocaleString()}
-                    </Typography>
-                    <Typography variant="body1">
-                      End: {new Date(qr.input.endTime).toLocaleString()}
-                    </Typography>
-                    <TextWithSeeMore
-                      text={`Note: ${qr.input.notes}`}
-                      maxChars={50}
-                    />
-                  </>
-                )}
-                {qr.type === "Wi-Fi" && (
-                  <>
-                    <Typography variant="body1">ID: {qr.input.id}</Typography>
-                    <Typography variant="body1">
-                      Password: {qr.input.password}
-                    </Typography>
-                    <Typography variant="body1">
-                      Authentication: {qr.input.authentication}
-                    </Typography>
-                  </>
-                )}
-                {qr.type === "Skype" && (
-                  <>
-                    <Typography variant="body1">ID: {qr.input.id}</Typography>
-                    <Typography variant="body1">
-                      Type: {qr.input.type}
-                    </Typography>
-                  </>
-                )}
+                  )}
+
+                  {qr.type === "SMS" && (
+                    <>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>Phone:</span>{" "}
+                        {qr.input.phone}
+                      </Typography>
+                      <TextWithSeeMore
+                        title="Text:"
+                        text={qr.input.text}
+                        maxChars={50}
+                      />
+                    </>
+                  )}
+
+                  {qr.type === "WhatsApp" && (
+                    <>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>Phone:</span>{" "}
+                        {qr.input.phone}
+                      </Typography>
+
+                      <TextWithSeeMore
+                        title="Text:"
+                        text={qr.input.text}
+                        maxChars={50}
+                      />
+                    </>
+                  )}
+
+                  {qr.type === "Event" && (
+                    <>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>Title:</span>{" "}
+                        {qr.input.title}
+                      </Typography>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>Location:</span>{" "}
+                        {qr.input.location}
+                      </Typography>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>Start:</span>{" "}
+                        {new Date(qr.input.startTime).toLocaleString()}
+                      </Typography>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>End:</span>{" "}
+                        {new Date(qr.input.endTime).toLocaleString()}
+                      </Typography>
+                      <TextWithSeeMore
+                        title="Note:"
+                        text={qr.input.notes}
+                        maxChars={50}
+                      />
+                    </>
+                  )}
+
+                  {qr.type === "Wi-Fi" && (
+                    <>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>ID:</span>{" "}
+                        {qr.input.id}
+                      </Typography>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>Password:</span>{" "}
+                        {qr.input.password}
+                      </Typography>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>
+                          Authentication:
+                        </span>{" "}
+                        {qr.input.authentication}
+                      </Typography>
+                    </>
+                  )}
+
+                  {qr.type === "Skype" && (
+                    <>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>Skype:</span>{" "}
+                        {qr.input.type}
+                      </Typography>
+                      <Typography variant="h5">
+                        <span style={{ fontWeight: "bold" }}>ID:</span>{" "}
+                        {qr.input.id}
+                      </Typography>
+                    </>
+                  )}
+                </div>
               </Box>
-            </Box>
+            </Card>
           </Box>
         </>
       )}
