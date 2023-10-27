@@ -55,7 +55,12 @@ export default function UserCard(props) {
           {props.dynamic && (
             <Typography className="dynamic-label">DYNAMIC</Typography>
           )}
-          <Typography component="div" fontWeight="bolder" variant="h5">
+          <Typography
+            className="title-view-card"
+            component="div"
+            fontWeight="bolder"
+            variant="h5"
+          >
             {props.qrData.title}
           </Typography>
 

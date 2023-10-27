@@ -1,3 +1,8 @@
+.body {
+    background-color: #f1f5ff
+}
+
+
 .qrinfo-body-box {
     width: 100%;
     display: flex;
@@ -48,7 +53,6 @@
     justify-content: center;
     flex-wrap: wrap;
     width: 100%;
-    height: 100%;
     align-content: center;
 }
 
@@ -58,8 +62,7 @@
 }
 
 .qr-details-card {
-    padding: 25px;
-    margin-top: -3%;
+    margin-top: 4rem;
 }
 
 /* header */
@@ -108,21 +111,12 @@
 
 /* ButtonLink.css */
 .circle-button-link {
-    display: flex;
-    text-align: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: rgb(91, 192, 222);
-    color: #fff;
-    text-decoration: none;
-    line-height: 50px;
-    justify-content: center;
-    align-items: center;
+    padding: 10px;
+    color: rgb(91, 192, 222);
 }
 
 .circle-button-link:hover {
-    background-color: #3498db;
+    color: #34db9b;
 
 }
 

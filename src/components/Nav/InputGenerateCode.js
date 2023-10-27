@@ -399,7 +399,7 @@ export const InputGenerateCode = (props) => {
         <div className="div-inputs">
           <h2>Wi-Fi</h2>
           <div className="container-fields-wifi">
-            <FormControl sx={{ minWidth: "30%", margin: "5px" }}>
+            <FormControl sx={{ minWidth: "40%", margin: "5px" }}>
               <InputLabel id="demo-select-small-label">Network Type</InputLabel>
               <Select
                 labelId="demo-select-small-label"
@@ -415,7 +415,7 @@ export const InputGenerateCode = (props) => {
                 <MenuItem value={"no_password"}>No encryption</MenuItem>
               </Select>
             </FormControl>
-            <div style={{ display: "flow" }}>
+            <div className="wifi-div-textFields">
               <TextField
                 onChange={(value) => {
                   handleWifiChange("id", value.target.value);
@@ -469,7 +469,7 @@ export const InputGenerateCode = (props) => {
             <div className="div-inputs-texfile-event">
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer
-                  sx={{ margin: "5px " }}
+                  sx={{ margin: "5px ", width: "270px" }}
                   components={["DateTimeField"]}
                 >
                   <DateTimeField
@@ -485,7 +485,7 @@ export const InputGenerateCode = (props) => {
               </LocalizationProvider>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer
-                  sx={{ margin: "5px " }}
+                  sx={{ margin: "5px ", width: "270px" }}
                   components={["DateTimeField"]}
                 >
                   <DateTimeField

@@ -5,10 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { Snackbar } from "@mui/material";
 import { signup } from "../../services/RestApi";
 
-// Authentification
-const isEmail = (email) =>
-  /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
-
 const vertical = "top";
 const horizontal = "right";
 // RegisterFunction
@@ -41,36 +37,50 @@ function Register() {
     if (auth) {
       navigate("/home");
     }
-  });
+  }, []);
+  // Authentification
+  const isEmail = (email) =>
+    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
+
+  // Check if the password meets your criteria
+  const isPasswordValid = (password) => {
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
+    return passwordRegex.test(password);
+  };
 
   const createAccountHandler = () => {
     if (values.password === values.confirmPassword && isEmail(values.email)) {
-      signup({
-        name: values.name,
-        phone: values.phone,
-        email: values.email,
-        password: values.password,
-      })
-        .then((res) => {
-          if (res.status === 201) {
-            localStorage.setItem("token", res.data.token);
-            setOpenSnackbar(true);
-            setMessage("Register Successfully!!!");
-            setTimeout(() => {
-              navigate("/login");
-            }, 500);
-          }
+      if (!isPasswordValid(values.password)) {
+        setErrorMsg(true); // Display an error message for invalid password
+      } else {
+        signup({
+          name: values.name,
+          phone: values.phone,
+          email: values.email,
+          password: values.password,
         })
-        .catch((err) => {
-          setOpenSnackbar(true);
-          setMessage(err);
-        });
+          .then((res) => {
+            if (res.status === 201) {
+              localStorage.setItem("token", res.data.token);
+              setOpenSnackbar(true);
+              setMessage("Register Successfully!!!");
+              setTimeout(() => {
+                navigate("/login");
+              }, 500);
+            }
+          })
+          .catch((err) => {
+            setOpenSnackbar(true);
+            setMessage(err);
+          });
+      }
     } else if (!isEmail(values.email)) {
       setErrorMsg(true);
     } else if (values.password !== values.confirmPassword) {
       alert("Password & Confirm Password Didn't Match");
     }
   };
+
   const handleClose = () => {
     setOpenSnackbar(false);
   };

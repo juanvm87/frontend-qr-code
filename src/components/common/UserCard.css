@@ -7,7 +7,7 @@
     margin: 1rem;
     padding-top: 1rem;
     padding-left: 2rem;
-    background-color: #f6f6f6 !important;
+
     border-radius: 0;
 }
 
@@ -16,8 +16,14 @@
     flex-direction: column;
 }
 
+.title-view-card {
+    flex-wrap: wrap;
+    overflow-wrap: anywhere;
+}
+
 .card-content-info {
     flex: 1 0 auto;
+
 }
 
 /* Dynamic label */

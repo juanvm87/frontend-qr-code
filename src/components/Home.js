@@ -16,6 +16,7 @@ const ButtonCenter = () => {
   return (
     <Box className="box-buttons">
       <Button
+        sx={{ marginTop: "8px" }}
         className="home-button"
         variant="contained"
         onClick={() => {
@@ -29,6 +30,7 @@ const ButtonCenter = () => {
         </div>
       </Button>
       <Button
+        sx={{ marginTop: "8px" }}
         className="home-button"
         onClick={() => {
           setSelected("View");
@@ -42,6 +44,7 @@ const ButtonCenter = () => {
         </div>
       </Button>
       <Button
+        sx={{ marginTop: "8px" }}
         className="home-button"
         onClick={() => {
           setSelected("qr-info");

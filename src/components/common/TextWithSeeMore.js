@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 
-export const TextWithSeeMore = ({ title, text, maxChars = 100 }) => {
+export const TextWithSeeMore = ({ text, maxChars = 100 }) => {
   const [expanded, setExpanded] = useState(false);
 
   const toggleExpanded = () => {
@@ -9,9 +9,7 @@ export const TextWithSeeMore = ({ title, text, maxChars = 100 }) => {
   };
 
   return (
-    <Typography variant="h5">
-      <span style={{ fontWeight: "bold" }}>{title}</span>
-      <br />
+    <Typography variant="body1">
       {text.length > maxChars && !expanded ? (
         <>
           {text.slice(0, maxChars)}

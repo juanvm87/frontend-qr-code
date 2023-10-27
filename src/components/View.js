@@ -20,7 +20,7 @@ export default function View() {
     fetchData();
   }, []);
   return (
-    <div>
+    <>
       <Header letters={"QCL"} information={"QR Code List"} />
       {data
         .map((card) => {
@@ -31,6 +31,6 @@ export default function View() {
           );
         })
         .reverse()}
-    </div>
+    </>
   );
 }

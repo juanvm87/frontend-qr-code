@@ -13,6 +13,7 @@ import { getQrByPin } from "../services/RestApi";
 import "./QRInfo.css";
 import QRCode from "react-qr-code";
 import Header from "./common/Header";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { TextWithSeeMore } from "./common/TextWithSeeMore";
 import { MyHandleContext } from "../store/handleContext";
 
@@ -89,10 +90,7 @@ const QRInfo = () => {
         <div>
           <Header letters={"AQ"} information={"Access to QR"} />
           <Box className="qrinfo-body-box">
-            <Card
-              style={{ backgroundColor: "#f1f5ff", color: "#777777" }}
-              className="card-input"
-            >
+            <Card className="card-input">
               <TextField
                 value={qrInputInfo.userId}
                 autoComplete="off"
@@ -142,15 +140,8 @@ const QRInfo = () => {
           </div>
 
           <Box className="qr-box-details">
-            <Card
-              style={{ backgroundColor: "#f1f5ff", color: "#777777" }}
-              className="qr-details-card"
-            >
-              <Box
-                className="text-details"
-                p={3}
-                style={{ wordWrap: "break-word" }}
-              >
+            <Card className="qr-details-card">
+              <Box className="text-details" style={{ wordWrap: "break-word" }}>
                 {isType && (
                   <Box
                     sx={{
@@ -165,171 +156,178 @@ const QRInfo = () => {
                       rel="noopener noreferrer"
                       className="circle-button-link"
                     >
-                      <QrCodeScannerIcon fontSize="large" />
+                      <OpenInNewIcon fontSize="large" />
                     </a>
                   </Box>
                 )}
-                <Typography variant="h3">{qr.title}</Typography>
-                <div className="type-tag">
-                  <Typography className="type-tag-letters" variant="subtitle2">
-                    {qr.type}
-                  </Typography>
-                </div>
-                <div className="qr-details-content">
-                  {qr.type === "Link" && (
-                    <Typography variant="h5">
-                      <span style={{ fontWeight: "bold" }}>Link:</span>{" "}
-                      {qr.input.link}
+                <Box sx={{ padding: "30px" }}>
+                  <Typography variant="h3">{qr.title}</Typography>
+                  <div className="type-tag">
+                    <Typography
+                      className="type-tag-letters"
+                      variant="subtitle2"
+                    >
+                      {qr.type}
                     </Typography>
-                  )}
-                  {qr.type === "Text" && (
-                    <TextWithSeeMore
-                      title="Text:"
-                      text={qr.input.text}
-                      maxChars={50}
-                    />
-                  )}
-                  {qr.type === "Email" && (
-                    <div>
+                  </div>
+                  <div className="qr-details-content">
+                    {qr.type === "Link" && (
                       <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>Email to:</span>{" "}
-                        {qr.input.email}
+                        <span style={{ fontWeight: "bold" }}>Link:</span>{" "}
+                        {qr.input.link}
                       </Typography>
-                      <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>Subject:</span>{" "}
-                        {qr.input.subject}
-                      </Typography>
+                    )}
+                    {qr.type === "Text" && (
                       <TextWithSeeMore
                         title="Text:"
                         text={qr.input.text}
                         maxChars={50}
                       />
-                    </div>
-                  )}
-                  {qr.type === "Zoom" && (
-                    <>
-                      <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>Id Meeting:</span>{" "}
-                        {qr.input.idMeeting}
-                      </Typography>
-                      <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>Password:</span>{" "}
-                        {qr.input.password}
-                      </Typography>
-                    </>
-                  )}
+                    )}
+                    {qr.type === "Email" && (
+                      <div>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>Email to:</span>{" "}
+                          {qr.input.email}
+                        </Typography>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>Subject:</span>{" "}
+                          {qr.input.subject}
+                        </Typography>
+                        <TextWithSeeMore
+                          title="Text:"
+                          text={qr.input.text}
+                          maxChars={50}
+                        />
+                      </div>
+                    )}
+                    {qr.type === "Zoom" && (
+                      <>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>
+                            Id Meeting:
+                          </span>{" "}
+                          {qr.input.idMeeting}
+                        </Typography>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>Password:</span>{" "}
+                          {qr.input.password}
+                        </Typography>
+                      </>
+                    )}
 
-                  {qr.type === "Location" && (
-                    <>
-                      <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>Location:</span>{" "}
-                        {qr.input.place}
-                      </Typography>
-                      <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>latitude:</span>{" "}
-                        {qr.input.latitude}
-                      </Typography>
-                      <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>longitude:</span>{" "}
-                        {qr.input.longitude}
-                      </Typography>
-                    </>
-                  )}
+                    {qr.type === "Location" && (
+                      <>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>Location:</span>{" "}
+                          {qr.input.place}
+                        </Typography>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>latitude:</span>{" "}
+                          {qr.input.latitude}
+                        </Typography>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>longitude:</span>{" "}
+                          {qr.input.longitude}
+                        </Typography>
+                      </>
+                    )}
 
-                  {qr.type === "Phone" && (
-                    <Typography variant="h5">
-                      <span style={{ fontWeight: "bold" }}>Phone:</span>{" "}
-                      {qr.input.phone}
-                    </Typography>
-                  )}
-
-                  {qr.type === "SMS" && (
-                    <>
+                    {qr.type === "Phone" && (
                       <Typography variant="h5">
                         <span style={{ fontWeight: "bold" }}>Phone:</span>{" "}
                         {qr.input.phone}
                       </Typography>
-                      <TextWithSeeMore
-                        title="Text:"
-                        text={qr.input.text}
-                        maxChars={50}
-                      />
-                    </>
-                  )}
+                    )}
 
-                  {qr.type === "WhatsApp" && (
-                    <>
-                      <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>Phone:</span>{" "}
-                        {qr.input.phone}
-                      </Typography>
+                    {qr.type === "SMS" && (
+                      <>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>Phone:</span>{" "}
+                          {qr.input.phone}
+                        </Typography>
+                        <TextWithSeeMore
+                          title="Text:"
+                          text={qr.input.text}
+                          maxChars={50}
+                        />
+                      </>
+                    )}
 
-                      <TextWithSeeMore
-                        title="Text:"
-                        text={qr.input.text}
-                        maxChars={50}
-                      />
-                    </>
-                  )}
+                    {qr.type === "WhatsApp" && (
+                      <>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>Phone:</span>{" "}
+                          {qr.input.phone}
+                        </Typography>
 
-                  {qr.type === "Event" && (
-                    <>
-                      <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>Title:</span>{" "}
-                        {qr.input.title}
-                      </Typography>
-                      <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>Location:</span>{" "}
-                        {qr.input.location}
-                      </Typography>
-                      <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>Start:</span>{" "}
-                        {new Date(qr.input.startTime).toLocaleString()}
-                      </Typography>
-                      <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>End:</span>{" "}
-                        {new Date(qr.input.endTime).toLocaleString()}
-                      </Typography>
-                      <TextWithSeeMore
-                        title="Note:"
-                        text={qr.input.notes}
-                        maxChars={50}
-                      />
-                    </>
-                  )}
+                        <TextWithSeeMore
+                          title="Text:"
+                          text={qr.input.text}
+                          maxChars={50}
+                        />
+                      </>
+                    )}
 
-                  {qr.type === "Wi-Fi" && (
-                    <>
-                      <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>ID:</span>{" "}
-                        {qr.input.id}
-                      </Typography>
-                      <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>Password:</span>{" "}
-                        {qr.input.password}
-                      </Typography>
-                      <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>
-                          Authentication:
-                        </span>{" "}
-                        {qr.input.authentication}
-                      </Typography>
-                    </>
-                  )}
+                    {qr.type === "Event" && (
+                      <>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>Title:</span>{" "}
+                          {qr.input.title}
+                        </Typography>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>Location:</span>{" "}
+                          {qr.input.location}
+                        </Typography>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>Start:</span>{" "}
+                          {new Date(qr.input.startTime).toLocaleString()}
+                        </Typography>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>End:</span>{" "}
+                          {new Date(qr.input.endTime).toLocaleString()}
+                        </Typography>
+                        <TextWithSeeMore
+                          title="Note:"
+                          text={qr.input.notes}
+                          maxChars={50}
+                        />
+                      </>
+                    )}
 
-                  {qr.type === "Skype" && (
-                    <>
-                      <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>Skype:</span>{" "}
-                        {qr.input.type}
-                      </Typography>
-                      <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>ID:</span>{" "}
-                        {qr.input.id}
-                      </Typography>
-                    </>
-                  )}
-                </div>
+                    {qr.type === "Wi-Fi" && (
+                      <>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>ID:</span>{" "}
+                          {qr.input.id}
+                        </Typography>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>Password:</span>{" "}
+                          {qr.input.password}
+                        </Typography>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>
+                            Authentication:
+                          </span>{" "}
+                          {qr.input.authentication}
+                        </Typography>
+                      </>
+                    )}
+
+                    {qr.type === "Skype" && (
+                      <>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>Skype:</span>{" "}
+                          {qr.input.type}
+                        </Typography>
+                        <Typography variant="h5">
+                          <span style={{ fontWeight: "bold" }}>ID:</span>{" "}
+                          {qr.input.id}
+                        </Typography>
+                      </>
+                    )}
+                  </div>
+                </Box>
               </Box>
             </Card>
           </Box>

@@ -1,4 +1,3 @@
-import { async } from "q";
 import http from "./http-common.js";
 
 // ********* Super Panel API **********

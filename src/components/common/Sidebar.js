@@ -21,7 +21,7 @@ import { ListItemIcon } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import QrCode2OutlinedIcon from "@mui/icons-material/QrCode2Outlined";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import {
   AccountCircleOutlined,
@@ -81,11 +81,22 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function Sidebar() {
   const theme = useTheme();
+  const location = useLocation();
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
-
   const { selected, setSelected } = useContext(MyHandleContext);
-
+  const qrInfoStyles = {
+    ...(location.pathname === "/qr-info" && {
+      backgroundColor: "#f1f5ff",
+      color: "#777777",
+      height: "100vh",
+    }),
+    ...(location.pathname === "/view" && {
+      backgroundColor: "#f1f5ff",
+      color: "#777777",
+      height: "100%",
+    }),
+  };
   // const profilePage
 
   const handleDrawerOpen = () => {
@@ -228,7 +239,7 @@ export default function Sidebar() {
             >
               <ListItemButton
                 onClick={() => {
-                  handleMenuClick("Home");
+                  handleMenuClick("home");
                 }}
               >
                 <ListItemIcon>
@@ -249,7 +260,7 @@ export default function Sidebar() {
                 color: selected === "Create" ? "white" : "#777777",
               }}
             >
-              <ListItemButton onClick={() => handleMenuClick("Create")}>
+              <ListItemButton onClick={() => handleMenuClick("create")}>
                 <ListItemIcon>
                   <AddCircleOutlineOutlinedIcon
                     style={{
@@ -269,7 +280,7 @@ export default function Sidebar() {
                 color: selected === "View" ? "white" : "#777777",
               }}
             >
-              <ListItemButton onClick={() => handleMenuClick("View")}>
+              <ListItemButton onClick={() => handleMenuClick("view")}>
                 <ListItemIcon>
                   {" "}
                   <QrCode2OutlinedIcon
@@ -333,7 +344,7 @@ export default function Sidebar() {
                   color: selected === "Profile" ? "white" : "#777777",
                 }}
               >
-                <ListItemButton onClick={() => handleMenuClick("Profile")}>
+                <ListItemButton onClick={() => handleMenuClick("profile")}>
                   <ListItemIcon>
                     <AccountCircleOutlined
                       style={{
@@ -354,7 +365,7 @@ export default function Sidebar() {
                   color: selected === "Settings" ? "white" : "#777777",
                 }}
               >
-                <ListItemButton onClick={() => handleMenuClick("Settings")}>
+                <ListItemButton onClick={() => handleMenuClick("settings")}>
                   <ListItemIcon>
                     {" "}
                     <SettingsOutlinedIcon
@@ -367,7 +378,7 @@ export default function Sidebar() {
                 </ListItemButton>
                 <Divider />
               </ListItem>
-              <ListItem
+              {/*  <ListItem
                 disablePadding
                 style={{
                   backgroundColor:
@@ -390,11 +401,11 @@ export default function Sidebar() {
                   <ListItemText primary="Access Control" />
                 </ListItemButton>
                 <Divider />
-              </ListItem>
+              </ListItem> */}
             </>
           </List>
         </Drawer>
-        <Main open={open} sx={{ margin: 0 }}>
+        <Main open={open} sx={{ width: "100%", margin: 0, ...qrInfoStyles }}>
           <DrawerHeader />
           <Outlet />
         </Main>

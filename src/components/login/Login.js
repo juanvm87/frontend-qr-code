@@ -25,7 +25,7 @@ function Login() {
     if (auth) {
       navigate("/home");
     }
-  });
+  }, []);
 
   const navigate = useNavigate();
 
@@ -45,11 +45,11 @@ function Login() {
     if (formValues.formemail !== " " && formValues.formpassword !== " ") {
       signin({ email: formValues.formemail, password: formValues.formpassword })
         .then((res) => {
+          console.log("dflkfdlkdjflkjdf", res);
           if (res.status === 201) {
             setOpenSnackbar(true);
             let message = "Login Successfully!!!";
             setMessage(message);
-            localStorage.setItem("_id", res.data._id);
             localStorage.setItem("token", res.data.token);
             setTimeout(() => {
               navigate("/home");

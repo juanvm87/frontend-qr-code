@@ -1,4 +1,5 @@
 import RoutingComponent from "./RoutingComponent";
+import Auth from "./components/common/Auth";
 import { ContextProvider } from "./store/handleContext";
 
 function App() {
