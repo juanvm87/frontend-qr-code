@@ -1,0 +1,248 @@
+.h3 {
+    margin: 0;
+    font-weight: 500;
+    white-space: pre-wrap;
+}
+
+.jss208 {
+    width: 100%;
+    height: 132px;
+    margin: 0 auto;
+    margin-bottom: 54px;
+    margin-right: -3px;
+}
+
+.container {
+    font-size: 0;
+    line-height: 1;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.container::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.container::-webkit-scrollbar-track {
+    background: #eeeded9f;
+    border-radius: 10px;
+}
+
+.container::-webkit-scrollbar-thumb {
+    background: rgba(52, 51, 51, 0.5);
+    border-radius: 7px;
+}
+
+.jss209 {
+    color: rgb(34, 14, 39);
+    width: 116px;
+    border: 3px solid rgb(91, 192, 222);
+    cursor: pointer;
+    height: 116px;
+    display: inline-flex;
+    opacity: 1;
+    outline: 0px;
+    padding: 0px 0px 6px;
+    transition: all 0.2s ease-in-out 0s;
+    align-items: center;
+    margin-left: 11px;
+    border-radius: 8px;
+    flex-direction: column;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 7px;
+}
+
+.jss211 {
+    width: auto;
+    height: auto;
+    position: relative;
+    font-size: 0px;
+    transition: all 0.2s ease-in-out 0s;
+    line-height: 1;
+    border-radius: 0px;
+    margin-bottom: -7px;
+    background-color: transparent;
+}
+
+.jss211::after {
+    top: -15px;
+    left: -25px;
+    width: 100px;
+    height: 64px;
+    content: "";
+    display: block;
+    position: absolute;
+    background: rgb(247, 247, 247);
+    border-radius: 8px;
+}
+
+.jss211 img {
+    top: -8px;
+    width: 50px;
+    height: 50px;
+    z-index: 1;
+    position: relative;
+}
+
+.jss213 {
+    height: 22px;
+    display: flex;
+    padding: 0 6px;
+    font-size: 15px;
+    word-break: break-all;
+    margin-top: 5px;
+    align-items: center;
+    font-weight: 700;
+    line-height: 22px;
+    margin-left: 0;
+    white-space: normal;
+}
+
+.jss255 {
+    width: 100%;
+    border: 0px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    border-radius: 8px;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+}
+
+.jss419 {
+    left: -22px;
+}
+
+.jss420 {
+    top: 50%;
+    color: #ffffff;
+    width: 44px;
+    height: 44px;
+    z-index: 1;
+    position: absolute;
+    background: #220e27;
+    border-radius: 50%;
+}
+
+.jss257 {
+    width: 57%;
+    height: 427px;
+    overflow: hidden;
+    max-width: 555px;
+    transition: all 0.2s ease-in-out 0s;
+    padding-top: 50px;
+}
+
+.jss299 {
+    height: 100%;
+    background: rgb(248, 248, 249);
+    margin-top: 0px;
+    text-align: center;
+}
+
+.jss301 {
+    color: rgb(34, 14, 39);
+    font-size: 24px;
+    text-align: left;
+    font-weight: 700;
+    line-height: 32px;
+    margin-bottom: 12px;
+}
+
+.jss303 {
+    color: rgb(104, 103, 108);
+    font-size: 15px;
+    text-align: left;
+    line-height: 26px;
+    margin-bottom: 24px;
+}
+
+.jss305 {
+    text-align: left;
+    padding-left: 64px;
+}
+
+.jss306 {
+    min-width: 219px;
+}
+
+.jss421 {
+    right: -22px;
+}
+
+.jss420 {
+    top: 50%;
+    color: #ffffff;
+    width: 44px;
+    height: 44px;
+    z-index: 1;
+    position: absolute;
+    background: #220e27;
+    border-radius: 50%;
+}
+
+@media only screen and (min-width: 960px) {
+    .jss255 {
+        align-items: flex-start;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .jss299 {
+        display: flex;
+        max-width: 475px;
+        padding-top: 20px;
+        padding-left: 0px;
+        border-radius: 0px 12px 12px 0px;
+        flex-direction: column;
+        padding-bottom: 20px;
+        justify-content: center;
+    }
+
+    .jss301 {
+        font-size: 40px;
+        line-height: 48px;
+        margin-left: 64px;
+        margin-bottom: 23px;
+    }
+
+    .jss303 {
+        margin: 0px 80px 36px 64px;
+        font-size: 16px;
+        max-width: 368px;
+        max-height: 150px;
+        line-height: 28px;
+    }
+}
+
+@media only screen and (min-width: 1920px) {
+    .jss257 {
+        height: 607px;
+        max-width: 720px;
+    }
+
+    .jss299 {
+        max-width: 744px;
+    }
+
+    .jss301 {
+        margin-left: 88px;
+        margin-bottom: 15px;
+    }
+
+    .jss303 {
+        width: 100%;
+        margin: 0px 160px 44px 88px;
+        font-size: 24px;
+        max-width: 488px;
+        max-height: 345px;
+        line-height: 36px;
+    }
+
+    .jss305 {
+        padding-left: 88px;
+    }
+}

@@ -22,25 +22,25 @@ const QRcode = (props) => {
   const qrCodeRef = useRef(null);
   const navigate = useNavigate();
 
-  const getQrDataAPI = async () => {
-    try {
-      if (idFromURL) {
-        setIsUpdating(true);
-        const response = await getQr(idFromURL);
-        setQrData(response.data);
-        setLinkData(response.data.link);
-      } else {
-        setIsUpdating(false);
-        setQrData("");
-      }
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  };
   useEffect(() => {
+    const getQrDataAPI = async () => {
+      try {
+        if (idFromURL) {
+          setIsUpdating(true);
+
+          setQrData(props.qrData);
+          setLinkData(props.qrData.link);
+        } else {
+          setIsUpdating(false);
+          setQrData("");
+        }
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    };
     getQrDataAPI();
-  }, []);
+  }, [props.qrData]);
 
   useEffect(() => {
     function HandlerTextData() {
@@ -259,7 +259,7 @@ END:VCALENDAR`;
   return (
     <Card className="qr-card">
       <QRCode
-        size={225}
+        size={200}
         id="qr-picture"
         className="qr-code-img"
         value={linkData}

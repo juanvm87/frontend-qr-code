@@ -1,11 +1,10 @@
 .container-location {
     display: flex;
     flex-wrap: wrap;
-    margin: 10px;
 }
 
 .text-field-map {
-    width: 17rem;
+    width: 14rem;
 
 }
 

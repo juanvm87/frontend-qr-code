@@ -63,11 +63,12 @@
 
 .qr-details-card {
     margin-top: 4rem;
+    min-width: 25rem;
 }
 
 /* header */
 
-.profile-heading {
+.profile-heading-info {
     width: 100%;
     display: flex;
     padding: 1.5rem;
@@ -79,13 +80,13 @@
     flex-wrap: wrap;
 }
 
-.floating-heading {
+.floating-heading-info {
     margin: 10px;
     transform: translateY(0);
     animation: fl1 3s infinite linear;
 }
 
-.floating-heading::before {
+.floating-heading-info::before {
     content: attr(data-text);
     position: absolute;
     clip-path: polygon(0, 0, 100%, 0, 100%, 50%, 0, 50%);
@@ -98,7 +99,7 @@
     }
 }
 
-.box-info-search {
+.box-info-search-info {
     height: 120px;
     width: 120px;
     background-color: #fff;

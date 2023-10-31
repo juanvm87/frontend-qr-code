@@ -1,19 +1,19 @@
 .qr-card {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
     align-content: center;
     flex-direction: column;
-    height: 350px;
+    height: 315px;
     width: 300px;
+    align-items: center;
 }
 
 .container-btn-qr {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    justify-content: space-around;
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .container-save {
@@ -28,10 +28,8 @@
 }
 
 .download-btn-qr:hover {
-    background-color: rgb(91, 192, 222) !important;
-    color: white !important;
-
-
+    color: rgb(228, 12, 12) !important;
+    background-color: transparent !important;
 }
 
 .file-type-download {

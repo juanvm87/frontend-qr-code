@@ -14,11 +14,11 @@
 
 .save-update-buttons {
     width: 100%;
-    margin-top: 10px;
+    background-color: rgb(91, 192, 222) !important;
+    color: #fff !important;
 }
 
 .save-update-buttons:hover {
-    background-color: rgb(91, 192, 222) !important;
-    color: #fff;
+    background-color: rgb(27, 151, 189) !important;
 
 }

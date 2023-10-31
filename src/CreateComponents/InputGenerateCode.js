@@ -10,8 +10,8 @@ import {
 } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
 import React, { useEffect, useState } from "react";
-import Map from "../Map/Map.js";
-import "./NavGenerateCode.css";
+import Map from "../components/Map/Map.js";
+import "./InputGenerateCode.css";
 
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -188,6 +188,7 @@ export const InputGenerateCode = (props) => {
         <div className="div-inputs">
           <h2>Link</h2>
           <TextField
+            className="white-background"
             value={link}
             onChange={handleLinkChange}
             label="Link"
@@ -201,6 +202,7 @@ export const InputGenerateCode = (props) => {
           <h2>Text</h2>
 
           <TextField
+            className="white-background"
             value={text}
             onChange={handleTextChange}
             label="Text"
@@ -217,6 +219,7 @@ export const InputGenerateCode = (props) => {
           <div className="div-email">
             <div className="container-fields-email">
               <TextField
+                className="white-background"
                 onChange={(event) => {
                   setEmail((prev) => ({ ...prev, to: event.target.value }));
 
@@ -229,6 +232,7 @@ export const InputGenerateCode = (props) => {
                 sx={{ m: 1 }}
               />
               <TextField
+                className="white-background"
                 value={email.subject}
                 onChange={(event) => {
                   setEmail((prev) => ({
@@ -244,6 +248,7 @@ export const InputGenerateCode = (props) => {
               />
             </div>
             <TextField
+              className="white-background"
               onChange={(event) => {
                 setEmail((prev) => ({ ...prev, text: event.target.value }));
                 handleEmailChange();
@@ -269,6 +274,7 @@ export const InputGenerateCode = (props) => {
         <div className="div-inputs">
           <h2>Phone</h2>
           <MuiTelInput
+            className="white-background"
             value={phone}
             onChange={handlePhone}
             defaultCountry="IN"
@@ -280,6 +286,7 @@ export const InputGenerateCode = (props) => {
           <h2>SMS</h2>
           <div className="div-sms">
             <MuiTelInput
+              className="white-background"
               value={sms.phone}
               onChange={(value) => {
                 handleSmsChange("phone", value);
@@ -287,6 +294,7 @@ export const InputGenerateCode = (props) => {
               defaultCountry="IN"
             />
             <TextField
+              className="white-background"
               onChange={(event) => {
                 handleSmsChange("text", event.target.value);
               }}
@@ -306,6 +314,7 @@ export const InputGenerateCode = (props) => {
           <h2>WhatsApp</h2>
           <div className="div-sms">
             <MuiTelInput
+              className="white-background"
               value={whatsApp.phone}
               onChange={(value) => {
                 handleWhatsAppChange("phone", value);
@@ -313,6 +322,7 @@ export const InputGenerateCode = (props) => {
               defaultCountry="IN"
             />
             <TextField
+              className="white-background"
               label="Text"
               variant="outlined"
               multiline
@@ -361,7 +371,7 @@ export const InputGenerateCode = (props) => {
                 handleSkypeChange("id", event.target.value);
               }}
               inputProps={{ maxLength: 50 }}
-              className="text-field"
+              className="text-field white-background"
               label="Username"
               value={skype.id}
               variant="outlined"
@@ -374,6 +384,7 @@ export const InputGenerateCode = (props) => {
           <h2>Zoom</h2>
           <div className="container-fields">
             <TextField
+              className="white-background"
               onChange={(event) => {
                 handleZoomChange("id", event.target.value);
               }}
@@ -384,6 +395,7 @@ export const InputGenerateCode = (props) => {
               variant="outlined"
             />
             <TextField
+              className="white-background"
               onChange={(event) => {
                 handleZoomChange("password", event.target.value);
               }}
@@ -402,6 +414,7 @@ export const InputGenerateCode = (props) => {
             <FormControl sx={{ minWidth: "40%", margin: "5px" }}>
               <InputLabel id="demo-select-small-label">Network Type</InputLabel>
               <Select
+                className="white-background"
                 labelId="demo-select-small-label"
                 id="demo-select-small"
                 value={wifi.authentication}
@@ -421,8 +434,8 @@ export const InputGenerateCode = (props) => {
                   handleWifiChange("id", value.target.value);
                 }}
                 value={wifi.id}
-                sx={{ margin: "5px" }}
-                className="text-fields"
+                sx={{ margin: "5px", width: "260px" }}
+                className="text-fields white-background"
                 label="Network Name (SSID)"
                 variant="outlined"
                 inputProps={{ maxLength: 100 }}
@@ -433,10 +446,10 @@ export const InputGenerateCode = (props) => {
                 }}
                 disabled={isEncrypted}
                 value={wifi.password}
-                className="text-fields"
+                className="text-fields white-background"
                 label="Password"
                 variant="outlined"
-                sx={{ margin: "5px" }}
+                sx={{ margin: "5px", width: "260px" }}
                 inputProps={{ maxLength: 100 }}
               />
             </div>

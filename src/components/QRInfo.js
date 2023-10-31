@@ -119,8 +119,8 @@ const QRInfo = () => {
       )}
       {isChecking && (
         <>
-          <div className="profile-heading">
-            <div className="box-info-search">
+          <div className="profile-heading-info">
+            <div className="box-info-search-info">
               <QRCode
                 size={115}
                 id={qr.pin}
@@ -130,10 +130,16 @@ const QRInfo = () => {
               />
             </div>
             <div style={{ display: "flex", flexWrap: "wrap" }}>
-              <h2 className="floating-heading" style={{ color: "#ffffff" }}>
+              <h2
+                className="floating-heading-info"
+                style={{ color: "#ffffff" }}
+              >
                 User ID: {qr.ownerId}
               </h2>
-              <h2 className="floating-heading" style={{ color: "#ffffff" }}>
+              <h2
+                className="floating-heading-info"
+                style={{ color: "#ffffff" }}
+              >
                 QR pin: {qr.pin}
               </h2>
             </div>

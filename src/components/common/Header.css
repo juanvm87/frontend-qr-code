@@ -1,17 +1,20 @@
 .profile-heading {
     width: 100%;
     display: flex;
-    padding: 2rem;
+    padding: 0.5rem;
     /* background-color: #111fff; */
-    background-image: linear-gradient(to right, #3cde93, #0899c6, #02c1ec);
+    background-color: #02c1ec;
     gap: 2rem;
     overflow: hidden;
     flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 7vh;
 }
 
 .floating-heading {
     transform: translateY(0);
     animation: fl1 3s infinite linear;
+    margin: auto;
 }
 
 .floating-heading::before {
@@ -28,11 +31,11 @@
 }
 
 .box {
-    height: 100px;
-    width: 100px;
+    height: 70px;
+    width: 70px;
     background-color: #fff;
     color: #02c1ec;
-    font-size: 40px;
+    font-size: 30px;
     display: flex;
     align-items: center;
     justify-content: center;

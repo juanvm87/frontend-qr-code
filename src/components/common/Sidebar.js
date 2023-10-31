@@ -96,6 +96,11 @@ export default function Sidebar() {
       color: "#777777",
       height: "100%",
     }),
+    ...(location.pathname === "/create" && {
+      backgroundColor: "#f1f5ff",
+      color: "#777777",
+      height: "100%",
+    }),
   };
   // const profilePage
 

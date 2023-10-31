@@ -6,12 +6,9 @@ const Header = (props) => {
     <div className="profile-heading">
       <div className="box">{props.letters}</div>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <h1
-          className="floating-heading"
-          style={{ color: "#ffffff", fontWeight: 400 }}
-        >
+        <h2 className="floating-heading" style={{ color: "#ffffff" }}>
           {props.information}
-        </h1>
+        </h2>
         <div className="line"></div>
       </div>
     </div>

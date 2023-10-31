@@ -55,7 +55,7 @@ const Map = (props) => {
       <div className="container-location">
         <div className="text-field-map">
           <TextField
-            sx={{ margin: "5px" }}
+            sx={{ margin: "5px 5px 5px 0", backgroundColor: "white" }}
             value={location}
             onChange={(event) => setLocation(event.target.value)}
             onKeyDown={handleEnter}
@@ -75,7 +75,7 @@ const Map = (props) => {
         </div>
         <div>
           <TextField
-            sx={{ margin: "5px" }}
+            sx={{ margin: "5px 5px 5px 0", backgroundColor: "white" }}
             onChange={(event) => {
               setLatitude(event.target.value);
             }}
@@ -88,7 +88,7 @@ const Map = (props) => {
             }}
           />
           <TextField
-            sx={{ margin: "5px" }}
+            sx={{ margin: "5px 5px 5px 0", backgroundColor: "white" }}
             onChange={(event) => {
               setLongitude(event.target.value);
             }}
