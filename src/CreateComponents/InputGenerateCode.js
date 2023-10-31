@@ -462,7 +462,7 @@ export const InputGenerateCode = (props) => {
           <div className="div-inputs-event">
             <div className="div-inputs-texfile-event">
               <TextField
-                className="event-title"
+                className="event-title white-background "
                 value={eventData.title}
                 onChange={(e) => handleEventChange("title", e.target.value)}
                 style={{ margin: "5px", width: "270px" }}
@@ -471,6 +471,7 @@ export const InputGenerateCode = (props) => {
                 inputProps={{ maxLength: 100 }}
               />
               <TextField
+                className="white-background"
                 value={eventData.location}
                 onChange={(e) => handleEventChange("location", e.target.value)}
                 style={{ margin: "5px", width: "270px" }}
@@ -486,7 +487,7 @@ export const InputGenerateCode = (props) => {
                   components={["DateTimeField"]}
                 >
                   <DateTimeField
-                    className="dateTime-event"
+                    className="dateTime-event white-background"
                     onChange={(value) => {
                       if (value && value["$d"]) {
                         handleEventChange("startTime", value["$d"]);
@@ -502,7 +503,7 @@ export const InputGenerateCode = (props) => {
                   components={["DateTimeField"]}
                 >
                   <DateTimeField
-                    className="dateTime-event"
+                    className="dateTime-event white-background"
                     onChange={(value) => {
                       if (value && value["$d"]) {
                         handleEventChange("endTime", value["$d"]);
@@ -515,6 +516,7 @@ export const InputGenerateCode = (props) => {
             </div>
 
             <TextField
+              className="white-background"
               onChange={(event) => {
                 handleEventChange("notes", event.target.value);
               }}
