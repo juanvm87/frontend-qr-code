@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 
 import "./Create.css";
-import QRcode from "./viewCodes/QRCode";
+import QRcode from "../CreateComponents/QRCode";
 
 import Header from "./common/Header";
 import CarouselButtons from "../CreateComponents/CarouselButtons";
@@ -92,7 +92,9 @@ const Create = () => {
 
   return (
     <div>
-      <Header letters={"MQ"} information={"Make a QR"} />
+      {!idFromURL && <Header letters={"GQ"} information={"Create QR"} />}
+      {idFromURL && <Header letters={"UQ"} information={"Update QR"} />}
+
       <Box>
         <CarouselButtons
           activeButton={setActiveButton}
