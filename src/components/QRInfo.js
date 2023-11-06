@@ -7,7 +7,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { getQrByPin } from "../services/RestApi";
 import "./QRInfo.css";

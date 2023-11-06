@@ -11,7 +11,7 @@ import { useParams } from "react-router";
 import { getQr } from "../services/RestApi";
 import { Box } from "@mui/material";
 
-const Create = () => {
+const CreateDynamicQr = () => {
   const [linkData, setLinkData] = useState("");
   const [textData, setTextData] = useState("");
   const [emailData, setEmailData] = useState({});
@@ -92,7 +92,9 @@ const Create = () => {
 
   return (
     <div>
-      {!idFromURL && <Header letters={"CQ"} information={"Create QR"} />}
+      {!idFromURL && (
+        <Header letters={"CDQ"} information={"Create Dynamic QR"} />
+      )}
       {idFromURL && <Header letters={"UQ"} information={"Update QR"} />}
 
       <Box>
@@ -140,4 +142,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default CreateDynamicQr;

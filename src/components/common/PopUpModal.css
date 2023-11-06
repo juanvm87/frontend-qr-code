@@ -5,7 +5,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: max-content;
+    width: -webkit-fill-available;
+    max-width: 30rem;
     background-color: #fff;
     border: 2px solid #000;
     box-shadow: 24px;
@@ -13,7 +14,7 @@
 }
 
 .save-update-buttons {
-    width: 100%;
+    width: 200px;
     background-color: rgb(91, 192, 222) !important;
     color: #fff !important;
 }

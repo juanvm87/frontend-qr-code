@@ -52,7 +52,7 @@ export default function UserCard(props) {
     <Card className="card-container" elevation={0}>
       <Box className="box-info">
         <CardContent className="card-content-info">
-          {props.dynamic && (
+          {props.qrData.isDynamic && (
             <Typography className="dynamic-label">DYNAMIC</Typography>
           )}
           <Typography

@@ -37,7 +37,11 @@ export function PopUpModal(props) {
         </Button>
       )}
       {isUpdating && (
-        <Button className="save-update-buttons" onClick={handleOpen}>
+        <Button
+          sx={{ marginTop: "10px" }}
+          className="save-update-buttons"
+          onClick={handleOpen}
+        >
           Update
         </Button>
       )}

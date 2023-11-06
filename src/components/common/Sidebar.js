@@ -85,24 +85,6 @@ export default function Sidebar() {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
   const { selected, setSelected } = useContext(MyHandleContext);
-  const qrInfoStyles = {
-    ...(location.pathname === "/qr-info" && {
-      backgroundColor: "#f1f5ff",
-      color: "#777777",
-      height: "100vh",
-    }),
-    ...(location.pathname === "/view" && {
-      backgroundColor: "#f1f5ff",
-      color: "#777777",
-      height: "100%",
-    }),
-    ...(location.pathname === "/create" && {
-      backgroundColor: "#f1f5ff",
-      color: "#777777",
-      height: "100%",
-    }),
-  };
-  // const profilePage
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -238,8 +220,8 @@ export default function Sidebar() {
             <ListItem
               disablePadding
               style={{
-                backgroundColor: selected === "Home" ? "#5BC0DE" : "#f1f5ff",
-                color: selected === "Home" ? "white" : "#777777",
+                backgroundColor: selected === "home" ? "#5BC0DE" : "#f1f5ff",
+                color: selected === "home" ? "white" : "#777777",
               }}
             >
               <ListItemButton
@@ -250,7 +232,7 @@ export default function Sidebar() {
                 <ListItemIcon>
                   {" "}
                   <HomeOutlinedIcon
-                    style={{ color: selected === "Home" ? "white" : "#777777" }}
+                    style={{ color: selected === "home" ? "white" : "#777777" }}
                   />{" "}
                 </ListItemIcon>
                 <ListItemText primary="Home" />
@@ -261,15 +243,15 @@ export default function Sidebar() {
             <ListItem
               disablePadding
               style={{
-                backgroundColor: selected === "Create" ? "#5BC0DE" : "#f1f5ff",
-                color: selected === "Create" ? "white" : "#777777",
+                backgroundColor: selected === "create" ? "#5BC0DE" : "#f1f5ff",
+                color: selected === "create" ? "white" : "#777777",
               }}
             >
               <ListItemButton onClick={() => handleMenuClick("create")}>
                 <ListItemIcon>
                   <AddCircleOutlineOutlinedIcon
                     style={{
-                      color: selected === "Create" ? "white" : "#777777",
+                      color: selected === "create" ? "white" : "#777777",
                     }}
                   />
                 </ListItemIcon>
@@ -281,8 +263,8 @@ export default function Sidebar() {
             <ListItem
               disablePadding
               style={{
-                backgroundColor: selected === "View" ? "#5BC0DE" : "#f1f5ff",
-                color: selected === "View" ? "white" : "#777777",
+                backgroundColor: selected === "view" ? "#5BC0DE" : "#f1f5ff",
+                color: selected === "view" ? "white" : "#777777",
               }}
             >
               <ListItemButton onClick={() => handleMenuClick("view")}>
@@ -290,7 +272,7 @@ export default function Sidebar() {
                   {" "}
                   <QrCode2OutlinedIcon
                     style={{
-                      color: selected === "View" ? "white" : "#777777",
+                      color: selected === "view" ? "white" : "#777777",
                     }}
                   />{" "}
                 </ListItemIcon>
@@ -319,41 +301,40 @@ export default function Sidebar() {
               </ListItemButton>
               <Divider />
             </ListItem>
-            {/* <ListItem
-                  disablePadding
-                  style={{
-                    backgroundColor:
-                      selected === "Dynamic" ? "#5BC0DE" : "#f1f5ff",
-                    color: selected === "Dynamic" ? "white" : "#777777",
-                  }}
-                >
-                  <ListItemButton onClick={() => handleMenuClick("Create")}>
-                    <ListItemIcon>
-                      <AddCircleOutlineOutlinedIcon
-                        style={{
-                          color: selected === "Dynamic" ? "white" : "#777777",
-                        }}
-                      />
-                    </ListItemIcon>
-                    <ListItemText primary="Dynamic QR" />
-                  </ListItemButton>
-                  <Divider />
-                </ListItem> */}
+            <ListItem
+              disablePadding
+              style={{
+                backgroundColor: selected === "dynamic" ? "#5BC0DE" : "#f1f5ff",
+                color: selected === "dynamic" ? "white" : "#777777",
+              }}
+            >
+              <ListItemButton onClick={() => handleMenuClick("create-dynamic")}>
+                <ListItemIcon>
+                  <AddCircleOutlineOutlinedIcon
+                    style={{
+                      color: selected === "dynamic" ? "white" : "#777777",
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Dynamic QR" />
+              </ListItemButton>
+              <Divider />
+            </ListItem>
 
             <>
               <ListItem
                 disablePadding
                 style={{
                   backgroundColor:
-                    selected === "Profile" ? "#5BC0DE" : "#f1f5ff",
-                  color: selected === "Profile" ? "white" : "#777777",
+                    selected === "profile" ? "#5BC0DE" : "#f1f5ff",
+                  color: selected === "profile" ? "white" : "#777777",
                 }}
               >
                 <ListItemButton onClick={() => handleMenuClick("profile")}>
                   <ListItemIcon>
                     <AccountCircleOutlined
                       style={{
-                        color: selected === "Profile" ? "white" : "#777777",
+                        color: selected === "profile" ? "white" : "#777777",
                       }}
                     />
                   </ListItemIcon>
@@ -366,8 +347,8 @@ export default function Sidebar() {
                 disablePadding
                 style={{
                   backgroundColor:
-                    selected === "Settings" ? "#5BC0DE" : "#f1f5ff",
-                  color: selected === "Settings" ? "white" : "#777777",
+                    selected === "settings" ? "#5BC0DE" : "#f1f5ff",
+                  color: selected === "settings" ? "white" : "#777777",
                 }}
               >
                 <ListItemButton onClick={() => handleMenuClick("settings")}>
@@ -375,7 +356,7 @@ export default function Sidebar() {
                     {" "}
                     <SettingsOutlinedIcon
                       style={{
-                        color: selected === "Settings" ? "white" : "#777777",
+                        color: selected === "settings" ? "white" : "#777777",
                       }}
                     />{" "}
                   </ListItemIcon>
@@ -410,7 +391,7 @@ export default function Sidebar() {
             </>
           </List>
         </Drawer>
-        <Main open={open} sx={{ width: "100%", margin: 0, ...qrInfoStyles }}>
+        <Main open={open} sx={{ width: "100%", margin: 0 }}>
           <DrawerHeader />
           <Outlet />
         </Main>

@@ -4,13 +4,13 @@ import QRCode from "react-qr-code";
 import "./QRcode.css";
 import { useParams } from "react-router";
 import { BsFiletypePdf, BsFiletypeSvg, BsFiletypePng } from "react-icons/bs";
-import { createQrAPI, getQr, updateQr } from "../../services/RestApi";
-import { checkInput } from "../helperFunction/checkInput";
-import { PopUpModal } from "../common/PopUpModal";
-import { handleformattedDate } from "../helperFunction/formatedDate";
-import { handleDownload } from "../helperFunction/handleDownload";
+import { createQrAPI, getQr, updateQr } from "../services/RestApi";
+import { checkInput } from "../components/helperFunction/checkInput";
+import { PopUpModal } from "../components/common/PopUpModal";
+import { handleformattedDate } from "../components/helperFunction/formatedDate";
+import { handleDownload } from "../components/helperFunction/handleDownload";
 import { useNavigate } from "react-router-dom";
-import { MyHandleContext } from "../../store/handleContext";
+import { MyHandleContext } from "../store/handleContext";
 
 const QRcode = (props) => {
   const [linkData, setLinkData] = useState("");
@@ -244,6 +244,7 @@ END:VCALENDAR`;
         type: props.activeButton,
         link: linkData,
         input: inp,
+        isDynamic: false,
         ownerId: "",
       };
       createQrAPI(newData);

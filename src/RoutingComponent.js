@@ -12,6 +12,8 @@ import View from "./components/View";
 import AccessControl from "./components/common/AccessControl";
 import ForgotPassword from "./components/login/ForgotPassword";
 import QRInfo from "./components/QRInfo";
+import CreateDynamicQr from "./components/CreateDynamicQr";
+import DynamicQr from "./components/common/DynamicQr";
 
 export default function RoutingComponent() {
   return (
@@ -22,6 +24,7 @@ export default function RoutingComponent() {
             <Route path="/home" element={<Home />} />
             <Route path="/qr-info" element={<QRInfo />} />
             <Route path="/create" element={<Create />} />
+            <Route path="/create-dynamic" element={<CreateDynamicQr />} />
             <Route path="/edit/:id" element={<Create />} />
             <Route path="/view" element={<View />} />
             <Route path="/profile" element={<Profile />} />
@@ -35,6 +38,7 @@ export default function RoutingComponent() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/dynamic-qr/:id" element={<DynamicQr />} />
       </Routes>
     </BrowserRouter>
   );
