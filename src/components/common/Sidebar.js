@@ -304,15 +304,17 @@ export default function Sidebar() {
             <ListItem
               disablePadding
               style={{
-                backgroundColor: selected === "dynamic" ? "#5BC0DE" : "#f1f5ff",
-                color: selected === "dynamic" ? "white" : "#777777",
+                backgroundColor:
+                  selected === "create-dynamic" ? "#5BC0DE" : "#f1f5ff",
+                color: selected === "create-dynamic" ? "white" : "#777777",
               }}
             >
               <ListItemButton onClick={() => handleMenuClick("create-dynamic")}>
                 <ListItemIcon>
                   <AddCircleOutlineOutlinedIcon
                     style={{
-                      color: selected === "dynamic" ? "white" : "#777777",
+                      color:
+                        selected === "create-dynamic" ? "white" : "#777777",
                     }}
                   />
                 </ListItemIcon>

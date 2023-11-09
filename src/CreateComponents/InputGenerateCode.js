@@ -112,60 +112,66 @@ export const InputGenerateCode = (props) => {
   const handlePhone = (newPhone) => {
     setPhone(newPhone);
     props.phoneData(newPhone);
+    handleDynamicQrInput(newPhone);
   };
 
   const handleLinkChange = (event) => {
     const value = event.target.value;
     setLink(value);
     props.linkData(value);
+    handleDynamicQrInput(value);
   };
   const handleTextChange = (event) => {
     const value = event.target.value;
     setText(value);
     props.textData(value);
+    handleDynamicQrInput(value);
   };
   //validarte the email
-  function isValidEmail(email) {
-    return /\S+@\S+\.\S+/.test(email);
-  }
-  const handleEmailChange = () => {
-    if (isValidEmail(email.to)) {
-      props.emailData(email);
-    }
+
+  const handleEmailChange = (field, value) => {
+    let newData = { ...email, [field]: value };
+    setEmail(newData);
+    props.emailData(newData);
+    handleDynamicQrInput(newData);
   };
 
   const handleSmsChange = (field, value) => {
     let newData = { ...sms, [field]: value };
     setSms(newData);
-    if (sms.phone.length > 6) {
-      props.smsData(newData);
-    }
+
+    props.smsData(newData);
+    handleDynamicQrInput(newData);
   };
 
   const handleWhatsAppChange = (field, value) => {
     let newData = { ...whatsApp, [field]: value };
     setWhatsApp(newData);
-    if (whatsApp.phone.length > 6) {
-      props.whatsAppData(newData);
-    }
+
+    props.whatsAppData(newData);
+    handleDynamicQrInput(newData);
   };
 
   const handleZoomChange = (field, value) => {
     const newData = { ...zoom, [field]: value };
     setZoom(newData);
     props.zoomData(newData);
+    handleDynamicQrInput(newData);
   };
   const handleSkypeChange = (field, value) => {
     let newData = { ...skype, [field]: value };
     setSkype(newData);
 
     props.skypeData(newData);
+    handleDynamicQrInput(newData);
   };
 
   const handleWifiChange = (field, value) => {
     let newData = { ...wifi, [field]: value };
     setWifi(newData);
     props.wifiData(newData);
+    handleDynamicQrInput(newData);
+
     if (value === "no_password") {
       setIsEncrypted(true);
     } else {
@@ -177,9 +183,23 @@ export const InputGenerateCode = (props) => {
     let newData = { ...eventData, [field]: value };
     setEventData(newData);
     props.eventData(newData);
+    handleDynamicQrInput(newData);
   };
   const handleLocationChange = (value) => {
     props.locationData(value);
+    handleDynamicQrInput(value);
+  };
+  const handleIsGeneratingDynamicQr = () => {
+    if (props.isGeneratingQr !== undefined) {
+      props.isGeneratingQr(true);
+    }
+  };
+  const handleDynamicQrInput = (value) => {
+    if (props.dynamicInput !== undefined) {
+      props.dynamicInput(value);
+      handleIsGeneratingDynamicQr();
+      console.log("199 inputGenerate ", value);
+    }
   };
 
   return (
@@ -221,9 +241,7 @@ export const InputGenerateCode = (props) => {
               <TextField
                 className="white-background"
                 onChange={(event) => {
-                  setEmail((prev) => ({ ...prev, to: event.target.value }));
-
-                  handleEmailChange();
+                  handleEmailChange("to", event.target.value);
                 }}
                 value={email.to}
                 label="Email to"
@@ -235,11 +253,7 @@ export const InputGenerateCode = (props) => {
                 className="white-background"
                 value={email.subject}
                 onChange={(event) => {
-                  setEmail((prev) => ({
-                    ...prev,
-                    subject: event.target.value,
-                  }));
-                  handleEmailChange();
+                  handleEmailChange("subject", event.target.value);
                 }}
                 label="Subject"
                 variant="outlined"
@@ -250,8 +264,7 @@ export const InputGenerateCode = (props) => {
             <TextField
               className="white-background"
               onChange={(event) => {
-                setEmail((prev) => ({ ...prev, text: event.target.value }));
-                handleEmailChange();
+                handleEmailChange("text", event.target.value);
               }}
               label="Text"
               value={email.text}

@@ -4,7 +4,7 @@ import QRCode from "react-qr-code";
 import "./QRcode.css";
 import { useParams } from "react-router";
 import { BsFiletypePdf, BsFiletypeSvg, BsFiletypePng } from "react-icons/bs";
-import { createQrAPI, getQr, updateQr } from "../services/RestApi";
+import { createQrAPI, updateQr } from "../services/RestApi";
 import { checkInput } from "../components/helperFunction/checkInput";
 import { PopUpModal } from "../components/common/PopUpModal";
 import { handleformattedDate } from "../components/helperFunction/formatedDate";
@@ -18,9 +18,32 @@ const QRcode = (props) => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [qrData, setQrData] = useState({});
   const { selected, setSelected } = useContext(MyHandleContext);
+  const [isDynamic, setIsDynamic] = useState(false);
+  const [dynamicLink, setDynamicLink] = useState("");
   const idFromURL = useParams().id;
   const qrCodeRef = useRef(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleLinkForDynamic = (link) => {
+      props.qrLink(link);
+      console.log("30 QRcode link---", link);
+    };
+
+    if (props.qrLink !== undefined) {
+      handleLinkForDynamic(linkData);
+    }
+  }, [linkData]);
+
+  useEffect(() => {
+    const handleDynamic = () => {
+      setIsDynamic(true);
+      setDynamicLink(props.dynamicLink);
+    };
+    if (props.dynamicLink !== undefined) {
+      handleDynamic();
+    }
+  }, [props.dynamicLink]);
 
   useEffect(() => {
     const getQrDataAPI = async () => {
@@ -54,20 +77,20 @@ const QRcode = (props) => {
   }, [props.textData]);
 
   useEffect(() => {
-    function HandleData() {
+    function HandleLinkData() {
       try {
         setLinkData("http://" + props.linkData);
       } catch (error) {
         console.error("Error fetching linkData:", error);
       }
     }
-    HandleData();
+    HandleLinkData();
   }, [props.linkData]);
 
   useEffect(() => {
     function HandleEmailData() {
       try {
-        const edata = `MATMSG:TO:${props.emailData.to};SUB:${props.emailData.subject};BODY:${props.emailData.text};;`;
+        const edata = `mailto:${props.emailData.to}?subject=${props.emailData.subject}&body=${props.emailData.text}`;
         setLinkData(edata);
       } catch (error) {
         console.error("Error fetching emailData:", error);
@@ -75,6 +98,7 @@ const QRcode = (props) => {
     }
     HandleEmailData();
   }, [props.emailData]);
+
   useEffect(() => {
     function HandleZoomData() {
       try {
@@ -88,6 +112,7 @@ const QRcode = (props) => {
     }
     HandleZoomData();
   }, [props.zoomData]);
+
   useEffect(() => {
     function HandlePhoneData() {
       try {
@@ -131,6 +156,7 @@ const QRcode = (props) => {
 
     handleWhatsAppData();
   }, [props.whatsAppData]);
+
   useEffect(() => {
     function handleEventData() {
       try {
@@ -154,14 +180,21 @@ DESCRIPTION:${eventData_notes}
 END:VALARM
 END:VEVENT
 END:VCALENDAR`;
+        if (isDynamic) {
+          const encodedData = encodeURIComponent(eventDataString22);
+          const dataUri = `data:text/calendar;charset=utf8,${encodedData}`;
 
-        setLinkData(eventDataString22);
+          setLinkData(dataUri);
+        } else {
+          setLinkData(eventDataString22);
+        }
       } catch (error) {
         console.error("Error fetching eventData:", error);
       }
     }
     handleEventData();
   }, [props.eventData]);
+
   useEffect(() => {
     function handleWifiData() {
       try {
@@ -170,18 +203,24 @@ END:VCALENDAR`;
         let id = props.wifiData.id;
 
         const wifiData = `WIFI:T:${auth};S:${id};P:${passd};H:{false}`;
-        setLinkData(wifiData);
+        if (isDynamic) {
+          const encodedData = encodeURIComponent(wifiData);
+          const dataUri = `data:text/plain;charset=utf8,${encodedData}`;
+          setLinkData(dataUri);
+        } else {
+          setLinkData(wifiData);
+        }
       } catch (error) {
         console.error("Error fetching wifiData:", error);
       }
     }
     handleWifiData();
   }, [props.wifiData]);
+
   useEffect(() => {
     function handleLocationData() {
       try {
         let dataL = props.locationData.link;
-        console.log("178 qrcode", dataL);
         setLinkData(dataL);
       } catch (err) {
         console.error("Error fetching locationData:", err);
@@ -236,6 +275,7 @@ END:VCALENDAR`;
       throw error;
     }
   };
+  console.log("278 qrCode isdinamic?", isDynamic);
   const saveData = (textDescription) => {
     try {
       let inp = checkInput(props);
@@ -263,7 +303,7 @@ END:VCALENDAR`;
         size={200}
         id="qr-picture"
         className="qr-code-img"
-        value={linkData}
+        value={isDynamic ? dynamicLink : linkData}
         ref={qrCodeRef}
       />
       {linkData && !qrData && (
@@ -304,7 +344,7 @@ END:VCALENDAR`;
         </div>
       )}
       {isUpdating && (
-        <div className="">
+        <div className="updating-div">
           <PopUpModal
             saveData={saveData}
             setDownloadType={setDownloadType}

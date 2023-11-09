@@ -9,6 +9,7 @@
 
 /* CSS for Button Component */
 .home-button {
+    border-radius: 8px !important;
     background-color: rgb(91, 192, 222) !important;
     width: 18rem;
     display: flex;

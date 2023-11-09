@@ -59,22 +59,24 @@
 .text-details {
     max-width: 800px;
 
+
 }
 
 .qr-details-card {
     margin-top: 4rem;
     min-width: 25rem;
+    border-radius: 10px !important;
 }
 
 /* header */
 
 .profile-heading-info {
+    border-radius: 8px;
     width: 100%;
     display: flex;
     padding: 1.5rem;
     align-items: center;
-    /* background-color: #111fff; */
-    background-image: linear-gradient(to right, #3cde93, #0899c6, #02c1ec);
+    background-color: #02c1ec;
     gap: 2rem;
     overflow: hidden;
     flex-wrap: wrap;
@@ -100,10 +102,11 @@
 }
 
 .box-info-search-info {
+    border-radius: 8px;
     height: 120px;
     width: 120px;
+    padding: 5px;
     background-color: #fff;
-    color: #02c1ec;
     font-size: 40px;
     display: flex;
     align-items: center;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./Carousel.module.css";
 import linkIcon from "../components/Images/qrimages/link.png";
 import textIcon from "../components/Images/qrimages/text.png";
@@ -11,7 +11,12 @@ import skypeIcon from "../components/Images/qrimages/skype.png";
 import zoomIcon from "../components/Images/qrimages/zoom.png";
 import wifiIcon from "../components/Images/qrimages/wifi.png";
 import eventIcon from "../components/Images/qrimages/event.png";
+import { MyHandleContext } from "../store/handleContext";
+import { Tooltip } from "primereact/tooltip";
+
 const CarouselButtons = (props) => {
+  const { selected, setSelected } = useContext(MyHandleContext);
+
   const buttonsData = [
     {
       id: 1,
@@ -86,7 +91,14 @@ const CarouselButtons = (props) => {
         props.activeButton(label);
       }}
       className={styles.jss209}
-      style={props.selectedButton === label ? { border: "5px solid blue" } : {}}
+      style={
+        props.selectedButton === label
+          ? { border: "5px solid blue", position: "relative" }
+          : { position: "relative" }
+      }
+      disabled={
+        label === "Wi-Fi" && selected === "create-dynamic" ? true : false
+      }
     >
       <div className={styles.jss211}>
         <img
@@ -116,7 +128,21 @@ const CarouselButtons = (props) => {
     >
       <div className={styles.container}>
         {buttonsData.map((button) => (
-          <CustomButton key={button.id} {...button} />
+          <>
+            <span
+              className={`i${button.id}` + selected}
+              data-pr-tooltip="Wi-Fi is not available in dynamic mode"
+            >
+              <CustomButton key={button.id} {...button} />
+            </span>
+
+            <Tooltip
+              style={{ background: "black", color: "white" }}
+              target=".i10create-dynamic"
+              mouseTrack
+              mouseTrackLeft={10}
+            />
+          </>
         ))}
       </div>
     </div>

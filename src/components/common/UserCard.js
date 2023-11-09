@@ -192,7 +192,12 @@ export default function UserCard(props) {
           size={150}
           id={props.qrData.pin}
           className="qr-code-view"
-          value={props.qrData.link}
+          value={
+            props.qrData.isDynamic
+              ? //TODO change domain
+                `http://10.5.48.80:3000/dynamic-qr/${props.qrData._id}`
+              : props.qrData.link
+          }
           ref={qrCodeRef}
         />
         <Button

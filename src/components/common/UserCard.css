@@ -27,11 +27,11 @@
 }
 
 /* Dynamic label */
-.dynamic-label {
+.card-content-info .dynamic-label {
     background-color: blue;
     color: white;
     position: absolute;
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     top: 0;
     left: 0;
     padding-left: 1.5rem;

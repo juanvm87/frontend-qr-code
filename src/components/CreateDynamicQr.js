@@ -8,7 +8,7 @@ import Header from "./common/Header";
 import CarouselButtons from "../CreateComponents/CarouselButtons";
 import { InputGenerateCode } from "../CreateComponents/InputGenerateCode";
 import { useParams } from "react-router";
-import { getQr } from "../services/RestApi";
+import { createQrAPI, getQr, updateQr } from "../services/RestApi";
 import { Box } from "@mui/material";
 
 const CreateDynamicQr = () => {
@@ -26,6 +26,65 @@ const CreateDynamicQr = () => {
   const [locationData, setLocationData] = useState({});
   const idFromURL = useParams().id;
   const [qrData, setQrData] = useState({});
+  const [isDynamic, setIsDinamic] = useState(false);
+  const [dynamicLink, setDynamicLink] = useState("");
+  const [dynamicId, setDynamicId] = useState("");
+  const [isGeneratingQr, setIsGeneratingQr] = useState(false);
+  const [dynamicInput, setDynamicInput] = useState({});
+  const [qrLink, setQrLink] = useState("");
+
+  const handleQrLink = (value) => {
+    setQrLink(value);
+  };
+  const updateDynamic = async (v) => {
+    try {
+      const updateCode = {
+        title: "",
+        type: activeButton,
+        link: qrLink,
+        input: dynamicInput,
+      };
+      let id = dynamicId ? dynamicId : v;
+      await updateQr(id, updateCode);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const generateDynamicQr = async () => {
+    try {
+      setIsDinamic(true);
+      const dynamicQr = {
+        title: "",
+        type: "Link",
+        // TODO: add company domain
+        link: "http://10.5.48.80:3000/login",
+        input: { link: "" },
+        isDynamic: true,
+        ownerId: "",
+      };
+      const reply = await createQrAPI(dynamicQr);
+
+      setDynamicId(reply.data._id);
+      const newDynamicLink = `http://10.5.48.80:3000/dynamic-qr/${reply.data._id}`;
+      setDynamicLink(newDynamicLink);
+
+      updateDynamic(reply.data._id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (isGeneratingQr && isDynamic && !idFromURL && dynamicId) {
+      updateDynamic();
+    }
+  }, [dynamicInput && qrLink]);
+
+  useEffect(() => {
+    if (isGeneratingQr && !isDynamic && !idFromURL) {
+      generateDynamicQr();
+    }
+  }, [isGeneratingQr]);
 
   const getQrDataAPI = async () => {
     try {
@@ -86,6 +145,7 @@ const CreateDynamicQr = () => {
       throw error;
     }
   };
+
   useEffect(() => {
     getQrDataAPI();
   }, []);
@@ -101,6 +161,7 @@ const CreateDynamicQr = () => {
         <CarouselButtons
           activeButton={setActiveButton}
           selectedButton={activeButton}
+          isDynamic={isDynamic}
         />
         <Box className="container-grcode">
           <InputGenerateCode
@@ -117,6 +178,8 @@ const CreateDynamicQr = () => {
             skypeData={setSkypeData}
             locationData={setLocationData}
             qrData={qrData}
+            isGeneratingQr={setIsGeneratingQr}
+            dynamicInput={setDynamicInput}
           />
 
           <Box className="qr-code">
@@ -134,6 +197,8 @@ const CreateDynamicQr = () => {
               locationData={locationData}
               activeButton={activeButton}
               qrData={qrData}
+              dynamicLink={dynamicLink}
+              qrLink={handleQrLink}
             />
           </Box>
         </Box>

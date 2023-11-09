@@ -1,4 +1,5 @@
 .profile-heading {
+    border-radius: 8px;
     width: 100%;
     display: flex;
     padding: 0.5rem;
@@ -39,4 +40,5 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 8px;
 }

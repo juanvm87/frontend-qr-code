@@ -2,8 +2,8 @@ import axios from "axios";
 import jwtDecode from "jwt-decode"; // Import jwt-decode
 
 const instance = axios.create({
-  baseURL: "http://localhost:8080",
-  //baseURL: "http://10.5.48.34:8080",
+  //baseURL: "http://localhost:8080",
+  baseURL: "http://10.5.48.80:8080",
   timeout: 3000,
   headers: {
     "Content-type": "application/json",
@@ -16,12 +16,9 @@ instance.interceptors.request.use(function (config) {
   const token = localStorage.getItem("token");
 
   if (token) {
-    const decodedToken = jwtDecode(token); // Use jwt-decode to decode the token
-    const currentDate = Math.floor(Date.now() / 1000); // Convert to seconds
-    console.log("out", decodedToken.exp < currentDate);
+    const decodedToken = jwtDecode(token);
+    const currentDate = Math.floor(Date.now() / 1000);
     if (decodedToken.exp < currentDate) {
-      // Token is expired, redirect to the login page
-      console.log("ddddddddd", decodedToken.exp < currentDate);
       localStorage.clear();
       window.location.href = "/login";
       return;

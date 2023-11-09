@@ -6,6 +6,7 @@
     height: 315px;
     width: 300px;
     align-items: center;
+    border-radius: 10px !important;
 }
 
 .container-btn-qr {
