@@ -29,7 +29,7 @@ function Register() {
     confirmPassword: "",
   };
   const [values, setValues] = useState(initialValues);
-  const [errorMsg, setErrorMsg] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     const auth = localStorage.getItem("token");
@@ -45,13 +45,14 @@ function Register() {
   // Check if the password meets your criteria
   const isPasswordValid = (password) => {
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
+
     return passwordRegex.test(password);
   };
 
   const createAccountHandler = () => {
     if (values.password === values.confirmPassword && isEmail(values.email)) {
       if (!isPasswordValid(values.password)) {
-        setErrorMsg(true); // Display an error message for invalid password
+        setErrorMsg("password"); // Display an error message for invalid password
       } else {
         signup({
           name: values.name,
@@ -75,7 +76,8 @@ function Register() {
           });
       }
     } else if (!isEmail(values.email)) {
-      setErrorMsg(true);
+      console.log("email----", values.email);
+      setErrorMsg("email");
     } else if (values.password !== values.confirmPassword) {
       alert("Password & Confirm Password Didn't Match");
     }
@@ -89,7 +91,7 @@ function Register() {
   };
 
   const handleInputChange = (event) => {
-    setErrorMsg(false);
+    setErrorMsg("");
     const { name, value } = event.target;
     setValues({ ...values, [name]: value });
   };
@@ -170,7 +172,7 @@ function Register() {
           }
         ></i>
 
-        {errorMsg && (
+        {errorMsg === "email" && (
           <div
             style={{
               color: "red",
@@ -230,6 +232,20 @@ function Register() {
               : "register_confirmpassword_logomotion"
           }
         ></i>
+
+        {errorMsg === "password" && (
+          <div
+            style={{
+              color: "red",
+              margin: "0px",
+              padding: "0px",
+              fontSize: "10px",
+            }}
+          >
+            Password must be 8 characters or longer with at least one digit, one
+            lowercase letter, one uppercase letter, and one special character.
+          </div>
+        )}
 
         <button className="account_button" onClick={createAccountHandler}>
           Create account

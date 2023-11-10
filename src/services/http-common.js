@@ -2,8 +2,8 @@ import axios from "axios";
 import jwtDecode from "jwt-decode"; // Import jwt-decode
 
 const instance = axios.create({
-  //baseURL: "http://localhost:8080",
-  baseURL: "http://10.5.48.80:8080",
+  baseURL: "http://localhost:8080",
+  //baseURL: "http://10.5.48.80:8080",
   timeout: 3000,
   headers: {
     "Content-type": "application/json",

@@ -7,8 +7,7 @@
     margin: 1rem;
     padding-top: 1rem;
     padding-left: 2rem;
-
-    border-radius: 0;
+    border-radius: 10px !important
 }
 
 .box-info {
@@ -28,7 +27,7 @@
 
 /* Dynamic label */
 .card-content-info .dynamic-label {
-    background-color: blue;
+    background-color: rgb(73, 73, 234);
     color: white;
     position: absolute;
     font-size: 0.9rem;

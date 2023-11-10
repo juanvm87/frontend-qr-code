@@ -36,15 +36,15 @@ const CreateDynamicQr = () => {
   const handleQrLink = (value) => {
     setQrLink(value);
   };
-  const updateDynamic = async (v) => {
+  const updateDynamic = async (valueId) => {
     try {
       const updateCode = {
         title: "",
         type: activeButton,
-        link: qrLink,
+        link: qrLink ? qrLink : "http://10.5.48.80:3000/login",
         input: dynamicInput,
       };
-      let id = dynamicId ? dynamicId : v;
+      let id = dynamicId ? dynamicId : valueId;
       await updateQr(id, updateCode);
     } catch (error) {
       console.log(error);
@@ -53,6 +53,9 @@ const CreateDynamicQr = () => {
   const generateDynamicQr = async () => {
     try {
       setIsDinamic(true);
+      console.log("dynamicLink", qrLink);
+      console.log("----dynamicImput-----", dynamicInput);
+      console.log("activeBut", activeButton);
       const dynamicQr = {
         title: "",
         type: "Link",
@@ -199,6 +202,7 @@ const CreateDynamicQr = () => {
               qrData={qrData}
               dynamicLink={dynamicLink}
               qrLink={handleQrLink}
+              dinamicQrId={dynamicId}
             />
           </Box>
         </Box>

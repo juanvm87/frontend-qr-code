@@ -66,8 +66,12 @@ export function PopUpModal(props) {
               <Button onClick={handleClose}>Cancel</Button>
               <Button
                 onClick={() => {
-                  if (!isUpdating) {
+                  if (!isUpdating && !props.isDynamic) {
+                    console.log("noUpdating", props.isDynamic);
                     props.saveData(textValue);
+                  } else if (props.isDynamic) {
+                    console.log("isDynamic", props.isDynamic);
+                    props.handleUpdate(textValue);
                   } else {
                     props.handleUpdate(textValue);
                   }

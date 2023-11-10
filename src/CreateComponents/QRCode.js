@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
-import { Button, Card, CardContent } from "@mui/material";
+import { Button, Card } from "@mui/material";
 import QRCode from "react-qr-code";
 import "./QRcode.css";
 import { useParams } from "react-router";
@@ -27,7 +27,6 @@ const QRcode = (props) => {
   useEffect(() => {
     const handleLinkForDynamic = (link) => {
       props.qrLink(link);
-      console.log("30 QRcode link---", link);
     };
 
     if (props.qrLink !== undefined) {
@@ -265,7 +264,8 @@ END:VCALENDAR`;
         link: linkData,
         input: inp,
       };
-      updateQr(idFromURL, updateCode);
+      const id = idFromURL ? idFromURL : props.dinamicQrId;
+      updateQr(id, updateCode);
       setSelected("View");
       setTimeout(() => {
         navigate("/view");
@@ -275,7 +275,7 @@ END:VCALENDAR`;
       throw error;
     }
   };
-  console.log("278 qrCode isdinamic?", isDynamic);
+
   const saveData = (textDescription) => {
     try {
       let inp = checkInput(props);
@@ -303,7 +303,7 @@ END:VCALENDAR`;
         size={200}
         id="qr-picture"
         className="qr-code-img"
-        value={isDynamic ? dynamicLink : linkData}
+        value={isDynamic || isUpdating ? dynamicLink : linkData}
         ref={qrCodeRef}
       />
       {linkData && !qrData && (
@@ -339,6 +339,8 @@ END:VCALENDAR`;
               saveData={saveData}
               setDownloadType={setDownloadType}
               isUpdating={isUpdating}
+              handleUpdate={handleUpdate}
+              isDynamic={isDynamic}
             />
           </div>
         </div>
@@ -350,6 +352,7 @@ END:VCALENDAR`;
             setDownloadType={setDownloadType}
             isUpdating={isUpdating}
             handleUpdate={handleUpdate}
+            isDynamic={qrData.isDynamic}
           />
         </div>
       )}
