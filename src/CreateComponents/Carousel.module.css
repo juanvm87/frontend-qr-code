@@ -37,10 +37,10 @@
 
 .jss209 {
     color: rgb(34, 14, 39);
-    width: 116px;
+    width: 103px;
     border: 3px solid rgb(91, 192, 222);
     cursor: pointer;
-    height: 116px;
+    height: 104px;
     display: inline-flex;
     opacity: 1;
     outline: 0px;
@@ -68,10 +68,10 @@
 }
 
 .jss211::after {
-    top: -15px;
-    left: -25px;
-    width: 100px;
-    height: 64px;
+    top: -7px;
+    left: -20px;
+    width: 90px;
+    height: 58px;
     content: "";
     display: block;
     position: absolute;

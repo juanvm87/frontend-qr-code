@@ -9,7 +9,7 @@
     height: 20%;
 }
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 999px) {
 
     .container-grcode {
         display: flex;
@@ -18,7 +18,7 @@
     }
 
     .qr-code {
-        margin-bottom: 70px;
+        margin-bottom: 40px;
         display: flex;
         justify-content: center;
     }
