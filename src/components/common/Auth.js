@@ -11,7 +11,6 @@ const Auth = ({ children }) => {
   console.log("Decoded Token", decodedToken.exp * 1000 - currentDate.getTime());
   // JWT exp is in seconds
   if (decodedToken.exp * 1000 < currentDate.getTime()) {
-    console.log("time Auth", decodedToken.exp);
     navigate("/login");
   }
 

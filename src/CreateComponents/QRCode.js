@@ -303,7 +303,9 @@ END:VCALENDAR`;
         size={200}
         id="qr-picture"
         className="qr-code-img"
-        value={isDynamic || (isDynamic && isUpdating) ? dynamicLink : linkData}
+        value={
+          isDynamic || (qrData.isDynamic && isUpdating) ? dynamicLink : linkData
+        }
         ref={qrCodeRef}
       />
       {linkData && !qrData && (
