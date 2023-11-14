@@ -11,9 +11,9 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { getQrByPin } from "../services/RestApi";
 import "./QRInfo.css";
 import QRCode from "react-qr-code";
-import Header from "./common/Header";
+import Header from "../components/common/Header";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { TextWithSeeMore } from "./common/TextWithSeeMore";
+import { TextWithSeeMore } from "../components/common/TextWithSeeMore";
 import { MyHandleContext } from "../store/handleContext";
 
 const QRInfo = () => {

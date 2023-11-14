@@ -44,6 +44,7 @@ export default function UserCard(props) {
 
   const handleNavigation = () => {
     navigateTo(`/edit/${props.qrData._id}`);
+    setSelected("");
   };
   const copyToClipboard = (value) => {
     navigator.clipboard.writeText(value);

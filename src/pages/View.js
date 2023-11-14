@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import UserCard from "./common/UserCard";
+import UserCard from "../components/common/UserCard";
 import { getAllOwnerQr } from "../services/RestApi";
-import Header from "./common/Header";
+import Header from "../components/common/Header";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
@@ -32,7 +32,6 @@ export default function View() {
     <>
       <Header letters={"QCL"} information={"QR Code List"} />
       {data
-
         .map((card) => {
           return (
             <div key={card._id}>

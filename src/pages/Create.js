@@ -4,7 +4,7 @@ import { useState } from "react";
 import "./Create.css";
 import QRcode from "../CreateComponents/QRCode";
 
-import Header from "./common/Header";
+import Header from "../components/common/Header";
 import CarouselButtons from "../CreateComponents/CarouselButtons";
 import { InputGenerateCode } from "../CreateComponents/InputGenerateCode";
 import { useParams } from "react-router";

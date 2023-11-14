@@ -102,20 +102,9 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     localStorage.clear();
-
     navigate("/login");
-    // alert("Redireted to Login")
   };
-  const handleSettings = () => {
-    navigate("/settings");
-    setSelected("Settings");
-    // alert("Redirected to Settings")
-  };
-  const handleProfile = () => {
-    navigate("/profile");
-    setSelected("Profile");
-    // alert("Redirected to Profile")
-  };
+
   return (
     <>
       <Box sx={{ display: "flex" }}>
@@ -166,11 +155,11 @@ export default function Sidebar() {
               }}
             >
               {/* <Typography onClick={handleHome} >H </Typography> */}
-              <Typography onClick={handleProfile}>
+              <Typography onClick={() => handleDrawerOpen("profile")}>
                 {" "}
                 <Person />{" "}
               </Typography>
-              <Typography onClick={handleSettings}>
+              <Typography onClick={() => handleDrawerOpen("settings")}>
                 {" "}
                 <SettingsIcon />{" "}
               </Typography>

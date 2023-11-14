@@ -17,7 +17,7 @@ import "./InputGenerateCode.css";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DateTimeField } from "@mui/x-date-pickers/DateTimeField";
+import { DateTimePicker, renderTimeViewClock } from "@mui/x-date-pickers";
 
 export const InputGenerateCode = (props) => {
   const [phone, setPhone] = useState("");
@@ -508,9 +508,14 @@ export const InputGenerateCode = (props) => {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer
                     sx={{ margin: "5px ", width: "270px" }}
-                    components={["DateTimeField"]}
+                    components={["DateTimePicker"]}
                   >
-                    <DateTimeField
+                    <DateTimePicker
+                      viewRenderers={{
+                        hours: renderTimeViewClock,
+                        minutes: renderTimeViewClock,
+                        seconds: renderTimeViewClock,
+                      }}
                       className="dateTime-event white-background"
                       onChange={(value) => {
                         if (value && value["$d"]) {
@@ -521,12 +526,18 @@ export const InputGenerateCode = (props) => {
                     />
                   </DemoContainer>
                 </LocalizationProvider>
+
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer
                     sx={{ margin: "5px ", width: "270px" }}
-                    components={["DateTimeField"]}
+                    components={["DateTimePicker"]}
                   >
-                    <DateTimeField
+                    <DateTimePicker
+                      viewRenderers={{
+                        hours: renderTimeViewClock,
+                        minutes: renderTimeViewClock,
+                        seconds: renderTimeViewClock,
+                      }}
                       className="dateTime-event white-background"
                       onChange={(value) => {
                         if (value && value["$d"]) {
