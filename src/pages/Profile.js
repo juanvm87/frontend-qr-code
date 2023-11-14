@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import { Button, Snackbar } from "@mui/material";
-import { getUser, userUpdate } from "../../services/RestApi";
-import Header from "./Header";
+import { getUser, userUpdate } from "../services/RestApi";
+import Header from "../components/common/Header";
 
 function Profile() {
   const [name, setName] = useState("");

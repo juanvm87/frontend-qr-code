@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Checkbox, FormControlLabel, Snackbar } from "@mui/material";
-import { userUpdate } from "../../services/RestApi";
-import Header from "./Header";
+import { userUpdate } from "../services/RestApi";
+import Header from "../components/common/Header";
 
 function Settings() {
   const [newPass, setNewPass] = useState("");

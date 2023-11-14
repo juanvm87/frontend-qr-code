@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 
-import "./Create.css";
+import "../components/common/Create.css";
 import QRcode from "../CreateComponents/QRCode";
 
 import Header from "../components/common/Header";

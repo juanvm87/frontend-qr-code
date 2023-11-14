@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import { Button } from "@mui/material";
-import Header from "./Header";
+import Header from "../components/common/Header";
 function AccessControl() {
   // const [firstName, setFirstName] = useState("John")
   // const [lastName, setLastName] = useState("Doe")
