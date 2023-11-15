@@ -34,3 +34,6 @@ export const getUser = async () => {
 export const getQrByPin = async (data) => {
   return await http.get(`qr/owner/${data.userId}/pin/${data.pin}`);
 };
+export const deleteQr = async (qrId) => {
+  return await http.delete(`qr/${qrId}`);
+};

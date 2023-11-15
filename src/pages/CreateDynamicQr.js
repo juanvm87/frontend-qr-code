@@ -41,7 +41,7 @@ const CreateDynamicQr = () => {
       const updateCode = {
         title: "",
         type: activeButton,
-        link: qrLink ? qrLink : "http://10.5.48.80:3000/login",
+        link: qrLink ? qrLink : "http://10.5.48.104:3000/login",
         input: dynamicInput,
       };
       let id = dynamicId ? dynamicId : valueId;
@@ -60,7 +60,7 @@ const CreateDynamicQr = () => {
         title: "",
         type: "Link",
         // TODO: add company domain
-        link: "http://10.5.48.80:3000/login",
+        link: "http://10.5.48.104:3000/login",
         input: { link: "" },
         isDynamic: true,
         ownerId: "",
@@ -68,7 +68,7 @@ const CreateDynamicQr = () => {
       const reply = await createQrAPI(dynamicQr);
 
       setDynamicId(reply.data._id);
-      const newDynamicLink = `http://10.5.48.80:3000/dynamic-qr/${reply.data._id}`;
+      const newDynamicLink = `http://10.5.48.104:3000/dynamic-qr/${reply.data._id}`;
       setDynamicLink(newDynamicLink);
 
       updateDynamic(reply.data._id);

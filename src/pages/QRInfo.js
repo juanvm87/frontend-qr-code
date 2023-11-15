@@ -13,7 +13,6 @@ import "./QRInfo.css";
 import QRCode from "react-qr-code";
 import Header from "../components/common/Header";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { TextWithSeeMore } from "../components/common/TextWithSeeMore";
 import { MyHandleContext } from "../store/handleContext";
 
 const QRInfo = () => {
@@ -178,45 +177,34 @@ const QRInfo = () => {
                   <div className="qr-details-content">
                     {qr.type === "Link" && (
                       <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>Link:</span>{" "}
-                        {qr.input.link}
+                        <span>Link:</span> {qr.input.link}
                       </Typography>
                     )}
                     {qr.type === "Text" && (
-                      <TextWithSeeMore
-                        title="Text:"
-                        text={qr.input.text}
-                        maxChars={50}
-                      />
+                      <Typography variant="h5">
+                        <span>Text:</span> {qr.input.text}
+                      </Typography>
                     )}
                     {qr.type === "Email" && (
                       <div>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>Email to:</span>{" "}
-                          {qr.input.email}
+                          <span>Email to:</span> {qr.input.email}
                         </Typography>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>Subject:</span>{" "}
-                          {qr.input.subject}
+                          <span>Subject:</span> {qr.input.subject}
                         </Typography>
-                        <TextWithSeeMore
-                          title="Text:"
-                          text={qr.input.text}
-                          maxChars={50}
-                        />
+                        <Typography variant="h5">
+                          <span>Text:</span> {qr.input.text}
+                        </Typography>
                       </div>
                     )}
                     {qr.type === "Zoom" && (
                       <>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>
-                            Id Meeting:
-                          </span>{" "}
-                          {qr.input.idMeeting}
+                          <span>Id Meeting:</span> {qr.input.idMeeting}
                         </Typography>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>Password:</span>{" "}
-                          {qr.input.password}
+                          <span>Password:</span> {qr.input.password}
                         </Typography>
                       </>
                     )}
@@ -224,97 +212,78 @@ const QRInfo = () => {
                     {qr.type === "Location" && (
                       <>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>Location:</span>{" "}
-                          {qr.input.place}
+                          <span>Location:</span> {qr.input.place}
                         </Typography>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>latitude:</span>{" "}
-                          {qr.input.latitude}
+                          <span>latitude:</span> {qr.input.latitude}
                         </Typography>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>longitude:</span>{" "}
-                          {qr.input.longitude}
+                          <span>longitude:</span> {qr.input.longitude}
                         </Typography>
                       </>
                     )}
 
                     {qr.type === "Phone" && (
                       <Typography variant="h5">
-                        <span style={{ fontWeight: "bold" }}>Phone:</span>{" "}
-                        {qr.input.phone}
+                        <span>Phone:</span> {qr.input.phone}
                       </Typography>
                     )}
 
                     {qr.type === "SMS" && (
                       <>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>Phone:</span>{" "}
-                          {qr.input.phone}
+                          <span>Phone:</span> {qr.input.phone}
                         </Typography>
-                        <TextWithSeeMore
-                          title="Text:"
-                          text={qr.input.text}
-                          maxChars={50}
-                        />
+                        <Typography variant="h5">
+                          <span>Text:</span> {qr.input.text}
+                        </Typography>
                       </>
                     )}
 
                     {qr.type === "WhatsApp" && (
                       <>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>Phone:</span>{" "}
-                          {qr.input.phone}
+                          <span>Phone:</span> {qr.input.phone}
                         </Typography>
 
-                        <TextWithSeeMore
-                          title="Text:"
-                          text={qr.input.text}
-                          maxChars={50}
-                        />
+                        <Typography variant="h5">
+                          <span>Text:</span> {qr.input.text}
+                        </Typography>
                       </>
                     )}
 
                     {qr.type === "Event" && (
                       <>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>Title:</span>{" "}
-                          {qr.input.title}
+                          <span>Title:</span> {qr.input.title}
                         </Typography>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>Location:</span>{" "}
-                          {qr.input.location}
+                          <span>Location:</span> {qr.input.location}
                         </Typography>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>Start:</span>{" "}
+                          <span>Start:</span>{" "}
                           {new Date(qr.input.startTime).toLocaleString()}
                         </Typography>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>End:</span>{" "}
+                          <span>End:</span>{" "}
                           {new Date(qr.input.endTime).toLocaleString()}
                         </Typography>
-                        <TextWithSeeMore
-                          title="Note:"
-                          text={qr.input.notes}
-                          maxChars={50}
-                        />
+                        <Typography variant="h5">
+                          <span>Note:</span> {qr.input.text}
+                        </Typography>
                       </>
                     )}
 
                     {qr.type === "Wi-Fi" && (
                       <>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>ID:</span>{" "}
-                          {qr.input.id}
+                          <span>ID:</span> {qr.input.id}
                         </Typography>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>Password:</span>{" "}
-                          {qr.input.password}
+                          <span>Password:</span> {qr.input.password}
                         </Typography>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>
-                            Authentication:
-                          </span>{" "}
-                          {qr.input.authentication}
+                          <span>Authentication:</span> {qr.input.authentication}
                         </Typography>
                       </>
                     )}
@@ -322,12 +291,10 @@ const QRInfo = () => {
                     {qr.type === "Skype" && (
                       <>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>Skype:</span>{" "}
-                          {qr.input.type}
+                          <span>Skype:</span> {qr.input.type}
                         </Typography>
                         <Typography variant="h5">
-                          <span style={{ fontWeight: "bold" }}>ID:</span>{" "}
-                          {qr.input.id}
+                          <span>ID:</span> {qr.input.id}
                         </Typography>
                       </>
                     )}

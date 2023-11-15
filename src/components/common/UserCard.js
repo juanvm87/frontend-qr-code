@@ -10,6 +10,8 @@ import { useNavigate } from "react-router";
 import { handleDownload } from "../helperFunction/handleDownload";
 import "./UserCard.css";
 import { MyHandleContext } from "../../store/handleContext";
+import DotsMenu from "./DotsMenu";
+import AlertDialog from "./AlertDialogo";
 
 export default function UserCard(props) {
   const qrCodeRef = useRef(null);
@@ -147,10 +149,10 @@ export default function UserCard(props) {
             paddingBottom: 1,
           }}
         >
-          <Button onClick={handleNavigation} style={{ cursor: "pointer" }}>
-            Edit
-          </Button>
-          <p> | </p>
+          <AlertDialog
+            handleNavigation={handleNavigation}
+            qrId={props.qrData._id}
+          />
           <Button
             onClick={(value) => {
               copyToClipboard(props.qrData.link);
@@ -177,15 +179,6 @@ export default function UserCard(props) {
           >
             PDF
           </Button>
-          {/* <p> | </p>
-          <Button
-            onClick={() => {
-              setDownloadType("pdf");
-            }}
-            style={{ cursor: "pointer" }}
-          >
-            DELETE
-          </Button> */}
         </Box>
       </Box>
       <Box className="box-qr-btn" sx={{ width: 170, flexShrink: 0 }}>
@@ -196,7 +189,7 @@ export default function UserCard(props) {
           value={
             props.qrData.isDynamic
               ? //TODO change domain
-                `http://10.5.48.80:3000/dynamic-qr/${props.qrData._id}`
+                `http://10.5.48.104:3000/dynamic-qr/${props.qrData._id}`
               : props.qrData.link
           }
           ref={qrCodeRef}
