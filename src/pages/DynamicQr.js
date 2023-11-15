@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { getQrLink } from "../../services/RestApi";
+import { getQrLink } from "../services/RestApi";
 import "./DynamicQr.css";
 import { Box, Card, Typography } from "@mui/material";
 

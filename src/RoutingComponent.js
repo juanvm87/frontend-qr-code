@@ -13,7 +13,7 @@ import AccessControl from "./pages/AccessControl";
 import ForgotPassword from "./components/login/ForgotPassword";
 import QRInfo from "./pages/QRInfo";
 import CreateDynamicQr from "./pages/CreateDynamicQr";
-import DynamicQr from "./components/common/DynamicQr";
+import DynamicQr from "./pages/DynamicQr";
 import CreatePage from "./pages/CreatePage";
 import EditPage from "./pages/EditPage";
 
