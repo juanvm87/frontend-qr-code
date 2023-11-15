@@ -8,9 +8,9 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DotsMenu from "./DotsMenu";
 import { deleteQr } from "../../services/RestApi";
 
-export default function AlertDialog(props) {
+export default function DeleteAlertDialog(props) {
   const [open, setOpen] = React.useState(false);
-  const { handleNavigation, qrId } = props;
+  const { handleNavigation, qrId, refreshList } = props;
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -52,15 +52,15 @@ export default function AlertDialog(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
           <Button
             onClick={() => {
+              refreshList(qrId);
               handleDelete();
               handleClose();
             }}
+            autoFocus
           >
-            Disagree
-          </Button>
-          <Button onClick={handleClose} autoFocus>
             Agree
           </Button>
         </DialogActions>

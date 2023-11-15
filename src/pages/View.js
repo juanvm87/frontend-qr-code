@@ -8,6 +8,7 @@ import Stack from "@mui/material/Stack";
 export default function View() {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
+  const [refreshList, setRefreshList] = useState("");
 
   const fetchData = async () => {
     try {
@@ -21,7 +22,7 @@ export default function View() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [refreshList]);
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -35,7 +36,7 @@ export default function View() {
         .map((card) => {
           return (
             <div key={card._id}>
-              <UserCard qrData={card} />
+              <UserCard qrData={card} refreshList={setRefreshList} />
             </div>
           );
         })

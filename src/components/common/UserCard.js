@@ -11,7 +11,7 @@ import { handleDownload } from "../helperFunction/handleDownload";
 import "./UserCard.css";
 import { MyHandleContext } from "../../store/handleContext";
 import DotsMenu from "./DotsMenu";
-import AlertDialog from "./AlertDialogo";
+import DeleteAlertDialog from "./DeleteAlertDialogo";
 
 export default function UserCard(props) {
   const qrCodeRef = useRef(null);
@@ -33,6 +33,9 @@ export default function UserCard(props) {
     }${month}-${year}`;
 
     return formattedDate;
+  };
+  const refreshList = (event) => {
+    props.refreshList(event);
   };
   useEffect(() => {
     if (downloadType) {
@@ -149,9 +152,10 @@ export default function UserCard(props) {
             paddingBottom: 1,
           }}
         >
-          <AlertDialog
+          <DeleteAlertDialog
             handleNavigation={handleNavigation}
             qrId={props.qrData._id}
+            refreshList={refreshList}
           />
           <Button
             onClick={(value) => {

@@ -73,8 +73,8 @@ const QRInfo = () => {
   useEffect(() => {
     if (isChecking) {
       if (qr.type === "Email") {
-        setQr((prevQr) => ({
-          ...prevQr,
+        setQr((prev) => ({
+          ...prev,
           link: `mailto:${qr.input.email}?subject=${qr.input.subject}&body=${qr.input.text}`,
         }));
       }
