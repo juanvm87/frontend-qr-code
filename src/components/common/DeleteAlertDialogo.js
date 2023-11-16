@@ -52,7 +52,7 @@ export default function DeleteAlertDialog(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose}>NO</Button>
           <Button
             onClick={() => {
               refreshList(qrId);
@@ -61,7 +61,7 @@ export default function DeleteAlertDialog(props) {
             }}
             autoFocus
           >
-            Agree
+            YES
           </Button>
         </DialogActions>
       </Dialog>

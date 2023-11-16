@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.css";
-import { Button, Snackbar } from "@mui/material";
+import { Button, Card, Snackbar, TextField } from "@mui/material";
 import { getUser, userUpdate } from "../services/RestApi";
 import Header from "../components/common/Header";
 
@@ -77,70 +77,65 @@ function Profile() {
     // Navbar
     <div className="Profile_bodies">
       <Header letters={"UP"} information={"User Profile"} />
+      <div className="profile-container1">
+        <Card className="profile-card">
+          <div className="profile-sections">
+            <div className="profile-details">
+              <TextField
+                className="inp"
+                disabled={true}
+                value={userNumber}
+                label="User Number"
+                variant="outlined"
+                autoComplete="off"
+              />
+              <TextField
+                className="inp"
+                disabled={!editingMode}
+                label="Name"
+                value={name}
+                type="text"
+                onChange={handleNameChange}
+                variant="outlined"
+                autoComplete="off"
+              />
+              <TextField
+                className="inp"
+                disabled={!editingMode}
+                label="Phone"
+                value={phone}
+                onChange={handlePhoneChange}
+                type="tel"
+                variant="outlined"
+                autoComplete="off"
+              />
+              <TextField
+                className="inp"
+                disabled={!editingMode}
+                label="Email Address"
+                value={email}
+                onChange={handleEmailChange}
+                type="text"
+                variant="outlined"
+                autoComplete="off"
+              />
+            </div>
 
-      <div className="profile-sections">
-        <div className="profile-details">
-          <div className="label-inp">
-            <label className="lbl">User Number</label>
-            <input
-              className="inp"
-              disabled={true}
-              type="text"
-              value={userNumber}
-            />
+            <Button
+              className="editBtn profile"
+              variant="contained"
+              size="large"
+              onClick={() => {
+                setEditingMode(!editingMode);
+                if (editingMode) {
+                  handleSave();
+                }
+              }}
+            >
+              {editingMode ? "SAVE Profile" : "EDIT Profile"}
+            </Button>
           </div>
-          <div className="label-inp">
-            <label className="lbl">Name</label>
-            <input
-              className="inp"
-              disabled={!editingMode}
-              type="text"
-              value={name}
-              onChange={handleNameChange}
-            />
-          </div>
-
-          <div className="label-inp">
-            <label className="lbl">Phone</label>
-            <input
-              className="inp"
-              disabled={!editingMode}
-              type="tel"
-              value={phone}
-              onChange={handlePhoneChange}
-            />
-          </div>
-
-          <div className="label-inp">
-            <label className="lbl">Email Address</label>
-            <input
-              className="inp"
-              disabled={!editingMode}
-              type="text"
-              value={email}
-              onChange={handleEmailChange}
-            />
-          </div>
-        </div>
-
-        <Button
-          sx={{
-            height: "fit-content",
-            padding: 1,
-            marginTop: 3,
-            backgroundColor: "rgb(91, 192, 222)",
-          }}
-          variant="contained"
-          size="large"
-          onClick={() => {
-            setEditingMode(!editingMode);
-            if (editingMode) {
-              handleSave();
-            }
-          }}
-        >
-          {editingMode ? "SAVE Profile" : "EDIT Profile"}
-        </Button>
+        </Card>
       </div>
       <Snackbar
         sx={{ marginTop: "40px" }}

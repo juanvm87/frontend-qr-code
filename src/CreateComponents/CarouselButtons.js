@@ -93,7 +93,7 @@ const CarouselButtons = (props) => {
       className={styles.jss209}
       style={
         props.selectedButton === label
-          ? { border: "5px solid blue", position: "relative" }
+          ? { border: "4px solid blue", position: "relative" }
           : { position: "relative" }
       }
       disabled={

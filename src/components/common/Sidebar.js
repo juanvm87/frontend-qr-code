@@ -155,17 +155,14 @@ export default function Sidebar() {
               }}
             >
               {/* <Typography onClick={handleHome} >H </Typography> */}
-              <Typography onClick={() => handleDrawerOpen("profile")}>
-                {" "}
-                <Person />{" "}
+              <Typography onClick={() => handleMenuClick("profile")}>
+                <Person />
               </Typography>
-              <Typography onClick={() => handleDrawerOpen("settings")}>
-                {" "}
-                <SettingsIcon />{" "}
+              <Typography onClick={() => handleMenuClick("settings")}>
+                <SettingsIcon />
               </Typography>
               <Typography onClick={handleLogout}>
-                {" "}
-                <LogoutIcon />{" "}
+                <LogoutIcon />
               </Typography>
             </div>
           </Toolbar>

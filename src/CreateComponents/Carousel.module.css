@@ -69,8 +69,8 @@
 
 .jss211::after {
     top: -7px;
-    left: -20px;
-    width: 90px;
+    left: -17px;
+    width: 85px;
     height: 58px;
     content: "";
     display: block;
@@ -80,7 +80,7 @@
 }
 
 .jss211 img {
-    top: -8px;
+    top: -6px;
     width: 50px;
     height: 50px;
     z-index: 1;

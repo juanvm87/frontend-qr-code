@@ -164,7 +164,7 @@ const QRInfo = () => {
                     </a>
                   </Box>
                 )}
-                <Box sx={{ padding: "30px" }}>
+                <Box sx={{ margin: "5px 30px 30px 30px" }}>
                   <Typography variant="h3">{qr.title}</Typography>
                   <div className="type-tag">
                     <Typography
@@ -174,6 +174,7 @@ const QRInfo = () => {
                       {qr.type}
                     </Typography>
                   </div>
+
                   <div className="qr-details-content">
                     {qr.type === "Link" && (
                       <Typography variant="h5">

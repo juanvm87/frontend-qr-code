@@ -1,0 +1,23 @@
+.settings-sections {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 1rem 2rem;
+}
+
+.settings-container1 {
+    display: flex;
+    justify-content: center;
+}
+
+.settings-card {
+    width: fit-content;
+    border-radius: 10px !important;
+}
+
+.settings-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+}

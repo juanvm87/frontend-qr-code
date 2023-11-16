@@ -280,6 +280,7 @@ export const InputGenerateCode = (props) => {
                 rows={6}
                 inputProps={{ maxLength: 300 }}
                 sx={{ m: 1 }}
+                autoComplete="off"
               />
             </div>
           </div>
@@ -298,6 +299,7 @@ export const InputGenerateCode = (props) => {
               value={phone}
               onChange={handlePhone}
               defaultCountry="IN"
+              autoComplete="off"
             />
           </div>
         )}
@@ -306,6 +308,7 @@ export const InputGenerateCode = (props) => {
             <h2>SMS</h2>
             <div className="div-sms">
               <MuiTelInput
+                autoComplete="off"
                 className="white-background"
                 value={sms.phone}
                 onChange={(value) => {
@@ -325,6 +328,7 @@ export const InputGenerateCode = (props) => {
                 rows={6}
                 style={{ marginTop: "10px" }}
                 inputProps={{ maxLength: 350 }}
+                autoComplete="off"
               />
             </div>
           </div>
@@ -342,6 +346,7 @@ export const InputGenerateCode = (props) => {
                 defaultCountry="IN"
               />
               <TextField
+                autoComplete="off"
                 className="white-background"
                 label="Text"
                 variant="outlined"

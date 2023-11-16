@@ -1,7 +1,15 @@
 import React, { useState } from "react";
-import { Button, Checkbox, FormControlLabel, Snackbar } from "@mui/material";
+import {
+  Button,
+  Card,
+  Checkbox,
+  FormControlLabel,
+  Snackbar,
+  TextField,
+} from "@mui/material";
 import { userUpdate } from "../services/RestApi";
 import Header from "../components/common/Header";
+import "./Settings.css";
 
 function Settings() {
   const [newPass, setNewPass] = useState("");
@@ -77,77 +85,79 @@ function Settings() {
     <>
       <div className="Settings_bodies">
         <Header letters={"S"} information={"Settings"} />
-
-        <div className="profile-sections">
-          <div className="profile-details">
-            <div className="label-inp">
-              <label className="lbl">Old Password</label>
-              <input
-                className="inp"
-                type={showPassword ? "text" : "password"}
-                value={oldPass}
-                onChange={handleOldPassChange}
-              />
-            </div>
-            <div className="label-inp">
-              <label className="lbl">New Password</label>
-              <input
-                className="inp"
-                type={showPassword ? "text" : "password"}
-                value={newPass}
-                onChange={handleNewPassChange}
-              />
-            </div>
-
-            <div className="label-inp">
-              <label className="lbl">Confirm New Password</label>
-              <input
-                className="inp"
-                type={showPassword ? "text" : "password"}
-                value={newPass2}
-                onChange={handleNewPass2Change}
-              />
-            </div>
-
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={showPassword}
-                  onChange={toggleShowPassword}
-                  name="showPassword"
-                  color="primary"
+        <div className="profile-container1">
+          <Card className="profile-card">
+            <div className="settings-sections">
+              <div className="settings-details">
+                <TextField
+                  className="inp"
+                  type={showPassword ? "text" : "password"}
+                  value={oldPass}
+                  onChange={handleOldPassChange}
+                  label="Old Password"
+                  variant="outlined"
+                  autoComplete="off"
                 />
-              }
-              label="Show Password"
-            />
+                <TextField
+                  className="inp"
+                  type={showPassword ? "text" : "password"}
+                  value={newPass}
+                  onChange={handleNewPassChange}
+                  label="New Password"
+                  variant="outlined"
+                  autoComplete="off"
+                />
+                <TextField
+                  className="inp"
+                  type={showPassword ? "text" : "password"}
+                  value={newPass2}
+                  onChange={handleNewPass2Change}
+                  label="Confirm New Password"
+                  variant="outlined"
+                  autoComplete="off"
+                />
 
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "1rem",
-              }}
-            >
-              <Button
-                sx={{ height: "fit-content", padding: 1, marginTop: 3 }}
-                variant="contained"
-                size="large"
-                onClick={saveSettings}
-              >
-                SAVE
-              </Button>
-              <Button
-                sx={{ height: "fit-content", padding: 1, marginTop: 3 }}
-                variant="contained"
-                color="error"
-                size="large"
-                onClick={cancelSettings}
-              >
-                Cancel
-              </Button>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={showPassword}
+                      onChange={toggleShowPassword}
+                      name="showPassword"
+                      color="primary"
+                    />
+                  }
+                  label="Show Password"
+                />
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "1rem",
+                  }}
+                >
+                  <Button
+                    sx={{ height: "fit-content", padding: 1, marginTop: 3 }}
+                    variant="contained"
+                    size="large"
+                    onClick={saveSettings}
+                  >
+                    SAVE
+                  </Button>
+                  <Button
+                    sx={{ height: "fit-content", padding: 1, marginTop: 3 }}
+                    variant="contained"
+                    color="error"
+                    size="large"
+                    onClick={cancelSettings}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
+          </Card>
         </div>
       </div>
       <Snackbar

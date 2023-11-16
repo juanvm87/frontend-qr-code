@@ -21,6 +21,10 @@
     align-items: center;
 }
 
+.qr-details-content {
+    margin-top: 2rem;
+}
+
 .box-qr-img {
     display: flex;
     flex-wrap: wrap;

@@ -1,13 +1,18 @@
-.pfp {
-  background-color: #bdbdbd;
-  border-radius: 50%;
-}
-
 .profile-sections {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   padding: 1rem 2rem;
+}
+
+.profile-container1 {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-card {
+  width: fit-content;
+  border-radius: 10px !important;
 }
 
 .profile-details {
@@ -17,29 +22,18 @@
   padding: 2rem;
 }
 
-.line {
-  width: 100%;
-  height: 2px;
-  background-color: #fff;
+.editBtn.profile {
+  height: fit-content;
+  padding: 4px;
+  margin: 2rem;
+  background-color: rgb(91, 192, 222);
+  width: 9rem;
+
 }
 
-.label-inp {
-  display: flex;
-  flex-direction: column;
-}
-
-.lbl {
-  font-weight: bold;
-  padding: 1px;
-}
-
-.inp {
-  width: 100%;
-  padding: 1rem;
-}
-
-.editBtn {
-  position: absolute;
-  right: 5%;
-  top: 35%;
+@media (max-width: 606px) {
+  .editBtn.profile {
+    margin-top: 0;
+    width: 14rem;
+  }
 }
