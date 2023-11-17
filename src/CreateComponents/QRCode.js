@@ -115,7 +115,7 @@ const QRcode = (props) => {
   useEffect(() => {
     function HandlePhoneData() {
       try {
-        const phone = `TEL:${props.phoneData}`;
+        const phone = `TEL:${props.phoneData.phone}`;
         setLinkData(phone);
       } catch (error) {
         console.error("Error fetching phoneData:", error);

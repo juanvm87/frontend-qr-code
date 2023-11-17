@@ -15,14 +15,14 @@ const Create = () => {
   const [linkData, setLinkData] = useState("");
   const [textData, setTextData] = useState("");
   const [emailData, setEmailData] = useState({});
-  const [phoneData, setPhoneData] = useState("");
+  const [phoneData, setPhoneData] = useState({});
   const [smsData, setSmsData] = useState({});
   const [whatsAppData, setWhatsAppData] = useState({});
   const [wifiData, setWifiData] = useState({});
   const [zoomData, setZoomData] = useState({});
-  const [activeButton, setActiveButton] = useState("Link");
   const [eventData, setEventData] = useState({});
   const [skypeData, setSkypeData] = useState({});
+  const [activeButton, setActiveButton] = useState("Link");
   const [locationData, setLocationData] = useState({});
   const idFromURL = useParams().id;
   const [qrData, setQrData] = useState({});

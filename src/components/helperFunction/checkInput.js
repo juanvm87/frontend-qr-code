@@ -2,10 +2,11 @@ import React from "react";
 
 export const checkInput = (props) => {
   if (props.activeButton === "Link") {
-    return { link: props.linkData };
+    debugger;
+    return { link: props.linkData.link };
   }
   if (props.activeButton === "Text") {
-    return { text: props.textData };
+    return { text: props.textData.text };
   }
   if (props.activeButton === "Email") {
     return {
@@ -35,7 +36,7 @@ export const checkInput = (props) => {
     };
   }
   if (props.activeButton === "Phone") {
-    return { phone: props.phoneData };
+    return { phone: props.phoneData.phone };
   }
   if (props.activeButton === "SMS") {
     return {

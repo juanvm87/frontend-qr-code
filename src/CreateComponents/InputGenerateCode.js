@@ -20,7 +20,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker, renderTimeViewClock } from "@mui/x-date-pickers";
 
 export const InputGenerateCode = (props) => {
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState({ phone: "" });
   const [link, setLink] = useState("");
   const [text, setText] = useState("");
   const [email, setEmail] = useState({
@@ -67,7 +67,7 @@ export const InputGenerateCode = (props) => {
         setLocation(props.qrData.input);
       }
       if (props.qrData.type === "Phone") {
-        setPhone(props.qrData.input.phone);
+        setPhone({ phone: props.qrData.input.phone });
       }
       if (props.qrData.type === "SMS") {
         setSms({
@@ -111,15 +111,18 @@ export const InputGenerateCode = (props) => {
   }, [props.qrData]);
 
   const handlePhone = (newPhone) => {
-    setPhone(newPhone);
-    props.phoneData(newPhone);
-    handleDynamicQrInput(newPhone);
+    const phone1 = { phone: newPhone };
+    setPhone(phone1);
+    props.phoneData(phone1);
+    handleDynamicQrInput(phone1);
   };
 
   const handleLinkChange = (event) => {
     const value = event.target.value;
     setLink(value);
 
+    setLink({ link: value });
+    console.log(link);
     props.linkData(value);
     handleDynamicQrInput(value);
   };
@@ -300,8 +303,10 @@ export const InputGenerateCode = (props) => {
             <h2>Phone</h2>
             <MuiTelInput
               className="white-background"
-              value={phone}
-              onChange={handlePhone}
+              value={phone.phone}
+              onChange={(value) => {
+                handlePhone(value);
+              }}
               defaultCountry="IN"
               autoComplete="off"
             />
