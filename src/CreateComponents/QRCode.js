@@ -89,7 +89,7 @@ const QRcode = (props) => {
   useEffect(() => {
     function HandleEmailData() {
       try {
-        const edata = `mailto:${props.emailData.to}?subject=${props.emailData.subject}&body=${props.emailData.text}`;
+        const edata = `mailto:${props.emailData.email}?subject=${props.emailData.subject}&body=${props.emailData.text}`;
         setLinkData(edata);
       } catch (error) {
         console.error("Error fetching emailData:", error);

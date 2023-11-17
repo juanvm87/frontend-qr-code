@@ -9,7 +9,7 @@ export const checkInput = (props) => {
   }
   if (props.activeButton === "Email") {
     return {
-      email: props.emailData.to,
+      email: props.emailData.email,
       subject: props.emailData.subject,
       text: props.emailData.text,
     };

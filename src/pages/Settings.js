@@ -138,7 +138,13 @@ function Settings() {
                   }}
                 >
                   <Button
-                    sx={{ height: "fit-content", padding: 1, marginTop: 3 }}
+                    sx={{
+                      backgroundColor: "rgb(91, 192, 222);",
+                      height: "fit-content",
+                      padding: 1,
+                      marginTop: 3,
+                      width: "6rem",
+                    }}
                     variant="contained"
                     size="large"
                     onClick={saveSettings}
@@ -146,7 +152,12 @@ function Settings() {
                     SAVE
                   </Button>
                   <Button
-                    sx={{ height: "fit-content", padding: 1, marginTop: 3 }}
+                    sx={{
+                      height: "fit-content",
+                      padding: 1,
+                      marginTop: 3,
+                      width: "6rem",
+                    }}
                     variant="contained"
                     color="error"
                     size="large"

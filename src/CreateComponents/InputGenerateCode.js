@@ -24,7 +24,7 @@ export const InputGenerateCode = (props) => {
   const [link, setLink] = useState("");
   const [text, setText] = useState("");
   const [email, setEmail] = useState({
-    to: "",
+    email: "",
     subject: "",
     text: "",
   });
@@ -58,7 +58,7 @@ export const InputGenerateCode = (props) => {
       }
       if (props.qrData.type === "Email") {
         setEmail({
-          to: props.qrData.input.email,
+          email: props.qrData.input.email,
           subject: props.qrData.input.subject,
           text: props.qrData.input.text,
         });
@@ -119,6 +119,7 @@ export const InputGenerateCode = (props) => {
   const handleLinkChange = (event) => {
     const value = event.target.value;
     setLink(value);
+
     props.linkData(value);
     handleDynamicQrInput(value);
   };
@@ -199,7 +200,6 @@ export const InputGenerateCode = (props) => {
     if (props.dynamicInput !== undefined) {
       props.dynamicInput(value);
       handleIsGeneratingDynamicQr();
-      console.log("199 inputGenerate ", value);
     }
   };
 
@@ -221,6 +221,7 @@ export const InputGenerateCode = (props) => {
               label="Link"
               variant="outlined"
               inputProps={{ maxLength: 100 }}
+              autoComplete="off"
             />
           </div>
         )}
@@ -237,6 +238,7 @@ export const InputGenerateCode = (props) => {
               multiline
               rows={6}
               inputProps={{ maxLength: 400 }}
+              autoComplete="off"
             />
           </div>
         )}
@@ -248,13 +250,14 @@ export const InputGenerateCode = (props) => {
                 <TextField
                   className="white-background"
                   onChange={(event) => {
-                    handleEmailChange("to", event.target.value);
+                    handleEmailChange("email", event.target.value);
                   }}
-                  value={email.to}
-                  label="Email to"
+                  value={email.email}
+                  label="Email"
                   variant="outlined"
                   inputProps={{ maxLength: 50 }}
                   sx={{ m: 1 }}
+                  autoComplete="off"
                 />
                 <TextField
                   className="white-background"
@@ -266,6 +269,7 @@ export const InputGenerateCode = (props) => {
                   variant="outlined"
                   inputProps={{ maxLength: 50 }}
                   sx={{ m: 1 }}
+                  autoComplete="off"
                 />
               </div>
               <TextField
