@@ -2,11 +2,10 @@ import React from "react";
 
 export const checkInput = (props) => {
   if (props.activeButton === "Link") {
-    debugger;
-    return { link: props.linkData.link };
+    return { link: props.linkData };
   }
   if (props.activeButton === "Text") {
-    return { text: props.textData.text };
+    return { text: props.textData };
   }
   if (props.activeButton === "Email") {
     return {

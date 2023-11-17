@@ -38,11 +38,11 @@ const Create = () => {
           setWhatsAppData(response.data.input);
         }
         if (type === "Link") {
-          setLinkData(response.data.input);
+          setLinkData(response.data.input.link);
         }
 
         if (type === "Text") {
-          setTextData(response.data.input);
+          setTextData(response.data.input.text);
         }
 
         if (type === "Email") {
@@ -95,7 +95,7 @@ const Create = () => {
       {!idFromURL && <Header letters={"CQ"} information={"Create QR"} />}
       {idFromURL && <Header letters={"UQ"} information={"Update QR"} />}
 
-      <Box>
+      <Box className="box-container">
         <CarouselButtons
           activeButton={setActiveButton}
           selectedButton={activeButton}

@@ -1,13 +1,25 @@
 .container-grcode {
+    max-width: 100rem;
+    width: 100%;
     margin-top: 3rem;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 .header-qr {
     height: 20%;
 }
+
+.box-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+
 
 @media only screen and (max-width: 999px) {
 

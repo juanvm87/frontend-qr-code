@@ -32,6 +32,7 @@ export default function View() {
   return (
     <>
       <Header letters={"QCL"} information={"QR Code List"} />
+      {data.length === 0 && <h4>No Qr created</h4>}
       {data
         .map((card) => {
           return (

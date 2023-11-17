@@ -117,14 +117,11 @@ export const InputGenerateCode = (props) => {
     handleDynamicQrInput(phone1);
   };
 
-  const handleLinkChange = (event) => {
-    const value = event.target.value;
-    setLink(value);
-
-    setLink({ link: value });
-    console.log(link);
-    props.linkData(value);
-    handleDynamicQrInput(value);
+  const handleLinkChange = (e) => {
+    setLink(e);
+    console.log("eeeeeee", link);
+    props.linkData(e);
+    handleDynamicQrInput(e);
   };
   const handleTextChange = (event) => {
     const value = event.target.value;
@@ -220,7 +217,9 @@ export const InputGenerateCode = (props) => {
             <TextField
               className="white-background"
               value={link}
-              onChange={handleLinkChange}
+              onChange={(event) => {
+                handleLinkChange(event.target.value);
+              }}
               label="Link"
               variant="outlined"
               inputProps={{ maxLength: 100 }}

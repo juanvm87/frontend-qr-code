@@ -258,6 +258,7 @@ END:VCALENDAR`;
   const handleUpdate = async (textDescription) => {
     try {
       let inp = checkInput(props);
+
       const updateCode = {
         title: textDescription,
         type: props.activeButton,
