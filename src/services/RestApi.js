@@ -43,6 +43,10 @@ export const addStatistic = async (data) => {
 };
 
 export const getIPInfo = async () => {
-  const response = await http.get("https://ipinfo.io/json");
-  return response;
+  const link = process.env.REACT_APP_IP_GEOLOCATION;
+  //TODO check .env
+  const response = await http.get(
+    "https://ipinfo.io/json?token=06cdff9cd4cfa1"
+  );
+  return response.data;
 };

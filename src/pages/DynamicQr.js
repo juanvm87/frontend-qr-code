@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { getQrLink } from "../services/RestApi";
+import { addStatistic, getQrLink } from "../services/RestApi";
 import "./DynamicQr.css";
 import { Box, Card, Typography } from "@mui/material";
+import { getIPInfo } from "../services/RestApi";
 
 const DynamicQr = () => {
   const idFromURL = useParams().id;
@@ -10,11 +11,33 @@ const DynamicQr = () => {
   const [isText, setIsText] = useState(false);
   const [qr, setQr] = useState({});
 
+  const ip_location = async (qrId) => {
+    const reply = await getIPInfo();
+    const newLocation = {
+      qrId: qrId,
+      city: reply.city,
+      region: reply.region,
+      country: reply.country,
+      loc: reply.loc,
+      timezone: reply.timezone,
+    };
+    return newLocation;
+  };
+
+  const add_Statistic = async (loc) => {
+    const statisticAdded = await addStatistic(loc);
+    console.log("------------29 statisticAdded", statisticAdded);
+  };
+
   useEffect(() => {
     if (idFromURL) {
       const retrieveData = async () => {
         try {
+          //TODO check if is null or QR not exist
           const response = await getQrLink(idFromURL);
+
+          const ip_info = ip_location(idFromURL);
+          add_Statistic(ip_info);
 
           console.log(response);
           setTimeout(() => {
@@ -30,7 +53,7 @@ const DynamicQr = () => {
         }
       };
 
-      retrieveData(); // Call the function to fetch data
+      retrieveData();
     } else {
       navigateTo("/login");
     }
