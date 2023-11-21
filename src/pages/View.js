@@ -4,16 +4,24 @@ import { getAllOwnerQr } from "../services/RestApi";
 import Header from "../components/common/Header";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import { CircularProgress } from "@mui/material";
 
 export default function View() {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   const [refreshList, setRefreshList] = useState("");
 
   const fetchData = async () => {
     try {
+      setIsLoading(true);
       const response = await getAllOwnerQr();
       setData(response.data);
+      setData((prevData) =>
+        prevData.filter((card) => card._id !== refreshList)
+      );
+
+      setIsLoading(false);
     } catch (err) {
       console.error(err);
       throw err;
@@ -32,7 +40,19 @@ export default function View() {
   return (
     <>
       <Header letters={"QCL"} information={"QR Code List"} />
-      {data.length === 0 && <h4>No Qr created</h4>}
+      {isLoading && (
+        <Stack
+          sx={{ color: "grey.500" }}
+          spacing={2}
+          direction="row"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <CircularProgress color="inherit" />
+        </Stack>
+      )}
+      {data.length === 0 && !isLoading && <h4>No Qr created</h4>}
       {data
         .map((card) => {
           return (

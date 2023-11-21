@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-
 import "./Create.css";
 import QRcode from "../../CreateComponents/QRCode";
-
 import Header from "./Header";
 import CarouselButtons from "../../CreateComponents/CarouselButtons";
 import { InputGenerateCode } from "../../CreateComponents/InputGenerateCode";

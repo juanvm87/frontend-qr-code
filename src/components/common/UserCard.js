@@ -193,7 +193,7 @@ export default function UserCard(props) {
           value={
             props.qrData.isDynamic
               ? //TODO change domain
-                `http://10.5.48.104:3000/dynamic-qr/${props.qrData._id}`
+                `http://localhost:3000/dynamic-qr/${props.qrData._id}`
               : props.qrData.link
           }
           ref={qrCodeRef}

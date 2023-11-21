@@ -37,3 +37,12 @@ export const getQrByPin = async (data) => {
 export const deleteQr = async (qrId) => {
   return await http.delete(`qr/${qrId}`);
 };
+
+export const addStatistic = async (data) => {
+  return await http.post(`statistic`, data);
+};
+
+export const getIPInfo = async () => {
+  const response = await http.get("https://ipinfo.io/json");
+  return response;
+};
