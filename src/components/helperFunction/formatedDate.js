@@ -9,5 +9,5 @@ export const handleformattedDate = (date) => {
   const minutes = originalDate.getMinutes().toString().padStart(2, "0");
   const seconds = originalDate.getSeconds().toString().padStart(2, "0");
 
-  return `${year}${month}${day}T${hours}${minutes}${seconds}`;
+  return `${day}-${month}-${year} ${hours}:${minutes}`;
 };

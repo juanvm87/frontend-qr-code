@@ -4,12 +4,14 @@ import { addStatistic, getQrLink } from "../services/RestApi";
 import "./DynamicQr.css";
 import { Box, Card, Typography } from "@mui/material";
 import { getIPInfo } from "../services/RestApi";
+import logoNotFound from "../components/Images/notFoundQr.png";
 
 const DynamicQr = () => {
   const idFromURL = useParams().id;
   const navigateTo = useNavigate();
   const [isText, setIsText] = useState(false);
   const [qr, setQr] = useState({});
+  const [isNotFound, setIsNotFound] = useState(false);
 
   const ip_location = async (qrId) => {
     const reply = await getIPInfo();
@@ -21,12 +23,8 @@ const DynamicQr = () => {
       loc: reply.loc,
       timezone: reply.timezone,
     };
-    return newLocation;
-  };
 
-  const add_Statistic = async (loc) => {
-    const statisticAdded = await addStatistic(loc);
-    console.log("------------29 statisticAdded", statisticAdded);
+    const statisticAdded = await addStatistic(newLocation);
   };
 
   useEffect(() => {
@@ -35,11 +33,8 @@ const DynamicQr = () => {
         try {
           //TODO check if is null or QR not exist
           const response = await getQrLink(idFromURL);
-
           const ip_info = ip_location(idFromURL);
-          add_Statistic(ip_info);
 
-          console.log(response);
           setTimeout(() => {
             if (response.data.type === "Text") {
               setQr(response.data);
@@ -49,6 +44,10 @@ const DynamicQr = () => {
             }
           }, 5000);
         } catch (error) {
+          if (error.response.data.statusCode === 404) {
+            setIsNotFound(true);
+            return;
+          }
           console.error("Error fetching QR code data:", error);
         }
       };
@@ -61,7 +60,21 @@ const DynamicQr = () => {
 
   return (
     <>
-      {!isText && (
+      {isNotFound && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <img
+            style={{ width: "100%", height: "100%" }}
+            src={logoNotFound}
+            alt="No found"
+          />
+        </div>
+      )}
+      {!isText && !isNotFound && (
         <div className="container-dynamic">
           <h1>
             <span class="let1">R</span>
@@ -78,7 +91,7 @@ const DynamicQr = () => {
           </h1>
         </div>
       )}
-      {isText && (
+      {isText && !isNotFound && (
         <Box className="qr-box-details">
           <Card className="qr-details-card">
             <Box className="text-details" style={{ wordWrap: "break-word" }}>

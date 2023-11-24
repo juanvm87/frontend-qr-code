@@ -1,0 +1,84 @@
+.container123 {
+    width: 100%;
+}
+
+.stat-container {
+    display: flex;
+    width: auto;
+}
+
+.container-left3 {
+    width: 65%;
+}
+
+.container-charts {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container-right3 {
+    margin-top: 25px;
+    display: flex;
+    width: 30%;
+    flex-wrap: wrap;
+
+}
+
+.chartLine-container {
+    margin: 20px 0 0 0;
+    border-radius: 10px !important;
+    width: 90%;
+
+    padding: 15px;
+}
+
+.container-qrinfo {}
+
+.container-statistic {}
+
+.container-qr-info {
+    margin: 10px 10px 10px 20px;
+}
+
+.h2-title {
+    color: white;
+    margin: 5px;
+}
+
+.h4-type {
+    color: white;
+    margin: 5px;
+}
+
+.container-header2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.title-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.openQr-icon {
+    color: rgb(13, 13, 13);
+    position: absolute;
+    right: 0px;
+    top: 0;
+    margin: 14px;
+}
+
+.profile-heading-info2 {
+    border-radius: 8px;
+    width: 100%;
+    display: flex;
+    padding: 0.5rem;
+    align-items: center;
+    background-color: #02c1ec;
+    gap: 2rem;
+    overflow: hidden;
+    flex-wrap: wrap;
+    position: relative;
+}

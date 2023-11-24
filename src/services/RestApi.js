@@ -42,11 +42,12 @@ export const addStatistic = async (data) => {
   return await http.post(`statistic`, data);
 };
 
+export const getQrStatistic = async (data) => {
+  return await http.get(`statistic/id/${data}`);
+};
 export const getIPInfo = async () => {
   const link = process.env.REACT_APP_IP_GEOLOCATION;
   //TODO check .env
-  const response = await http.get(
-    "https://ipinfo.io/json?token=06cdff9cd4cfa1"
-  );
+  const response = await http.get(`https://ipinfo.io/json?token=${link}`);
   return response.data;
 };

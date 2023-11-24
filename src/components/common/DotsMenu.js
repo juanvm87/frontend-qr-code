@@ -1,8 +1,8 @@
 import * as React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { deleteQr } from "../../services/RestApi";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import "./DotsMenu.css";
 
 export default function DotsMenu(props) {
   const { handleNavigation, handleModelOpen } = props;
@@ -19,8 +19,8 @@ export default function DotsMenu(props) {
   return (
     <div>
       <MoreVertIcon
-        style={{ color: "#1976d2", marginBottom: "-4px", cursor: "pointer" }}
-        id="basic-button"
+        className="icon123"
+        id="button"
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}

@@ -7,7 +7,7 @@ import Sidebar from "./components/common/Sidebar";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Register from "./components/login/Register";
-
+import StatisticPage from "./pages/StatisticPage";
 import View from "./pages/View";
 import AccessControl from "./pages/AccessControl";
 import ForgotPassword from "./components/login/ForgotPassword";
@@ -29,6 +29,7 @@ export default function RoutingComponent() {
             <Route path="/create-dynamic" element={<CreateDynamicQr />} />
             <Route path="/edit/:id" element={<EditPage />} />
             <Route path="/view" element={<View />} />
+            <Route path="/statistic/:id" element={<StatisticPage />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/accessControl" element={<AccessControl />} />

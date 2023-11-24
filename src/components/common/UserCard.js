@@ -20,6 +20,11 @@ export default function UserCard(props) {
   const { resetInfo, setResetInfo } = useContext(MyHandleContext);
   const { accessQr, setAccessQr } = useContext(MyHandleContext);
   const { selected, setSelected } = useContext(MyHandleContext);
+  const [isDynamic, setIsDinamic] = useState(false);
+
+  useEffect(() => {
+    setIsDinamic(props.qrData.isDynamic);
+  }, []);
 
   const dataModify = (date) => {
     const currentDate = new Date(date);
@@ -37,6 +42,7 @@ export default function UserCard(props) {
   const refreshList = (event) => {
     props.refreshList(event);
   };
+
   useEffect(() => {
     if (downloadType) {
       const qrCodeSvgElement = qrCodeRef.current;
@@ -55,7 +61,20 @@ export default function UserCard(props) {
     navigator.clipboard.writeText(value);
   };
   return (
-    <Card className="card-container" elevation={0}>
+    <Card
+      id="parent-card"
+      onClick={(e) => {
+        if (e.target.id === "parent-card") {
+          if (isDynamic) {
+            console.log(isDynamic);
+
+            navigateTo(`/statistic/${props.qrData._id}`);
+          }
+        }
+      }}
+      className={`card-container ${props.qrData.isDynamic ? "dynamic" : ""}`}
+      elevation={0}
+    >
       <Box className="box-info">
         <CardContent className="card-content-info">
           {props.qrData.isDynamic && (
@@ -152,11 +171,6 @@ export default function UserCard(props) {
             paddingBottom: 1,
           }}
         >
-          <DeleteAlertDialog
-            handleNavigation={handleNavigation}
-            qrId={props.qrData._id}
-            refreshList={refreshList}
-          />
           <Button
             onClick={(value) => {
               copyToClipboard(props.qrData.link);
@@ -183,6 +197,11 @@ export default function UserCard(props) {
           >
             PDF
           </Button>
+          <DeleteAlertDialog
+            handleNavigation={handleNavigation}
+            qrId={props.qrData._id}
+            refreshList={refreshList}
+          />
         </Box>
       </Box>
       <Box className="box-qr-btn" sx={{ width: 170, flexShrink: 0 }}>
@@ -193,13 +212,13 @@ export default function UserCard(props) {
           value={
             props.qrData.isDynamic
               ? //TODO change domain
-                `http://localhost:3000/dynamic-qr/${props.qrData._id}`
+                `http://${process.env.REACT_APP_IP_CHANGE}:3000/dynamic-qr/${props.qrData._id}`
               : props.qrData.link
           }
           ref={qrCodeRef}
         />
         <Button
-          onClick={() => {
+          onClick={(e) => {
             setAccessQr({
               userId: props.qrData.ownerId,
               qrId: props.qrData.pin,
@@ -210,6 +229,7 @@ export default function UserCard(props) {
           }}
           sx={{ fontSize: "0.8rem" }}
           className="access-qr-btn"
+          id="btn"
         >
           Access to QR
         </Button>

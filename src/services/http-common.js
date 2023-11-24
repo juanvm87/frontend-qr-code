@@ -3,9 +3,9 @@ import jwtDecode from "jwt-decode"; // Import jwt-decode
 
 const instance = axios.create({
   //TODO change domain
-  baseURL: "http://localhost:8080",
+  baseURL: `http://${process.env.REACT_APP_IP_CHANGE}:8080`,
   //baseURL: "http://10.5.48.104:8080",
-  timeout: 3000,
+  timeout: 5000,
   headers: {
     "Content-type": "application/json",
     "Access-Control-Allow-Origin": "*",
@@ -30,19 +30,5 @@ instance.interceptors.request.use(function (config) {
 
   return config;
 });
-
-// Example of error handling
-instance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response) {
-      console.error("Request failed with status code:", error.response.status);
-      console.error("Error response data:", error.response.data);
-    } else {
-      console.error("Request failed:", error.message);
-    }
-    return Promise.reject(error);
-  }
-);
 
 export default instance;
