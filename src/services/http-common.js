@@ -3,8 +3,8 @@ import jwtDecode from "jwt-decode"; // Import jwt-decode
 
 const instance = axios.create({
   //TODO change domain
-  baseURL: `http://${process.env.REACT_APP_IP_CHANGE}:8080`,
-  //baseURL: "http://10.5.48.104:8080",
+  // baseURL: `http://qrskan.com:8085`,
+  baseURL: "http://localhost:8080",
   timeout: 5000,
   headers: {
     "Content-type": "application/json",

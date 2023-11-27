@@ -40,7 +40,7 @@ const CreateDynamicQr = () => {
         type: activeButton,
         link: qrLink
           ? qrLink
-          : `http://${process.env.REACT_APP_IP_CHANGE}:3000/login`,
+          : `http://${process.env.REACT_APP_IP_CHANGE}/login`,
         input: dynamicInput,
       };
       let id = dynamicId ? dynamicId : valueId;
@@ -59,7 +59,7 @@ const CreateDynamicQr = () => {
         title: "",
         type: "Link",
         // TODO: add company domain
-        link: `http:${process.env.REACT_APP_IP_CHANGE}//:3000/login`,
+        link: `http:${window.location.origin}/login`,
         input: { link: "" },
         isDynamic: true,
         ownerId: "",
@@ -67,7 +67,7 @@ const CreateDynamicQr = () => {
       const reply = await createQrAPI(dynamicQr);
 
       setDynamicId(reply.data._id);
-      const newDynamicLink = `http://${process.env.REACT_APP_IP_CHANGE}:3000/dynamic-qr/${reply.data._id}`;
+      const newDynamicLink = `${window.location.origin}/dynamic-qr/${reply.data._id}`;
       setDynamicLink(newDynamicLink);
 
       updateDynamic(reply.data._id);
