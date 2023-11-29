@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Profile.css";
+
 import { Button } from "@mui/material";
 import Header from "../components/common/Header";
 function AccessControl() {

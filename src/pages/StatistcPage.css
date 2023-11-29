@@ -8,7 +8,7 @@
 }
 
 .container-left3 {
-    width: 65%;
+    width: 64%;
 }
 
 .container-charts {
@@ -17,11 +17,12 @@
 }
 
 .container-right3 {
+    margin: auto;
     margin-top: 25px;
     display: flex;
     width: 30%;
     flex-wrap: wrap;
-
+    gap: 2rem;
 }
 
 .chartLine-container {
@@ -81,4 +82,12 @@
     overflow: hidden;
     flex-wrap: wrap;
     position: relative;
+}
+
+.pie-card {
+    margin-top: 5px;
+    width: 25rem;
+    height: 19rem;
+    padding: 10px;
+    border-radius: 8px !important;
 }

@@ -19,6 +19,7 @@
     "chartjs-adapter-date-fns": "^3.0.0",
     "chartjs-adapter-moment": "^1.0.1",
     "date-fns": "^2.30.0",
+    "dayjs": "^1.11.10",
     "jspdf": "^2.5.1",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.4",
@@ -35,6 +36,7 @@
     "react-router": "^6.16.0",
     "react-router-dom": "^6.16.0",
     "react-scripts": "5.0.1",
+    "recharts": "^2.10.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -60,5 +62,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "sass": "^1.69.5"
   }
 }

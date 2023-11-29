@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { Typography, Stack, Card } from "@mui/material";
-import "../../pages/StatisticPage";
+import "../../pages/StatistcPage.css";
 
-const PieActiveArc = ({ data, category }) => {
+const PieActiveArc = ({ data, category, title }) => {
   const [identifier, setIdentifier] = useState(null);
   const [id, setId] = useState(undefined);
   const [chartData, setChartData] = useState([]);
@@ -40,6 +40,7 @@ const PieActiveArc = ({ data, category }) => {
 
   return (
     <Card className="pie-card">
+      <h3>{title}</h3>
       <Stack
         direction={{ xs: "column", md: "row" }}
         alignItems={{ xs: "flex-start", md: "center" }}

@@ -158,9 +158,6 @@ export default function Sidebar() {
               <Typography onClick={() => handleMenuClick("profile")}>
                 <Person />
               </Typography>
-              <Typography onClick={() => handleMenuClick("settings")}>
-                <SettingsIcon />
-              </Typography>
               <Typography onClick={handleLogout}>
                 <LogoutIcon />
               </Typography>
@@ -331,27 +328,6 @@ export default function Sidebar() {
                 <Divider />
               </ListItem>
 
-              <ListItem
-                disablePadding
-                style={{
-                  backgroundColor:
-                    selected === "settings" ? "#5BC0DE" : "#f1f5ff",
-                  color: selected === "settings" ? "white" : "#777777",
-                }}
-              >
-                <ListItemButton onClick={() => handleMenuClick("settings")}>
-                  <ListItemIcon>
-                    {" "}
-                    <SettingsOutlinedIcon
-                      style={{
-                        color: selected === "settings" ? "white" : "#777777",
-                      }}
-                    />{" "}
-                  </ListItemIcon>
-                  <ListItemText primary="Settings" />
-                </ListItemButton>
-                <Divider />
-              </ListItem>
               {/*  <ListItem
                 disablePadding
                 style={{

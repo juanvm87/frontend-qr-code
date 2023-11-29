@@ -1,153 +1,245 @@
 import React, { useEffect, useState } from "react";
-import "./Profile.css";
-import { Button, Card, Snackbar, TextField } from "@mui/material";
-import { getUser, userUpdate } from "../services/RestApi";
-import Header from "../components/common/Header";
+import {
+  Grid,
+  Box,
+  Typography,
+  Button,
+  Avatar,
+  Stack,
+  CardMedia,
+  styled,
+  Fab,
+  Skeleton,
+} from "@mui/material";
+import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
+import QrCode2Icon from "@mui/icons-material/QrCode2";
+import profilecover from ".././components/Images/profilebg.jpg";
+import userimg from ".././components/Images/user-1.jpg";
+import QrCodeIcon from "@mui/icons-material/QrCode";
+import ProfileTab from "../components/common/ProfileTab";
+import BlankCard from ".././components/common/BlankCard";
+import { getAllOwnerQr, getUser } from "../services/RestApi";
+import EditProfile from "../components/common/EditProfile";
+import Settings from "./Settings";
 
-function Profile() {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [userNumber, setUserNumber] = useState("");
+const Profile = () => {
+  const ProfileImage = styled(Box)(() => ({
+    backgroundImage: "linear-gradient(#50b2fc,#f44c66)",
+    borderRadius: "50%",
+    width: "110px",
+    height: "110px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: "0 auto",
+  }));
+  const [isLoading, setLoading] = useState(true);
+  const [totalQr, setTotalQr] = useState("");
+  const [totalDynamicQr, setTotalDynamicQr] = useState("");
+  const [user, setUser] = useState({});
+  const [edit, setEdit] = useState("profile");
+  const [refresh, setRefresh] = useState(false);
 
-  const [editingMode, setEditingMode] = useState(false);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [message, setMessage] = useState("");
-  const [horizontal] = useState("right");
-  const [vertical] = useState("top");
-
-  const closePopUp = (time) => {
-    setTimeout(() => {
-      setOpenSnackbar(false);
-    }, time);
+  const getTotalDynamicQr = (data) => {
+    return data.filter((qr) => qr.isDynamic === true);
   };
-
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      const user = await getUser();
-      if (user.status === 200) {
-        setPhone(user.data.phone);
-        setName(user.data.name);
-        setEmail(user.data.email);
-        setUserNumber(user.data.userId);
-        console.log(user.data);
-      }
-    };
-    fetchUserInfo();
-  }, []);
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handlePhoneChange = (e) => {
-    setPhone(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleSave = async () => {
+  const getUserInfo = async () => {
     try {
-      const update = {
-        name,
-        phone,
-        email,
-      };
-      const response = await userUpdate(update);
-      if (response.status === 200) {
-        setMessage("Profile saved successfully.");
-        setOpenSnackbar(true);
-        closePopUp(6000);
-      } else {
-        setMessage("Error saving profile. Please try again.");
-        setOpenSnackbar(true);
-        closePopUp(6000);
-      }
+      const user = await getUser();
+
+      setUser(user.data);
     } catch (error) {
-      setMessage("Error saving profile. Please try again.");
-      setOpenSnackbar(true);
-      closePopUp(6000);
       console.log(error);
+      throw error;
     }
   };
+  const getAllUserQr = async () => {
+    try {
+      const qrs = await getAllOwnerQr();
+      const totalDynamic = getTotalDynamicQr(qrs.data);
+      setTotalQr(qrs.data.length);
+      setTotalDynamicQr(totalDynamic.length);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+  useEffect(() => {
+    getUserInfo();
+  }, [refresh]);
 
+  useEffect(() => {
+    getAllUserQr();
+    getUserInfo();
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
   return (
-    // Navbar
-    <div className="Profile_bodies">
-      <Header letters={"UP"} information={"User Profile"} />
-      <div className="profile-container1">
-        <Card className="profile-card">
-          <div className="profile-sections">
-            <div className="profile-details">
-              <TextField
-                className="inp"
-                disabled={true}
-                value={userNumber}
-                label="User Number"
-                variant="outlined"
-                autoComplete="off"
-              />
-              <TextField
-                className="inp"
-                disabled={!editingMode}
-                label="Name"
-                value={name}
-                type="text"
-                onChange={handleNameChange}
-                variant="outlined"
-                autoComplete="off"
-              />
-              <TextField
-                className="inp"
-                disabled={!editingMode}
-                label="Phone"
-                value={phone}
-                onChange={handlePhoneChange}
-                type="tel"
-                variant="outlined"
-                autoComplete="off"
-              />
-              <TextField
-                className="inp"
-                disabled={!editingMode}
-                label="Email Address"
-                value={email}
-                onChange={handleEmailChange}
-                type="text"
-                variant="outlined"
-                autoComplete="off"
-              />
-            </div>
-
-            <Button
-              className="editBtn profile"
-              variant="contained"
-              size="large"
-              onClick={() => {
-                setEditingMode(!editingMode);
-                if (editingMode) {
-                  handleSave();
-                }
+    <>
+      <BlankCard>
+        {isLoading ? (
+          <>
+            <Skeleton
+              variant="square"
+              animation="wave"
+              width="100%"
+              height={330}
+            ></Skeleton>
+          </>
+        ) : (
+          <CardMedia
+            component="img"
+            image={profilecover}
+            alt={profilecover}
+            width="100%"
+            height="240px"
+          />
+        )}
+        <Grid container spacing={0} justifyContent="center" alignItems="center">
+          {/* Post | Followers | Following */}
+          <Grid
+            item
+            lg={4}
+            sm={12}
+            md={5}
+            xs={12}
+            sx={{
+              order: {
+                xs: "2",
+                sm: "2",
+                lg: "1",
+              },
+            }}
+          >
+            <Stack
+              direction="row"
+              textAlign="center"
+              justifyContent="center"
+              gap={6}
+              m={3}
+            >
+              <Box>
+                <Typography color="text.secondary">
+                  <QrCodeIcon width="20" />
+                </Typography>
+                <Typography variant="h4" fontWeight="600">
+                  {totalQr}
+                </Typography>
+                <Typography color="textSecondary" variant="h6" fontWeight={400}>
+                  Total Qr
+                </Typography>
+              </Box>
+              <Box>
+                <Typography color="text.secondary">
+                  <QrCode2Icon width="20" />
+                </Typography>
+                <Typography variant="h4" fontWeight="600">
+                  {totalQr - totalDynamicQr}
+                </Typography>
+                <Typography color="textSecondary" variant="h6" fontWeight={400}>
+                  Dynamic Qr
+                </Typography>
+              </Box>
+              <Box>
+                <Typography color="text.secondary">
+                  <QrCodeScannerIcon width="20" />
+                </Typography>
+                <Typography variant="h4" fontWeight="600">
+                  {totalDynamicQr}
+                </Typography>
+                <Typography color="textSecondary" variant="h6" fontWeight={400}>
+                  Static Qr
+                </Typography>
+              </Box>
+            </Stack>
+          </Grid>
+          {/* about profile */}
+          <Grid
+            item
+            lg={4}
+            sm={12}
+            xs={12}
+            sx={{
+              order: {
+                xs: "1",
+                sm: "1",
+                lg: "2",
+              },
+            }}
+          >
+            <Box
+              display="flex"
+              alignItems="center"
+              textAlign="center"
+              justifyContent="center"
+              sx={{
+                mt: "-85px",
               }}
             >
-              {editingMode ? "SAVE Profile" : "EDIT Profile"}
-            </Button>
-          </div>
-        </Card>
-      </div>
-      <Snackbar
-        sx={{ marginTop: "40px" }}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        open={openSnackbar}
-        autoHideDuration={6000}
-        message={message}
-        key={vertical + horizontal}
-        style={{ backgroundColor: "white", color: "black" }}
-      />
-    </div>
+              <Box>
+                <ProfileImage>
+                  <Avatar
+                    src={userimg}
+                    alt={userimg}
+                    sx={{
+                      borderRadius: "50%",
+                      width: "100px",
+                      height: "100px",
+                      border: "4px solid #fff",
+                    }}
+                  />
+                </ProfileImage>
+                <Box mt={1}>
+                  <Typography fontWeight={600} variant="h5">
+                    {user.name}
+                  </Typography>
+                  <Typography
+                    color="textSecondary"
+                    variant="h6"
+                    fontWeight={400}
+                  >
+                    {user.phone}
+                  </Typography>
+                  <Typography
+                    color="textSecondary"
+                    variant="h6"
+                    fontWeight={400}
+                  >
+                    {user.email}
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+          </Grid>
+          {/* friends following buttons */}
+          <Grid
+            item
+            lg={4}
+            sm={12}
+            xs={12}
+            sx={{
+              order: {
+                xs: "3",
+                sm: "3",
+                lg: "3",
+              },
+            }}
+          ></Grid>
+        </Grid>
+        {/**TabbingPart**/}
+        <ProfileTab edit={setEdit} />
+        {edit == "profile" && (
+          <EditProfile
+            edit={setEdit}
+            refreshInfo={setRefresh}
+            refresh={refresh}
+          />
+        )}
+        {edit == "password" && <Settings edit={setEdit} />}
+      </BlankCard>
+    </>
   );
-}
-
+};
 export default Profile;

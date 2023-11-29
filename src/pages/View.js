@@ -61,7 +61,6 @@ export default function View() {
             </div>
           );
         })
-
         .reverse()
         .slice((page - 1) * 8, page * 8)}
       <Stack spacing={2}>

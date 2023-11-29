@@ -3,7 +3,6 @@ import "./StatistcPage.css";
 import { Box, Card, CircularProgress, Stack } from "@mui/material";
 import QRCode from "react-qr-code";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-
 import { useParams } from "react-router-dom";
 import { getQr, getQrStatistic } from "../services/RestApi";
 import { handleformattedDate } from "../components/helperFunction/formatedDate";
@@ -15,13 +14,11 @@ const StatisticPage = () => {
   const [qrInfo, setQrInfo] = useState({});
   const [statisticData, setStatisticData] = useState({});
   const [isUpdating, setIsUpdating] = useState(true);
-
   const qrCodeRef = useRef(null);
   const param = useParams();
 
   const countScanToday = (dataArray) => {
     const today = new Date().toISOString().split("T")[0];
-
     const todayObjects = dataArray.filter((obj) =>
       obj.createdAt.startsWith(today)
     );
@@ -146,8 +143,16 @@ const StatisticPage = () => {
               </Card>
             </div>
             <div className="container-right3">
-              <PieActiveArc data={statisticData.data} category="city" />
-              <PieActiveArc data={statisticData.data} category="country" />
+              <PieActiveArc
+                title={"Cities"}
+                data={statisticData.data}
+                category="city"
+              />
+              <PieActiveArc
+                title={"Countries"}
+                data={statisticData.data}
+                category="country"
+              />
             </div>
           </div>
         </div>

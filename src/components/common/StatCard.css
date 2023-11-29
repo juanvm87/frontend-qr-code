@@ -5,14 +5,14 @@
 .c-dashboardInfo .wrap {
     background: #ffffff;
     box-shadow: 2px 10px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 7px;
+    border-radius: 8px;
     text-align: center;
     position: relative;
     overflow: hidden;
     padding: 24px 4rem 20px;
     height: 10rem;
     margin-top: 30px;
-    width: 22rem;
+    width: 16.5rem;
 }
 
 .c-dashboardInfo__title,

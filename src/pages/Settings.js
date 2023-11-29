@@ -8,10 +8,9 @@ import {
   TextField,
 } from "@mui/material";
 import { userUpdate } from "../services/RestApi";
-import Header from "../components/common/Header";
 import "./Settings.css";
 
-function Settings() {
+function Settings(props) {
   const [newPass, setNewPass] = useState("");
   const [oldPass, setOldPass] = useState("");
   const [newPass2, setNewPass2] = useState("");
@@ -84,7 +83,6 @@ function Settings() {
   return (
     <>
       <div className="Settings_bodies">
-        <Header letters={"S"} information={"Settings"} />
         <div className="profile-container1">
           <Card className="profile-card">
             <div className="settings-sections">

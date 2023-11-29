@@ -8,11 +8,13 @@
 .profile-container1 {
   display: flex;
   justify-content: center;
+
 }
 
 .profile-card {
   width: fit-content;
   border-radius: 10px !important;
+  margin: 3rem
 }
 
 .profile-details {
