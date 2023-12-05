@@ -31,6 +31,7 @@ import {
 } from "@mui/icons-material";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { MyHandleContext } from "../../store/handleContext";
+import { googleLogout } from "@react-oauth/google";
 
 const drawerWidth = 240;
 
@@ -102,6 +103,7 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     localStorage.clear();
+    googleLogout();
     navigate("/login");
   };
 

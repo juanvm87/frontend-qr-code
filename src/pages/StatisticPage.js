@@ -63,7 +63,6 @@ const StatisticPage = () => {
       const statistics = await getQrStatistic(replyQr.data._id);
       setStatisticData(statistics);
       setIsUpdating(false);
-      console.log(" reply-----", statistics);
     }
   };
 

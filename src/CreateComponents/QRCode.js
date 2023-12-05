@@ -78,7 +78,7 @@ const QRcode = (props) => {
   useEffect(() => {
     function HandleLinkData() {
       try {
-        setLinkData("http://" + props.linkData);
+        setLinkData(props.linkData);
       } catch (error) {
         console.error("Error fetching linkData:", error);
       }

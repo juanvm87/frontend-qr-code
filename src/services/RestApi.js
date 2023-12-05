@@ -16,6 +16,10 @@ export const getQrLink = async (data) => {
   return await http.get(`qr/dynamic-id/${data}`);
 };
 
+export const googleSignin = async (data) => {
+  return await http.post("user/google-signin", data);
+};
+
 export const updateQr = async (qrId, updateQrData) => {
   return await http.patch(`qr/${qrId}`, updateQrData);
 };

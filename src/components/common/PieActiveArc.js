@@ -3,7 +3,8 @@ import { PieChart } from "@mui/x-charts/PieChart";
 import { Typography, Stack, Card } from "@mui/material";
 import "../../pages/StatistcPage.css";
 
-const PieActiveArc = ({ data, category, title }) => {
+const PieActiveArc = (props) => {
+  const { data, category, title } = props;
   const [identifier, setIdentifier] = useState(null);
   const [id, setId] = useState(undefined);
   const [chartData, setChartData] = useState([]);
@@ -21,16 +22,24 @@ const PieActiveArc = ({ data, category, title }) => {
       (a, b) => categoryCount[b] - categoryCount[a]
     );
 
-    // Select the top 4 categories
-    const top4Categories = sortedCategories.slice(0, 4);
+    // Select the top 3 categories
+    const top3Categories = sortedCategories.slice(0, 3);
 
+    const top3 = top3Categories.map((categoryValue) => ({
+      label: categoryValue,
+      value: categoryCount[categoryValue],
+    }));
+
+    console.log(category + "------", sortedCategories);
+    const others = {
+      label: "Others",
+      value: sortedCategories.length - 3,
+    };
     // Set the chart data state
-    setChartData(
-      top4Categories.map((categoryValue) => ({
-        label: categoryValue,
-        value: categoryCount[categoryValue],
-      }))
-    );
+    if (sortedCategories.length > 3) {
+      top3.push(others);
+    }
+    setChartData(top3);
   }, [data, category]);
 
   const handleClick = (event, itemIdentifier, item) => {
