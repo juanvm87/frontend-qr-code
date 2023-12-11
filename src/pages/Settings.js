@@ -5,12 +5,14 @@ import {
   Checkbox,
   FormControlLabel,
   Snackbar,
+  Stack,
   TextField,
 } from "@mui/material";
 import { userUpdate } from "../services/RestApi";
 import "./Settings.css";
 
 function Settings(props) {
+  const { profileInfo } = props;
   const [newPass, setNewPass] = useState("");
   const [oldPass, setOldPass] = useState("");
   const [newPass2, setNewPass2] = useState("");
@@ -79,105 +81,114 @@ function Settings(props) {
     setOldPass("");
     setNewPass("");
   };
-
+  console.log(profileInfo);
   return (
     <>
-      <div className="Settings_bodies">
-        <div className="profile-container1">
-          <Card className="profile-card">
-            <div className="settings-sections">
-              <div className="settings-details">
-                <TextField
-                  className="inp"
-                  type={showPassword ? "text" : "password"}
-                  value={oldPass}
-                  onChange={handleOldPassChange}
-                  label="Old Password"
-                  variant="outlined"
-                  autoComplete="off"
-                />
-                <TextField
-                  className="inp"
-                  type={showPassword ? "text" : "password"}
-                  value={newPass}
-                  onChange={handleNewPassChange}
-                  label="New Password"
-                  variant="outlined"
-                  autoComplete="off"
-                />
-                <TextField
-                  className="inp"
-                  type={showPassword ? "text" : "password"}
-                  value={newPass2}
-                  onChange={handleNewPass2Change}
-                  label="Confirm New Password"
-                  variant="outlined"
-                  autoComplete="off"
-                />
-
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={showPassword}
-                      onChange={toggleShowPassword}
-                      name="showPassword"
-                      color="primary"
+      {profileInfo.signinByGoogle && (
+        <Stack display={"flex"} alignItems={"center"} padding={"10px"}>
+          <p>You sign-in with Google Account</p>
+        </Stack>
+      )}
+      {!profileInfo.signinByGoogle && (
+        <>
+          <div className="Settings_bodies">
+            <div className="profile-container1">
+              <Card className="profile-card">
+                <div className="settings-sections">
+                  <div className="settings-details">
+                    <TextField
+                      className="inp"
+                      type={showPassword ? "text" : "password"}
+                      value={oldPass}
+                      onChange={handleOldPassChange}
+                      label="Old Password"
+                      variant="outlined"
+                      autoComplete="off"
                     />
-                  }
-                  label="Show Password"
-                />
+                    <TextField
+                      className="inp"
+                      type={showPassword ? "text" : "password"}
+                      value={newPass}
+                      onChange={handleNewPassChange}
+                      label="New Password"
+                      variant="outlined"
+                      autoComplete="off"
+                    />
+                    <TextField
+                      className="inp"
+                      type={showPassword ? "text" : "password"}
+                      value={newPass2}
+                      onChange={handleNewPass2Change}
+                      label="Confirm New Password"
+                      variant="outlined"
+                      autoComplete="off"
+                    />
 
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "1rem",
-                  }}
-                >
-                  <Button
-                    sx={{
-                      backgroundColor: "rgb(91, 192, 222);",
-                      height: "fit-content",
-                      padding: 1,
-                      marginTop: 3,
-                      width: "6rem",
-                    }}
-                    variant="contained"
-                    size="large"
-                    onClick={saveSettings}
-                  >
-                    SAVE
-                  </Button>
-                  <Button
-                    sx={{
-                      height: "fit-content",
-                      padding: 1,
-                      marginTop: 3,
-                      width: "6rem",
-                    }}
-                    variant="contained"
-                    color="error"
-                    size="large"
-                    onClick={cancelSettings}
-                  >
-                    Cancel
-                  </Button>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={showPassword}
+                          onChange={toggleShowPassword}
+                          name="showPassword"
+                          color="primary"
+                        />
+                      }
+                      label="Show Password"
+                    />
+
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "1rem",
+                      }}
+                    >
+                      <Button
+                        sx={{
+                          backgroundColor: "rgb(91, 192, 222);",
+                          height: "fit-content",
+                          padding: 1,
+                          marginTop: 3,
+                          width: "6rem",
+                        }}
+                        variant="contained"
+                        size="large"
+                        onClick={saveSettings}
+                      >
+                        SAVE
+                      </Button>
+                      <Button
+                        sx={{
+                          height: "fit-content",
+                          padding: 1,
+                          marginTop: 3,
+                          width: "6rem",
+                        }}
+                        variant="contained"
+                        color="error"
+                        size="large"
+                        onClick={cancelSettings}
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </Card>
             </div>
-          </Card>
-        </div>
-      </div>
-      <Snackbar
-        sx={{ marginTop: "40px" }}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        open={openSnackbar}
-        autoHideDuration={6000}
-        message={message}
-        key={vertical + horizontal}
-        style={{ backgroundColor: "white", color: "black" }}
-      />
+          </div>
+          <Snackbar
+            sx={{ marginTop: "40px" }}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            open={openSnackbar}
+            autoHideDuration={6000}
+            message={message}
+            key={vertical + horizontal}
+            style={{ backgroundColor: "white", color: "black" }}
+          />
+        </>
+      )}
     </>
   );
 }

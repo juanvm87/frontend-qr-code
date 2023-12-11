@@ -237,7 +237,7 @@ const Profile = () => {
             refresh={refresh}
           />
         )}
-        {edit == "password" && <Settings edit={setEdit} />}
+        {edit == "password" && <Settings profileInfo={user} edit={setEdit} />}
       </BlankCard>
     </>
   );
