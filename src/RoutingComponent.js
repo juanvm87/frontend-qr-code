@@ -16,6 +16,7 @@ import CreateDynamicQr from "./pages/CreateDynamicQr";
 import DynamicQr from "./pages/DynamicQr";
 import CreatePage from "./pages/CreatePage";
 import EditPage from "./pages/EditPage";
+import FormBuilderSidebar from "./components/FormBuilder/FormBuilderSidebar";
 
 export default function RoutingComponent() {
   return (
@@ -27,6 +28,7 @@ export default function RoutingComponent() {
             <Route path="/qr-info" element={<QRInfo />} />
             <Route path="/create" element={<CreatePage />} />
             <Route path="/create-dynamic" element={<CreateDynamicQr />} />
+            <Route path="/qr-builder" element={<FormBuilderSidebar />} />
             <Route path="/edit/:id" element={<EditPage />} />
             <Route path="/view" element={<View />} />
             <Route path="/statistic/:id" element={<StatisticPage />} />
@@ -39,8 +41,6 @@ export default function RoutingComponent() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/dynamic-qr/:id" element={<DynamicQr />} />
       </Routes>
     </BrowserRouter>

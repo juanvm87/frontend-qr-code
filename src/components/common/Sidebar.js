@@ -15,7 +15,6 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { ListItemIcon } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -304,6 +303,26 @@ export default function Sidebar() {
                   />
                 </ListItemIcon>
                 <ListItemText primary="Dynamic QR" />
+              </ListItemButton>
+              <Divider />
+            </ListItem>
+            <ListItem
+              disablePadding
+              style={{
+                backgroundColor:
+                  selected === "qr-builder" ? "#5BC0DE" : "#f1f5ff",
+                color: selected === "qr-builder" ? "white" : "#777777",
+              }}
+            >
+              <ListItemButton onClick={() => handleMenuClick("qr-builder")}>
+                <ListItemIcon>
+                  <AddCircleOutlineOutlinedIcon
+                    style={{
+                      color: selected === "qr-builder" ? "white" : "#777777",
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText primary="Custom QR Type" />
               </ListItemButton>
               <Divider />
             </ListItem>
