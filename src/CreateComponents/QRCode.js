@@ -65,29 +65,29 @@ const QRcode = (props) => {
   }, [props.qrData]);
 
   useEffect(() => {
-    function HandlerTextData() {
+    function handlerTextData() {
       try {
         setLinkData(props.textData);
       } catch (error) {
         console.error("Error fetching textData:", error);
       }
     }
-    HandlerTextData();
+    handlerTextData();
   }, [props.textData]);
 
   useEffect(() => {
-    function HandleLinkData() {
+    function handleLinkData() {
       try {
-        setLinkData(props.linkData);
+        setLinkData("https://" + props.linkData);
       } catch (error) {
         console.error("Error fetching linkData:", error);
       }
     }
-    HandleLinkData();
+    handleLinkData();
   }, [props.linkData]);
 
   useEffect(() => {
-    function HandleEmailData() {
+    function handleEmailData() {
       try {
         const edata = `mailto:${props.emailData.email}?subject=${props.emailData.subject}&body=${props.emailData.text}`;
         setLinkData(edata);
@@ -95,11 +95,11 @@ const QRcode = (props) => {
         console.error("Error fetching emailData:", error);
       }
     }
-    HandleEmailData();
+    handleEmailData();
   }, [props.emailData]);
 
   useEffect(() => {
-    function HandleZoomData() {
+    function handleZoomData() {
       try {
         const idMeeting = props.zoomData.id;
         const password = props.zoomData.password;
@@ -109,11 +109,11 @@ const QRcode = (props) => {
         console.error("Error fetching emailData:", error);
       }
     }
-    HandleZoomData();
+    handleZoomData();
   }, [props.zoomData]);
 
   useEffect(() => {
-    function HandlePhoneData() {
+    function handlePhoneData() {
       try {
         const phone = `TEL:${props.phoneData.phone}`;
         setLinkData(phone);
@@ -121,7 +121,7 @@ const QRcode = (props) => {
         console.error("Error fetching phoneData:", error);
       }
     }
-    HandlePhoneData();
+    handlePhoneData();
   }, [props.phoneData]);
 
   useEffect(() => {
