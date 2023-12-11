@@ -14,22 +14,21 @@
 .container-charts {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .container-right3 {
-    margin: auto;
+
     margin-top: 25px;
     display: flex;
-    width: 30%;
     flex-wrap: wrap;
     gap: 2rem;
+    flex-direction: column;
 }
 
 .chartLine-container {
     margin: 20px 0 0 0;
     border-radius: 10px !important;
-    width: 90%;
-
     padding: 15px;
 }
 

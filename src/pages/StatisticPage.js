@@ -92,7 +92,7 @@ const StatisticPage = () => {
                   size={115}
                   id={qrInfo.pin}
                   className="qr-code-view"
-                  value={`http://${process.env.REACT_APP_IP_CHANGE}:3000/dynamic-qr/${qrInfo._id}`}
+                  value={`http://${window.location.hostname}:3000/dynamic-qr/${qrInfo._id}`}
                   ref={qrCodeRef}
                 />
               </div>
@@ -123,7 +123,13 @@ const StatisticPage = () => {
           </div>
           <div className="container-charts">
             <div className="container-left3">
-              <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                }}
+              >
                 <StatCard
                   title={"Scans Today"}
                   body={handleBodyNumber(countScanToday(statisticData.data))}
