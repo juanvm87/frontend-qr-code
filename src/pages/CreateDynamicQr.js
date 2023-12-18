@@ -38,9 +38,7 @@ const CreateDynamicQr = () => {
       const updateCode = {
         title: "",
         type: activeButton,
-        link: qrLink
-          ? qrLink
-          : `http://${process.env.REACT_APP_IP_CHANGE}/login`,
+        link: qrLink ? qrLink : `http://${window.location.origin}/login`,
         input: dynamicInput,
       };
       let id = dynamicId ? dynamicId : valueId;
@@ -52,13 +50,10 @@ const CreateDynamicQr = () => {
   const generateDynamicQr = async () => {
     try {
       setIsDinamic(true);
-      console.log("dynamicLink", qrLink);
-      console.log("----dynamicImput-----", dynamicInput);
-      console.log("activeBut", activeButton);
+
       const dynamicQr = {
         title: "",
         type: "Link",
-        // TODO: add company domain
         link: `http:${window.location.origin}/login`,
         input: { link: "" },
         isDynamic: true,

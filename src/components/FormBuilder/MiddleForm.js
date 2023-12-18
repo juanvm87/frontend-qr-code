@@ -21,12 +21,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "./FormBuilderSidebar.css";
 
 import { v4 } from "uuid";
-import {
-  ClearOutlined,
-  DeleteOutlined,
-  OpenWith,
-  SettingsOutlined,
-} from "@mui/icons-material";
+import { ClearOutlined, DeleteOutlined, OpenWith } from "@mui/icons-material";
 import { useLocation } from "react-router-dom";
 
 import "./MiddleForm.css";
@@ -260,13 +255,11 @@ const MiddleForm = ({
 
             <div className="formBuilderTextFields">
               <TextField
-                disabled={!checked || isViewing}
                 label={checked ? null : "Short Text"}
-                variant={isViewing ? "standard" : "outlined"}
+                variant={"outlined"}
                 InputProps={{ disableUnderline: isViewing ? true : false }}
                 style={{
                   width: "300px",
-                  pointerEvents: checked ? "auto" : "none",
                 }}
                 name="shortText"
                 onChange={(event) => handleInputChange(event, item)}
@@ -306,20 +299,18 @@ const MiddleForm = ({
             <div className="formBuilderTextFields">
               <TextField
                 label="First Name"
-                variant={isViewing ? "standard" : "outlined"}
+                variant={"outlined"}
                 InputProps={{ disableUnderline: isViewing ? true : false }}
                 style={{
                   width: "215px",
-                  pointerEvents: checked ? "auto" : "none",
                 }}
                 onChange={(event) =>
                   handleMultipleInputChange(event, item, "firstName")
                 }
-                disabled={!checked || isViewing}
               />
               <TextField
                 label="Second Name"
-                variant={isViewing ? "standard" : "outlined"}
+                variant={"outlined"}
                 InputProps={{ disableUnderline: isViewing ? true : false }}
                 name="secondName"
                 // value={formData.secondName}
@@ -329,9 +320,7 @@ const MiddleForm = ({
                 style={{
                   marginLeft: "1vw",
                   width: "215px",
-                  pointerEvents: checked ? "auto" : "none",
                 }}
-                disabled={!checked || isViewing}
               />
             </div>
             {item.hasError && (
@@ -365,17 +354,14 @@ const MiddleForm = ({
             )}
             <div className="formBuilderTextFields">
               <TextField
-                label="heading"
-                variant={isViewing ? "standard" : "outlined"}
-                InputProps={{ disableUnderline: isViewing ? true : false }}
+                label="Heading"
+                variant={"outlined"}
                 style={{
                   width: "215px",
-                  pointerEvents: checked ? "auto" : "none",
                 }}
                 // name="firstName"
                 value={item.value}
                 onChange={(event) => handleInputChange(event, item)}
-                disabled={!checked || isViewing}
               />
             </div>
             {item.hasError && (
@@ -387,38 +373,15 @@ const MiddleForm = ({
       case "longText":
         return (
           <div className="formComponentTitles">
-            {checked && (
-              <div
-                style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
-              >
-                <span>{item.label}</span>
-              </div>
-            )}
-            {!checked && (
-              <TextField
-                placeholder="Long Text"
-                variant="standard"
-                InputProps={{ disableUnderline: true }}
-                style={{
-                  width: "300px",
-                }}
-                name="longText"
-                onChange={(event) => handleOnLabelChange(event, item)}
-                value={item.label}
-              />
-            )}
             <div className="formBuilderTextFields">
               <TextField
                 label={checked ? null : "Long Text"}
-                variant={isViewing ? "standard" : "outlined"}
+                variant={"outlined"}
                 InputProps={{ disableUnderline: isViewing ? true : false }}
                 name="longText"
                 value={item.value}
                 onChange={(event) => handleInputChange(event, item)}
                 multiline
-                disabled={!checked || isViewing}
-                style={{ pointerEvents: checked ? "auto" : "none" }}
                 inputProps={{
                   style: { height: isViewing ? "" : "190px", width: "600px" },
                 }}
@@ -433,41 +396,18 @@ const MiddleForm = ({
       case "paragraph":
         return (
           <div className="formComponentTitles">
-            {checked && (
-              <div
-                style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
-              >
-                <span>{item.label}</span>
-              </div>
-            )}
-            {!checked && (
-              <TextField
-                placeholder="Paragraph"
-                variant="standard"
-                InputProps={{ disableUnderline: true }}
-                style={{
-                  width: "300px",
-                }}
-                name="longText"
-                onChange={(event) => handleOnLabelChange(event, item)}
-                value={item.label}
-              />
-            )}
             <div className="formBuilderTextFields">
               <TextField
                 label={checked ? null : "Paragraph"}
-                variant={isViewing ? "standard" : "outlined"}
+                variant={"outlined"}
                 InputProps={{ disableUnderline: isViewing ? true : false }}
                 style={{
                   width: "600px",
-                  pointerEvents: checked ? "auto" : "none",
                 }}
                 name="paragraph"
                 value={item.value}
                 onChange={(event) => handleInputChange(event, item)}
                 multiline
-                disabled={!checked || isViewing}
               />
             </div>
             {item.hasError && (
@@ -508,14 +448,12 @@ const MiddleForm = ({
                     labelId="dropdown-label"
                     id="dropdown"
                     onChange={(event) => handleInputChange(event, item)}
-                    variant={isViewing ? "standard" : "outlined"}
+                    variant={"outlined"}
                     InputProps={{ disableUnderline: isViewing ? true : false }}
                     style={{
                       width: "300px",
-                      pointerEvents: checked ? "auto" : "none",
                     }}
                     defaultValue="1"
-                    disabled={!checked || isViewing}
                     displayEmpty
                     value={item.value || "1"}
                   >
@@ -577,7 +515,7 @@ const MiddleForm = ({
             {!checked && (
               <TextField
                 placeholder="Single Choice"
-                variant={isViewing ? "standard" : "outlined"}
+                variant={"outlined"}
                 InputProps={{ disableUnderline: isViewing ? true : false }}
                 style={{
                   width: "300px",
@@ -589,7 +527,7 @@ const MiddleForm = ({
             )}
             <div className="formBuilderTextFields">
               <div style={{ display: "flex", flexDirection: "column" }}>
-                <FormControl disabled={!checked || isViewing}>
+                <FormControl>
                   <div style={{ display: "flex" }}>
                     <RadioGroup
                       aria-labelledby="demo-row-radio-buttons-group-label"
@@ -615,7 +553,6 @@ const MiddleForm = ({
                               onChange={(event) => {
                                 option.label = event.target.value;
                               }}
-                              disabled={!checked || isViewing}
                             />
                             {!checked && (
                               <div
@@ -676,13 +613,12 @@ const MiddleForm = ({
             )}
             <div className="formBuilderTextFields">
               <div style={{ display: "flex", flexDirection: "column" }}>
-                <FormGroup disabled={!checked || isViewing}>
+                <FormGroup>
                   {item.optionsArray.map((option) => (
                     <div key={option.key} style={{ display: "flex" }}>
                       <FormControlLabel
                         control={
                           <Checkbox
-                            disabled={!checked || isViewing}
                             onChange={() =>
                               handleMultipleChoiceChange(item, option)
                             }
@@ -702,7 +638,6 @@ const MiddleForm = ({
                           onChange={(event) => {
                             option.label = event.target.value;
                           }}
-                          disabled={!checked || isViewing}
                         />
                         {!checked && (
                           <div
@@ -759,16 +694,14 @@ const MiddleForm = ({
             <div className="formBuilderTextFields">
               <TextField
                 label={checked ? null : "e.g., 23"}
-                variant={isViewing ? "standard" : "outlined"}
+                variant={"outlined"}
                 InputProps={{ disableUnderline: isViewing ? true : false }}
                 style={{
                   width: "300px",
-                  pointerEvents: checked ? "auto" : "none",
                 }}
                 name="number"
                 type="number"
                 onChange={(event) => handleInputChange(event, item)}
-                disabled={!checked || isViewing}
                 value={item.value}
               />
             </div>
@@ -831,7 +764,6 @@ const MiddleForm = ({
                 <OutlinedInput
                   type="file"
                   id="file-input"
-                  disabled={!checked || isViewing}
                   style={{ pointerEvents: checked ? "auto" : "none" }}
                   inputProps={{
                     style: { height: "190px", width: "450px" },
@@ -849,39 +781,23 @@ const MiddleForm = ({
       case "email":
         return (
           <div className="formComponentTitles">
-            {checked && (
-              <div
-                style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
-              >
-                <span>{item.label}</span>
-              </div>
-            )}
-            {!checked && (
-              <TextField
-                placeholder="Email"
-                variant="standard"
-                InputProps={{ disableUnderline: true }}
-                style={{
-                  width: "300px",
-                }}
-                name="email"
-                onChange={(event) => handleOnLabelChange(event, item)}
-              />
-            )}
+            <div
+              style={{ fontWeight: 600, fontSize: "1rem" }}
+              className={`${isRequired ? "requiredField" : ""}`}
+            >
+              <span>{item.label}</span>
+            </div>
+
             <div className="formBuilderTextFields">
               <TextField
                 label={checked ? null : "Email"}
-                variant={isViewing ? "standard" : "outlined"}
-                InputProps={{ disableUnderline: isViewing ? true : false }}
+                variant={"outlined"}
                 name="email"
                 value={item.value}
                 onChange={(event) => handleInputChange(event, item)}
                 style={{
                   width: "300px",
-                  pointerEvents: checked ? "auto" : "none",
                 }}
-                disabled={!checked || isViewing}
               />
             </div>
             {item.hasError && (
@@ -915,92 +831,82 @@ const MiddleForm = ({
               />
             )}
             <div className="formBuilderTextFields">
-              <div style={{ width: "600px" }}>
+              <div style={{ width: "400px" }}>
                 <TextField
                   label="Street Address"
-                  variant={isViewing ? "standard" : "outlined"}
+                  variant={"outlined"}
                   InputProps={{ disableUnderline: isViewing ? true : false }}
                   name="streetAddress"
                   // value={formData.streetAddress}
                   onChange={(event) =>
                     handleMultipleInputChange(event, item, "streetAddress")
                   }
-                  disabled={!checked || isViewing}
                   style={{
-                    width: "600px",
-                    pointerEvents: checked ? "auto" : "none",
+                    width: "400px",
                   }}
                 />
                 <TextField
                   label="Street Address Line 2"
-                  variant={isViewing ? "standard" : "outlined"}
+                  variant={"outlined"}
                   InputProps={{ disableUnderline: isViewing ? true : false }}
                   name="streetAddressLine2"
                   // value={formData.streetAddressLine2}
                   onChange={(event) =>
                     handleMultipleInputChange(event, item, "streetAddressLine2")
                   }
-                  disabled={!checked || isViewing}
                   style={{
                     marginTop: "30px",
-                    width: "600px",
-                    pointerEvents: checked ? "auto" : "none",
+                    width: "400px",
                   }}
                 />
                 <div
                   style={{
                     display: "flex",
                     marginTop: "30px",
-                    width: "600px",
+                    width: "400px",
                     justifyContent: "space-between",
                   }}
                 >
                   <TextField
                     label="City"
-                    variant={isViewing ? "standard" : "outlined"}
+                    variant={"outlined"}
                     InputProps={{ disableUnderline: isViewing ? true : false }}
                     name="city"
                     // value={formData.city}
                     onChange={(event) =>
                       handleMultipleInputChange(event, item, "city")
                     }
-                    disabled={!checked || isViewing}
                     style={{
-                      width: "280px",
-                      pointerEvents: checked ? "auto" : "none",
+                      width: "200px",
                     }}
                   />
                   <TextField
                     label="State"
-                    variant={isViewing ? "standard" : "outlined"}
+                    variant={"outlined"}
                     InputProps={{ disableUnderline: isViewing ? true : false }}
                     name="state"
-                    disabled={!checked || isViewing}
                     // value={formData.state}
                     onChange={(event) =>
                       handleMultipleInputChange(event, item, "state")
                     }
                     style={{
                       marginLeft: "1vw",
-                      width: "280px",
-                      pointerEvents: checked ? "auto" : "none",
+                      width: "200px",
                     }}
                   />
                 </div>
                 <TextField
                   label="Postal / Zip Code"
-                  variant={isViewing ? "standard" : "outlined"}
+                  variant={"outlined"}
                   InputProps={{ disableUnderline: isViewing ? true : false }}
                   name="zipCode"
-                  disabled={!checked || isViewing}
                   // value={formData.zipCode}
                   onChange={(event) =>
                     handleMultipleInputChange(event, item, "zipCode")
                   }
                   style={{
                     marginTop: "30px",
-                    width: "600px",
-                    pointerEvents: checked ? "auto" : "none",
+                    width: "400px",
                   }}
                 />
               </div>
@@ -1037,15 +943,13 @@ const MiddleForm = ({
             <div className="formBuilderTextFields">
               <TextField
                 label={checked ? null : "Phone"}
-                variant={isViewing ? "standard" : "outlined"}
+                variant={"outlined"}
                 InputProps={{ disableUnderline: isViewing ? true : false }}
                 name="phone"
                 value={item.value}
                 onChange={(event) => handleInputChange(event, item)}
-                disabled={!checked || isViewing}
                 style={{
                   width: "300px",
-                  pointerEvents: checked ? "auto" : "none",
                 }}
                 helperText={
                   isViewing ? null : "Please enter a valid phone number."
@@ -1072,7 +976,7 @@ const MiddleForm = ({
             {!checked && (
               <TextField
                 placeholder="Date"
-                variant={isViewing ? "standard" : "outlined"}
+                variant={"outlined"}
                 InputProps={{ disableUnderline: isViewing ? true : false }}
                 style={{
                   width: "300px",
@@ -1090,7 +994,6 @@ const MiddleForm = ({
                   onChange={(newValue) => {
                     handleDateChange(newValue.toString(), item);
                   }}
-                  disabled={!checked || isViewing}
                 />
               </LocalizationProvider>
             </div>
@@ -1113,7 +1016,7 @@ const MiddleForm = ({
             {!checked && (
               <TextField
                 placeholder="time"
-                variant={isViewing ? "standard" : "outlined"}
+                variant={"outlined"}
                 InputProps={{ disableUnderline: isViewing ? true : false }}
                 style={{
                   width: "300px",
@@ -1128,7 +1031,6 @@ const MiddleForm = ({
                 value={item.value}
                 type="time"
                 onChange={(e) => handleTimeChange(e, item)}
-                disabled={!checked || isViewing}
               />
             </div>
             {item.hasError && (
@@ -1162,7 +1064,6 @@ const MiddleForm = ({
             )}
             <ReactQuill
               style={{ height: "250px" }}
-              readOnly={!checked || isViewing}
               onChange={(content) => handleContentChange(content, item)}
               value={item.value}
               theme="snow"
@@ -1189,7 +1090,7 @@ const MiddleForm = ({
               <TextField
                 placeholder="JSON"
                 variant="standard"
-                InputProps={{ disableUnderline: true }}
+                // InputProps={{ disableUnderline: true }}
                 style={{
                   width: "300px",
                 }}
@@ -1203,7 +1104,7 @@ const MiddleForm = ({
                 collapsible
                 onChange={onJsonChange}
                 view="dual"
-                // viewOnly={!checked || isViewing}
+                viewOnly={false}
                 // id="a_unique_id"
                 // onChange={(event) => console.log("jsonConsole", event)}
                 // locale={locale}
@@ -1304,7 +1205,7 @@ const MiddleForm = ({
                   className={`formElementWrapper ${
                     selectedElement?.key == item.key
                       ? !checked
-                        ? "selected"
+                        ? "selected2"
                         : ""
                       : ""
                   } `}
@@ -1316,16 +1217,6 @@ const MiddleForm = ({
                 </div>
                 {!checked && (
                   <div className={!checked ? "setting-delete-icon" : ""}>
-                    <div
-                      className={!checked ? "settingIcon" : ""}
-                      onClick={() => {
-                        setDrawerType2 && setDrawerType2("permanent");
-                        setSelectedElement && setSelectedElement(item);
-                      }}
-                    >
-                      <SettingsOutlined style={{ color: "#ffffff" }} />
-                    </div>
-
                     <div
                       className={!checked ? "deleteIcon" : ""}
                       onClick={() => handleOnClickDelete(item.key)}
@@ -1348,9 +1239,9 @@ const MiddleForm = ({
               }}
             >
               {isInEditMode && (
-                <OpenWith color="#636a96" style={{ marginRight: "0.5rem" }} />
+                <OpenWith style={{ color: "#636a96", marginRight: "0.5rem" }} />
               )}
-              <Typography color="#636a96" style={{ marginLeft: "0.5rem" }}>
+              <Typography style={{ color: "#636a96", marginLeft: "0.5rem" }}>
                 {isInEditMode
                   ? "Click your first question here from the left"
                   : "No Properties Found"}

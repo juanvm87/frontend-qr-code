@@ -1,35 +1,28 @@
 import {
   Button,
+  Card,
   Drawer,
-  FormControlLabel,
   makeStyles,
-  Switch,
   Typography,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import dayjs from "dayjs";
-
 import "./FormBuilderSidebar.css";
-
 import { v4 } from "uuid";
 import {
   AccessTimeOutlined,
-  Add,
   ArrowDropDownOutlined,
   CalendarMonthOutlined,
   CallOutlined,
   CheckBoxOutlined,
-  Clear,
   DataObjectOutlined,
   DriveFileRenameOutlineOutlined,
   EmailOutlined,
   FileUploadOutlined,
   FormatColorTextOutlined,
-  FormatPaintOutlined,
   ImageOutlined,
   LocationCityOutlined,
   Looks3Outlined,
@@ -38,9 +31,12 @@ import {
   ShortTextOutlined,
   SubjectOutlined,
 } from "@mui/icons-material";
-import { useNavigate, useParams } from "react-router-dom";
-import { getThemeGradient } from "../../utils/Theme";
 import MiddleForm from "./MiddleForm";
+import QRCode from "react-qr-code";
+import { BsFiletypePdf, BsFiletypePng, BsFiletypeSvg } from "react-icons/bs";
+import { PopUpModal } from "../common/PopUpModal";
+import { createQrAPI, updateQr } from "../../services/RestApi";
+import { handleDownload } from "../helperFunction/handleDownload";
 
 const useStyles = makeStyles({
   drawer: {
@@ -57,14 +53,19 @@ const useStyles = makeStyles({
 
 const FormBuilderSidebar = () => {
   const classes = useStyles();
-
   const [drawerType, setDrawerType] = useState("permanent");
   const [drawerType2, setDrawerType2] = useState("temporary");
   const [formElementsList, setFormElementsList] = useState([]);
   const [selectedElement, setSelectedElement] = useState();
   const [formSubmitted, setFormSubmitted] = useState(false);
-
+  const qrCodeRef = useRef(null);
+  const [isSaved, setIsSaved] = useState(false);
+  const [showButton, setShowButton] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [downloadType, setDownloadType] = useState(null);
+  const [qrData, setQrData] = useState({});
+  const [qrLink, setQrLink] = useState("");
+  const [qrId, setQrId] = useState("");
 
   const handlePreviewChange = () => {
     setChecked((prev) => !prev);
@@ -84,6 +85,75 @@ const FormBuilderSidebar = () => {
       }),
     ]);
   };
+
+  useEffect(() => {
+    if (downloadType) {
+      const qrCodeSvgElement = qrCodeRef.current;
+      if (qrCodeSvgElement) {
+        handleDownload(downloadType, qrCodeSvgElement);
+        setDownloadType(null); // Reset the download type after processing
+      }
+    }
+  }, [downloadType]);
+
+  const handleQrLink = (value) => {
+    setQrLink(value);
+  };
+  const handleUpdate = async (title, _id, isSaving) => {
+    try {
+      console.log("qrId-------", qrId);
+      const updateCode = {
+        title: title,
+        type: "customQr",
+        link: qrLink ? qrLink : `${window.location.origin}/login`,
+        input: formElementsList,
+      };
+      const id = _id ? _id : qrId;
+      const responce = await updateQr(id, updateCode);
+      if (isSaving) {
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const generateQr = async () => {
+    try {
+      const newData = {
+        title: "",
+        type: "customQr",
+        link: "http://",
+        input: formElementsList,
+        isDynamic: false,
+        ownerId: "",
+      };
+
+      const newQr = await createQrAPI(newData);
+
+      setQrId(newQr.data._id);
+      const newDynamicLink = `${window.location.origin}/custom-qr/${newQr.data._id}`;
+      handleQrLink(newDynamicLink);
+      await handleUpdate("", newQr.data._id);
+      setShowButton(true);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    if (isSaved) {
+      setTimeout(() => {
+        handleUpdate("");
+      }, 700);
+    }
+  }, [formElementsList]);
+
+  useEffect(() => {
+    if (!isSaved && formElementsList.length > 0) {
+      generateQr();
+      setIsSaved(true);
+    }
+  }, [formElementsList]);
 
   const handleOnClickBasicElements = (item) => {
     const tempArray = [...formElementsList];
@@ -543,13 +613,15 @@ const FormBuilderSidebar = () => {
                 style={{
                   background: "#3e4652",
                   color: "white",
-                  width: "54%",
+
                   display: "flex",
-                  justifyContent: "center",
+                  padding: 10,
                   alignItems: "center",
                 }}
               >
-                <Typography variant="h6">Basic Elements</Typography>
+                <Typography variant="h6" style={{ paddingLeft: "5%" }}>
+                  Basic Elements
+                </Typography>
               </div>
               <List>
                 {basicElements.map((item) => (
@@ -566,7 +638,6 @@ const FormBuilderSidebar = () => {
             </div>
           </Drawer>
         </div>
-
         <div style={{ width: "50%" }}>
           <div className="formBuilderOuter">
             <div className="formBuilderInner">
@@ -600,56 +671,63 @@ const FormBuilderSidebar = () => {
             </div>
           </div>
         </div>
-        <div
-          style={{
-            width: "300px",
-            right: 0,
-            height: "80%",
-          }}
-        ></div>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row-reverse",
-          background: getThemeGradient(),
-          position: "fixed",
-          alignItems: "center",
-          bottom: "20px",
-          padding: "0.3% 0%",
-          width: "100vw",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            margin: "0 1%",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Button
-            variant="outlined"
-            onClick={handlePreviewChange}
-            style={{ color: "white", borderColor: "white" }}
-          >
-            {!checked ? "Preview" : "Back"}
-          </Button>
-        </div>
 
         <div
           style={{
             display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "30rem",
           }}
         >
-          {!checked ? (
-            <Button
-              variant="outlined"
-              style={{ color: "white", borderColor: "white" }}
-            >
-              SAVE
-            </Button>
-          ) : null}
+          <Card className="qr-card">
+            <QRCode
+              size={200}
+              id="qr-picture"
+              className="qr-code-img"
+              value={qrLink}
+              ref={qrCodeRef}
+            />
+            {showButton && (
+              <div className="container-save">
+                <div className="container-btn-qr">
+                  <Button
+                    className="download-btn-qr"
+                    onClick={() => {
+                      setDownloadType("pdf");
+                    }}
+                  >
+                    <BsFiletypePdf className="file-type-download" />
+                  </Button>
+                  <Button
+                    className="download-btn-qr"
+                    onClick={() => {
+                      setDownloadType("png");
+                    }}
+                  >
+                    <BsFiletypePng className="file-type-download" />
+                  </Button>
+                  <Button
+                    className="download-btn-qr"
+                    onClick={() => {
+                      setDownloadType("svg");
+                    }}
+                  >
+                    <BsFiletypeSvg className="file-type-download" />
+                  </Button>
+                </div>
+                <div>
+                  <PopUpModal
+                    saveData={""}
+                    setDownloadType={setDownloadType}
+                    isUpdating={false}
+                    handleUpdate={handleUpdate}
+                    isDynamic={true}
+                  />
+                </div>
+              </div>
+            )}
+          </Card>
         </div>
       </div>
     </div>

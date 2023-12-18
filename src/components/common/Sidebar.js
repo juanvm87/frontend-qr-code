@@ -22,12 +22,7 @@ import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOu
 import QrCode2OutlinedIcon from "@mui/icons-material/QrCode2Outlined";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
-import {
-  AccountCircleOutlined,
-  GetApp,
-  GroupsOutlined,
-  Person,
-} from "@mui/icons-material";
+import { AccountCircleOutlined, GetApp, Person } from "@mui/icons-material";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { MyHandleContext } from "../../store/handleContext";
 import { googleLogout } from "@react-oauth/google";
@@ -381,6 +376,9 @@ export default function Sidebar() {
           <Outlet />
         </Main>
       </Box>
+      <div style={{ margin: "10px" }}>
+        <footer>&copy; Copyright 2023 Alphech Global Private Limited</footer>
+      </div>
     </>
   );
 }
