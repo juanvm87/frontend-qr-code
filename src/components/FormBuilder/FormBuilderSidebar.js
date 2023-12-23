@@ -2,7 +2,9 @@ import {
   Button,
   Card,
   Drawer,
+  FormControlLabel,
   makeStyles,
+  Switch,
   Typography,
 } from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
@@ -51,7 +53,7 @@ const useStyles = makeStyles({
   },
 });
 
-const FormBuilderSidebar = () => {
+const FormBuilderSidebar = (props) => {
   const classes = useStyles();
   const [drawerType, setDrawerType] = useState("permanent");
   const [drawerType2, setDrawerType2] = useState("temporary");
@@ -63,9 +65,9 @@ const FormBuilderSidebar = () => {
   const [showButton, setShowButton] = useState(false);
   const [checked, setChecked] = useState(false);
   const [downloadType, setDownloadType] = useState(null);
-  const [qrData, setQrData] = useState({});
   const [qrLink, setQrLink] = useState("");
   const [qrId, setQrId] = useState("");
+  const [isFormDisplay, setIsFormDisplay] = useState(false);
 
   const handlePreviewChange = () => {
     setChecked((prev) => !prev);
@@ -74,6 +76,12 @@ const FormBuilderSidebar = () => {
     }
   };
 
+  useEffect(() => {
+    if (props.isEditPage) {
+      console.log("QRINFO", props.qrInfo);
+      setFormElementsList(props.qrInfo);
+    }
+  }, []);
   const handleInputChange = (event, item) => {
     const { value } = event.target;
     setFormElementsList((prev) => [
@@ -101,17 +109,16 @@ const FormBuilderSidebar = () => {
   };
   const handleUpdate = async (title, _id, isSaving) => {
     try {
-      console.log("qrId-------", qrId);
       const updateCode = {
         title: title,
         type: "customQr",
         link: qrLink ? qrLink : `${window.location.origin}/login`,
         input: formElementsList,
+        isFormDisplay: isFormDisplay,
       };
       const id = _id ? _id : qrId;
       const responce = await updateQr(id, updateCode);
-      if (isSaving) {
-      }
+      console.log("eeeeeee", responce);
     } catch (error) {
       console.log(error);
     }
@@ -123,7 +130,8 @@ const FormBuilderSidebar = () => {
         type: "customQr",
         link: "http://",
         input: formElementsList,
-        isDynamic: false,
+        isDynamic: true,
+        isFormDisplay: isFormDisplay,
         ownerId: "",
       };
 
@@ -132,7 +140,7 @@ const FormBuilderSidebar = () => {
       setQrId(newQr.data._id);
       const newDynamicLink = `${window.location.origin}/custom-qr/${newQr.data._id}`;
       handleQrLink(newDynamicLink);
-      await handleUpdate("", newQr.data._id);
+      await handleUpdate("", newQr.data._id, false);
       setShowButton(true);
     } catch (error) {
       console.error(error);
@@ -146,12 +154,14 @@ const FormBuilderSidebar = () => {
         handleUpdate("");
       }, 700);
     }
-  }, [formElementsList]);
+  }, [formElementsList, isFormDisplay]);
 
   useEffect(() => {
-    if (!isSaved && formElementsList.length > 0) {
+    if (!props.isEditPage && !isSaved && formElementsList.length > 0) {
       generateQr();
-      setIsSaved(true);
+    } else if (props.isEditPage) {
+      setShowButton(true);
+      setQrId(props.editQrId);
     }
   }, [formElementsList]);
 
@@ -207,7 +217,9 @@ const FormBuilderSidebar = () => {
       }
     }
   };
-
+  const handleChangeSwitch = (event) => {
+    setIsFormDisplay(event.target.checked);
+  };
   const handleOnClickDelete = (key) => {
     const filteredArray = formElementsList.filter((obj) => obj.key != key);
     setFormElementsList(filteredArray);
@@ -359,22 +371,22 @@ const FormBuilderSidebar = () => {
       value: "",
       dataType: "string",
     },
-    {
-      id: 9,
-      name: "JSON",
-      icon: <DataObjectOutlined style={{ color: "white" }} />,
-      label: "Json",
-      field: "text",
-      placeholder: "",
-      type: "json",
-      editType: "Json",
-      validation: { isRequired: "", min: "", max: "" },
-      widthSize: "",
-      hasError: false,
-      errorMsg: "",
-      value: "",
-      dataType: "json",
-    },
+    // {
+    //   id: 9,
+    //   name: "JSON",
+    //   icon: <DataObjectOutlined style={{ color: "white" }} />,
+    //   label: "Json",
+    //   field: "text",
+    //   placeholder: "",
+    //   type: "json",
+    //   editType: "Json",
+    //   validation: { isRequired: "", min: "", max: "" },
+    //   widthSize: "",
+    //   hasError: false,
+    //   errorMsg: "",
+    //   value: "",
+    //   dataType: "json",
+    // },
     {
       id: 10,
       name: "Signature",
@@ -521,38 +533,38 @@ const FormBuilderSidebar = () => {
       value: "",
       dataType: "number",
     },
-    {
-      id: 8,
-      name: "Image",
-      icon: <ImageOutlined style={{ color: "white" }} />,
-      label: "Image",
-      field: "image",
-      placeholder: "",
-      type: "image",
-      editType: "fileUpload",
-      validation: { isRequired: "", min: "", max: "" },
-      widthSize: "",
-      hasError: false,
-      errorMsg: "",
-      value: "",
-      dataType: "string",
-    },
-    {
-      id: 9,
-      name: "File Upload",
-      icon: <FileUploadOutlined style={{ color: "white" }} />,
-      label: "File Upload",
-      field: "files",
-      placeholder: "",
-      type: "multipleFiles",
-      editType: "fileUpload",
-      validation: { isRequired: "", min: "", max: "" },
-      widthSize: "",
-      hasError: false,
-      errorMsg: "",
-      value: "",
-      dataType: "string",
-    },
+    // {
+    //   id: 8,
+    //   name: "Image",
+    //   icon: <ImageOutlined style={{ color: "white" }} />,
+    //   label: "Image",
+    //   field: "image",
+    //   placeholder: "",
+    //   type: "image",
+    //   editType: "fileUpload",
+    //   validation: { isRequired: "", min: "", max: "" },
+    //   widthSize: "",
+    //   hasError: false,
+    //   errorMsg: "",
+    //   value: "",
+    //   dataType: "string",
+    // },
+    // {
+    //   id: 9,
+    //   name: "File Upload",
+    //   icon: <FileUploadOutlined style={{ color: "white" }} />,
+    //   label: "File Upload",
+    //   field: "files",
+    //   placeholder: "",
+    //   type: "multipleFiles",
+    //   editType: "fileUpload",
+    //   validation: { isRequired: "", min: "", max: "" },
+    //   widthSize: "",
+    //   hasError: false,
+    //   errorMsg: "",
+    //   value: "",
+    //   dataType: "string",
+    // },
   ];
 
   return (
@@ -643,14 +655,20 @@ const FormBuilderSidebar = () => {
             <div className="formBuilderInner">
               <div
                 style={{
-                  justifyContent: "center",
-                  alignItems: "center",
                   display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-between",
                 }}
               >
                 <Typography variant="h5" style={{ fontWeight: "bold" }}>
                   Add Elements
                 </Typography>
+                <FormControlLabel
+                  control={
+                    <Switch onChange={handleChangeSwitch} color="primary" />
+                  }
+                  label="DISPLAY AS FORM"
+                />
               </div>
               <MiddleForm
                 formSubmitted={formSubmitted}
@@ -667,6 +685,7 @@ const FormBuilderSidebar = () => {
                 setDrawerType={(type) => setDrawerType(type)}
                 previewSubmit={previewSubmit}
                 closeSuccessModal={closeSuccessModal}
+                isFormView={true}
               />
             </div>
           </div>
@@ -678,6 +697,8 @@ const FormBuilderSidebar = () => {
             justifyContent: "center",
             alignItems: "center",
             width: "30rem",
+            margin: "auto",
+            flexDirection: "column",
           }}
         >
           <Card className="qr-card">
@@ -720,7 +741,7 @@ const FormBuilderSidebar = () => {
                   <PopUpModal
                     saveData={""}
                     setDownloadType={setDownloadType}
-                    isUpdating={false}
+                    isUpdating={props.isEditPage ? true : false}
                     handleUpdate={handleUpdate}
                     isDynamic={true}
                   />

@@ -14,12 +14,15 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useRef } from "react";
-
+import {
+  handleformatedOnlyDate,
+  handleformattedDateTime,
+} from "../helperFunction/formatedDate";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "./FormBuilderSidebar.css";
-
+import parse from "html-react-parser";
 import { v4 } from "uuid";
 import { ClearOutlined, DeleteOutlined, OpenWith } from "@mui/icons-material";
 import { useLocation } from "react-router-dom";
@@ -28,7 +31,6 @@ import "./MiddleForm.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import SignaturePad from "react-signature-canvas";
-
 import { JSONEditor } from "react-json-editor-viewer";
 
 const MiddleForm = ({
@@ -44,11 +46,13 @@ const MiddleForm = ({
   setDrawerType,
   previewSubmit,
   isViewing,
+  isCustomSee,
+  isFormView,
 }) => {
   const isInEditMode = useLocation().pathname.split("/")[2] === "edit";
   const handleInputChange = (event, item) => {
     const { value } = event.target;
-    console.log(value);
+
     setFormElementsList((prev) => [
       ...prev.map((val) => {
         if (val.key === item.key) {
@@ -203,9 +207,6 @@ const MiddleForm = ({
   };
 
   const handleMultipleChoiceChange = (item, option) => {
-    console.log("Multi Handle Item--->", item);
-    console.log("Multi Handle Option--->", option);
-    console.log("Form, ", formElementsList);
     let updatedForm = [...formElementsList];
     updatedForm = updatedForm.map((val) => {
       if (val.key === item.key) {
@@ -252,19 +253,20 @@ const MiddleForm = ({
                 value={item.label}
               />
             )}
-
             <div className="formBuilderTextFields">
-              <TextField
-                label={checked ? null : "Short Text"}
-                variant={"outlined"}
-                InputProps={{ disableUnderline: isViewing ? true : false }}
-                style={{
-                  width: "300px",
-                }}
-                name="shortText"
-                onChange={(event) => handleInputChange(event, item)}
-                value={item.value}
-              />
+              {isFormView && (
+                <TextField
+                  label={checked ? null : "Short Text"}
+                  variant={"outlined"}
+                  style={{
+                    width: "300px",
+                  }}
+                  name="shortText"
+                  onChange={(event) => handleInputChange(event, item)}
+                  value={item.value}
+                />
+              )}
+              {!isFormView && <span>{item.value}</span>}
             </div>
             {item.hasError && (
               <span style={{ color: "red" }}>{item.errorMsg}</span>
@@ -297,31 +299,44 @@ const MiddleForm = ({
               />
             )}
             <div className="formBuilderTextFields">
-              <TextField
-                label="First Name"
-                variant={"outlined"}
-                InputProps={{ disableUnderline: isViewing ? true : false }}
-                style={{
-                  width: "215px",
-                }}
-                onChange={(event) =>
-                  handleMultipleInputChange(event, item, "firstName")
-                }
-              />
-              <TextField
-                label="Second Name"
-                variant={"outlined"}
-                InputProps={{ disableUnderline: isViewing ? true : false }}
-                name="secondName"
-                // value={formData.secondName}
-                onChange={(event) =>
-                  handleMultipleInputChange(event, item, "secondName")
-                }
-                style={{
-                  marginLeft: "1vw",
-                  width: "215px",
-                }}
-              />
+              {isFormView && (
+                <>
+                  <TextField
+                    label="First Name"
+                    variant={"outlined"}
+                    InputProps={{ disableUnderline: isViewing ? true : false }}
+                    style={{
+                      width: "215px",
+                    }}
+                    value={item.value.firstname}
+                    onChange={(event) =>
+                      handleMultipleInputChange(event, item, "firstName")
+                    }
+                  />
+                  <TextField
+                    label="Second Name"
+                    variant={"outlined"}
+                    InputProps={{ disableUnderline: isViewing ? true : false }}
+                    name="secondName"
+                    value={item.value.secondname}
+                    onChange={(event) =>
+                      handleMultipleInputChange(event, item, "secondName")
+                    }
+                    style={{
+                      marginLeft: "1vw",
+                      width: "215px",
+                    }}
+                  />
+                </>
+              )}
+
+              {!isFormView && (
+                <div style={{ whiteSpace: "normal", wordWrap: "break-word" }}>
+                  <span>
+                    {item.value.firstName} {item.value.secondName}
+                  </span>
+                </div>
+              )}
             </div>
             {item.hasError && (
               <span style={{ color: "red" }}>{item.errorMsg}</span>
@@ -343,7 +358,7 @@ const MiddleForm = ({
               <TextField
                 placeholder="Heading"
                 variant="standard"
-                InputProps={{ disableUnderline: true }}
+                InputProps={{ disableUnderline: true, maxLength: 400 }}
                 style={{
                   width: "300px",
                 }}
@@ -353,16 +368,22 @@ const MiddleForm = ({
               />
             )}
             <div className="formBuilderTextFields">
-              <TextField
-                label="Heading"
-                variant={"outlined"}
-                style={{
-                  width: "215px",
-                }}
-                // name="firstName"
-                value={item.value}
-                onChange={(event) => handleInputChange(event, item)}
-              />
+              {isFormView && (
+                <>
+                  <TextField
+                    label="Heading"
+                    variant={"outlined"}
+                    inputProps={{ maxLength: 30 }}
+                    style={{
+                      width: "215px",
+                    }}
+                    // name="firstName"
+                    //value={item.value}
+                    onChange={(event) => handleInputChange(event, item)}
+                  />
+                </>
+              )}
+              {!isFormView && <span>{item.value}</span>}
             </div>
             {item.hasError && (
               <span style={{ color: "red" }}>{item.errorMsg}</span>
@@ -373,19 +394,47 @@ const MiddleForm = ({
       case "longText":
         return (
           <div className="formComponentTitles">
-            <div className="formBuilderTextFields">
+            {checked && (
+              <div
+                style={{ fontWeight: 600, fontSize: "1rem" }}
+                className={`${isRequired ? "requiredField" : ""}`}
+              >
+                <span>{item.label}</span>
+              </div>
+            )}
+            {!checked && (
               <TextField
-                label={checked ? null : "Long Text"}
-                variant={"outlined"}
-                InputProps={{ disableUnderline: isViewing ? true : false }}
-                name="longText"
-                value={item.value}
-                onChange={(event) => handleInputChange(event, item)}
-                multiline
-                inputProps={{
-                  style: { height: isViewing ? "" : "190px", width: "600px" },
+                placeholder="Long Text"
+                variant="standard"
+                InputProps={{ disableUnderline: true }}
+                style={{
+                  width: "300px",
                 }}
+                name="longText"
+                onChange={(event) => handleOnLabelChange(event, item)}
+                //value={item.label}
               />
+            )}
+            <div className="formBuilderTextFields">
+              {isFormView && (
+                <TextField
+                  label={checked ? null : "Long Text"}
+                  variant={"outlined"}
+                  InputProps={{ disableUnderline: isViewing ? true : false }}
+                  name="longText"
+                  //value={item.value}
+                  onChange={(event) => handleInputChange(event, item)}
+                  multiline
+                  inputProps={{
+                    style: { height: isViewing ? "" : "190px", width: "600px" },
+                  }}
+                />
+              )}
+              {!isFormView && (
+                <div style={{ whiteSpace: "normal", wordWrap: "break-word" }}>
+                  <span>{item.value}</span>
+                </div>
+              )}
             </div>
             {item.hasError && (
               <span style={{ color: "red" }}>{item.errorMsg}</span>
@@ -396,26 +445,54 @@ const MiddleForm = ({
       case "paragraph":
         return (
           <div className="formComponentTitles">
-            <div className="formBuilderTextFields">
+            {checked && (
+              <div
+                style={{ fontWeight: 600, fontSize: "1rem" }}
+                className={`${isRequired ? "requiredField" : ""}`}
+              >
+                <span>{item.label}</span>
+              </div>
+            )}
+            {!checked && (
               <TextField
-                label={checked ? null : "Paragraph"}
-                variant={"outlined"}
-                InputProps={{ disableUnderline: isViewing ? true : false }}
+                placeholder="Paragraph"
+                variant="standard"
+                InputProps={{ disableUnderline: true }}
                 style={{
-                  width: "600px",
+                  width: "300px",
                 }}
-                name="paragraph"
-                value={item.value}
-                onChange={(event) => handleInputChange(event, item)}
-                multiline
+                name="longText"
+                onChange={(event) => handleOnLabelChange(event, item)}
+                //value={item.label}
               />
+            )}
+            <div className="formBuilderTextFields">
+              {isFormView && (
+                <TextField
+                  label={checked ? null : "Paragraph"}
+                  variant={"outlined"}
+                  InputProps={{ disableUnderline: isViewing ? true : false }}
+                  style={{
+                    width: "600px",
+                  }}
+                  name="paragraph"
+                  //value={item.value}
+                  onChange={(event) => handleInputChange(event, item)}
+                  multiline
+                />
+              )}
+
+              {!isFormView && (
+                <div style={{ whiteSpace: "normal", wordWrap: "break-word" }}>
+                  <p>{item.value}</p>
+                </div>
+              )}
             </div>
             {item.hasError && (
               <span style={{ color: "red" }}>{item.errorMsg}</span>
             )}
           </div>
         );
-
       case "dropDown":
         return (
           <div className="formComponentTitles">
@@ -437,63 +514,67 @@ const MiddleForm = ({
                 }}
                 name="dropDown"
                 onChange={(event) => handleOnLabelChange(event, item)}
-                value={item.label}
+                // value={item.label}
               />
             )}
             <div className="formBuilderTextFields">
               <div className="textFields">
-                {/* <InputLabel id="dropdown-label">Select an option</InputLabel> */}
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <Select
-                    labelId="dropdown-label"
-                    id="dropdown"
-                    onChange={(event) => handleInputChange(event, item)}
-                    variant={"outlined"}
-                    InputProps={{ disableUnderline: isViewing ? true : false }}
-                    style={{
-                      width: "300px",
-                    }}
-                    defaultValue="1"
-                    displayEmpty
-                    value={item.value || "1"}
-                  >
-                    <MenuItem value="1" disabled>
-                      Please select an option
-                    </MenuItem>
-                    {item.optionsArray.map((option) => (
-                      <MenuItem key={option} value={option}>
-                        {option}
+                {!isFormView && <span>{item.value}</span>}
+                {isFormView && (
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <Select
+                      labelId="dropdown-label"
+                      id="dropdown"
+                      onChange={(event) => handleInputChange(event, item)}
+                      variant={"outlined"}
+                      InputProps={{
+                        disableUnderline: isViewing ? true : false,
+                      }}
+                      style={{
+                        width: "300px",
+                      }}
+                      defaultValue="1"
+                      displayEmpty
+                      //value={item.value || "1"}
+                    >
+                      <MenuItem value="1" disabled>
+                        Please select an option
                       </MenuItem>
-                    ))}
-                  </Select>
-                  {!checked && !item.isAddingOptionsForDropDown && (
-                    <div
-                      onClick={() => toggleEditOptionsForDropDown(item)}
-                      style={{ cursor: "pointer", color: "blue" }}
-                    >
-                      Edit Options
-                    </div>
-                  )}
-                  {!checked && item.isAddingOptionsForDropDown && (
-                    <TextField
-                      multiline
-                      minRows={4}
-                      variant="outlined"
-                      value={getOptionValues(item)}
-                      onChange={(event) =>
-                        handleAddDropdownOptions(event, item)
-                      }
-                    />
-                  )}
-                  {!checked && item.isAddingOptionsForDropDown && (
-                    <div
-                      onClick={() => toggleEditOptionsForDropDown(item)}
-                      style={{ cursor: "pointer", color: "blue" }}
-                    >
-                      Save Changes
-                    </div>
-                  )}
-                </div>
+                      {item.optionsArray.map((option) => (
+                        <MenuItem key={option} value={option}>
+                          {option}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    {!checked && !item.isAddingOptionsForDropDown && (
+                      <div
+                        onClick={() => toggleEditOptionsForDropDown(item)}
+                        style={{ cursor: "pointer", color: "blue" }}
+                      >
+                        Edit Options
+                      </div>
+                    )}
+                    {!checked && item.isAddingOptionsForDropDown && (
+                      <TextField
+                        multiline
+                        minRows={4}
+                        variant="outlined"
+                        value={getOptionValues(item)}
+                        onChange={(event) =>
+                          handleAddDropdownOptions(event, item)
+                        }
+                      />
+                    )}
+                    {!checked && item.isAddingOptionsForDropDown && (
+                      <div
+                        onClick={() => toggleEditOptionsForDropDown(item)}
+                        style={{ cursor: "pointer", color: "blue" }}
+                      >
+                        Save Changes
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
             {item.hasError && (
@@ -501,6 +582,7 @@ const MiddleForm = ({
             )}
           </div>
         );
+
       case "singleChoice":
         return (
           <div className="formComponentTitles">
@@ -527,51 +609,57 @@ const MiddleForm = ({
             )}
             <div className="formBuilderTextFields">
               <div style={{ display: "flex", flexDirection: "column" }}>
-                <FormControl>
-                  <div style={{ display: "flex" }}>
-                    <RadioGroup
-                      aria-labelledby="demo-row-radio-buttons-group-label"
-                      name="row-radio-buttons-group"
-                    >
-                      {item.optionsArray.map((option, index) => (
-                        <div key={option.key} style={{ display: "flex" }}>
-                          <FormControlLabel
-                            value={option.label}
-                            control={
-                              <Radio checked={item.value == option.label} />
-                            }
-                            onChange={(event) => handleInputChange(event, item)}
-                          />
-                          <div style={{ display: "flex" }}>
-                            <TextField
-                              placeholder={option.label}
-                              variant="standard"
-                              InputProps={{
-                                disableUnderline: true,
-                              }}
-                              name="singleChoice"
-                              onChange={(event) => {
-                                option.label = event.target.value;
-                              }}
+                {!isFormView && <span>{item.value}</span>}
+                {isFormView && (
+                  <FormControl>
+                    <div style={{ display: "flex" }}>
+                      <RadioGroup
+                        aria-labelledby="demo-row-radio-buttons-group-label"
+                        name="row-radio-buttons-group"
+                      >
+                        {item.optionsArray.map((option, index) => (
+                          <div key={option.key} style={{ display: "flex" }}>
+                            <FormControlLabel
+                              value={option.label}
+                              control={
+                                <Radio checked={item.value == option.label} />
+                              }
+                              onChange={(event) =>
+                                handleInputChange(event, item)
+                              }
                             />
-                            {!checked && (
-                              <div
-                                onClick={() =>
-                                  handleDeleteSingleChoiceOptions(
-                                    item,
-                                    option.key
-                                  )
-                                }
-                              >
-                                <ClearOutlined />
-                              </div>
-                            )}
+                            <div style={{ display: "flex" }}>
+                              <TextField
+                                disabled={checked ? true : false}
+                                placeholder={option.label}
+                                variant="standard"
+                                InputProps={{
+                                  disableUnderline: true,
+                                }}
+                                name="singleChoice"
+                                onChange={(event) => {
+                                  option.label = event.target.value;
+                                }}
+                              />
+                              {!checked && (
+                                <div
+                                  onClick={() =>
+                                    handleDeleteSingleChoiceOptions(
+                                      item,
+                                      option.key
+                                    )
+                                  }
+                                >
+                                  <ClearOutlined />
+                                </div>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      ))}
-                    </RadioGroup>
-                  </div>
-                </FormControl>
+                        ))}
+                      </RadioGroup>
+                    </div>
+                  </FormControl>
+                )}
                 {!checked && (
                   <div
                     onClick={() => handleAddSingleChoiceOptions(item)}
@@ -613,45 +701,55 @@ const MiddleForm = ({
             )}
             <div className="formBuilderTextFields">
               <div style={{ display: "flex", flexDirection: "column" }}>
-                <FormGroup>
-                  {item.optionsArray.map((option) => (
-                    <div key={option.key} style={{ display: "flex" }}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            onChange={() =>
-                              handleMultipleChoiceChange(item, option)
-                            }
-                            checked={item.value.some(
-                              (v) =>
-                                v.key === option.key && v.label === option.label
-                            )}
-                          />
-                        }
-                      />
-                      <div style={{ display: "flex" }}>
-                        <TextField
-                          placeholder={option.label}
-                          variant="standard"
-                          InputProps={{ disableUnderline: true }}
-                          name="multipleChoice"
-                          onChange={(event) => {
-                            option.label = event.target.value;
-                          }}
+                {!isFormView && (
+                  <span>{item.value.map((v) => v.label).join(", ")}</span>
+                )}
+                {isFormView && (
+                  <FormGroup>
+                    {item.optionsArray.map((option) => (
+                      <div key={option.key} style={{ display: "flex" }}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              onChange={() =>
+                                handleMultipleChoiceChange(item, option)
+                              }
+                              checked={item.value.some(
+                                (v) =>
+                                  v.key === option.key &&
+                                  v.label === option.label
+                              )}
+                            />
+                          }
                         />
-                        {!checked && (
-                          <div
-                            onClick={() =>
-                              handleDeleteSingleChoiceOptions(item, option.key)
-                            }
-                          >
-                            <ClearOutlined />
-                          </div>
-                        )}
+                        <div style={{ display: "flex" }}>
+                          <TextField
+                            disabled={checked ? true : false}
+                            placeholder={option.label}
+                            variant="standard"
+                            InputProps={{ disableUnderline: true }}
+                            name="multipleChoice"
+                            onChange={(event) => {
+                              option.label = event.target.value;
+                            }}
+                          />
+                          {!checked && (
+                            <div
+                              onClick={() =>
+                                handleDeleteSingleChoiceOptions(
+                                  item,
+                                  option.key
+                                )
+                              }
+                            >
+                              <ClearOutlined />
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </FormGroup>
+                    ))}
+                  </FormGroup>
+                )}
                 {!checked && (
                   <div
                     onClick={() => handleAddSingleChoiceOptions(item)}
@@ -692,24 +790,31 @@ const MiddleForm = ({
               />
             )}
             <div className="formBuilderTextFields">
-              <TextField
-                label={checked ? null : "e.g., 23"}
-                variant={"outlined"}
-                InputProps={{ disableUnderline: isViewing ? true : false }}
-                style={{
-                  width: "300px",
-                }}
-                name="number"
-                type="number"
-                onChange={(event) => handleInputChange(event, item)}
-                value={item.value}
-              />
+              {!isFormView && <span>{item.value}</span>}
+              {isFormView && (
+                <TextField
+                  label={checked ? null : "e.g., 23"}
+                  variant={"outlined"}
+                  InputProps={{
+                    maxLength: 20,
+                    disableUnderline: isViewing ? true : false,
+                  }}
+                  style={{
+                    width: "300px",
+                  }}
+                  name="number"
+                  type="number"
+                  onChange={(event) => handleInputChange(event, item)}
+                  value={item.value}
+                />
+              )}
             </div>
             {item.hasError && (
               <span style={{ color: "red" }}>{item.errorMsg}</span>
             )}
           </div>
         );
+
       case "image":
         return (
           <div className="formComponentTitles">
@@ -724,7 +829,10 @@ const MiddleForm = ({
                 <OutlinedInput
                   type="file"
                   id="image-input"
-                  inputProps={{ accept: "image/*" }}
+                  inputProps={{
+                    accept: "image/*",
+                    style: { height: "190px", width: "350px" },
+                  }}
                   style={{ pointerEvents: checked ? "auto" : "none" }}
                 />
               </div>
@@ -766,7 +874,7 @@ const MiddleForm = ({
                   id="file-input"
                   style={{ pointerEvents: checked ? "auto" : "none" }}
                   inputProps={{
-                    style: { height: "190px", width: "450px" },
+                    style: { height: "190px", width: "350px" },
                     multiple: true,
                   }}
                 />
@@ -781,24 +889,46 @@ const MiddleForm = ({
       case "email":
         return (
           <div className="formComponentTitles">
-            <div
-              style={{ fontWeight: 600, fontSize: "1rem" }}
-              className={`${isRequired ? "requiredField" : ""}`}
-            >
-              <span>{item.label}</span>
-            </div>
-
-            <div className="formBuilderTextFields">
+            {checked && (
+              <div
+                style={{ fontWeight: 600, fontSize: "1rem" }}
+                className={`${isRequired ? "requiredField" : ""}`}
+              >
+                <span>{item.label}</span>
+              </div>
+            )}
+            {!checked && (
               <TextField
-                label={checked ? null : "Email"}
-                variant={"outlined"}
-                name="email"
-                value={item.value}
-                onChange={(event) => handleInputChange(event, item)}
+                placeholder="Input Label"
+                variant="standard"
+                InputProps={{ disableUnderline: true }}
                 style={{
                   width: "300px",
                 }}
+                name="Email"
+                onChange={(event) => handleOnLabelChange(event, item)}
+                value={item.label}
               />
+            )}
+            <div className="formBuilderTextFields">
+              {!isFormView && (
+                <div style={{ whiteSpace: "normal", wordWrap: "break-word" }}>
+                  <p>{item.value}</p>
+                </div>
+              )}
+              {console.log("itemmmmmmmm---------------", item)}
+              {isFormView && (
+                <TextField
+                  label={checked ? null : "Email"}
+                  variant={"outlined"}
+                  name="email"
+                  onChange={(event) => handleInputChange(event, item)}
+                  value={item.value}
+                  style={{
+                    width: "300px",
+                  }}
+                />
+              )}
             </div>
             {item.hasError && (
               <span style={{ color: "red" }}>{item.errorMsg}</span>
@@ -808,7 +938,10 @@ const MiddleForm = ({
 
       case "address":
         return (
-          <div className="formComponentTitles">
+          <div
+            style={{ whiteSpace: "normal", wordWrap: "break-word" }}
+            className="formComponentTitles"
+          >
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
@@ -832,83 +965,110 @@ const MiddleForm = ({
             )}
             <div className="formBuilderTextFields">
               <div style={{ width: "400px" }}>
-                <TextField
-                  label="Street Address"
-                  variant={"outlined"}
-                  InputProps={{ disableUnderline: isViewing ? true : false }}
-                  name="streetAddress"
-                  // value={formData.streetAddress}
-                  onChange={(event) =>
-                    handleMultipleInputChange(event, item, "streetAddress")
-                  }
-                  style={{
-                    width: "400px",
-                  }}
-                />
-                <TextField
-                  label="Street Address Line 2"
-                  variant={"outlined"}
-                  InputProps={{ disableUnderline: isViewing ? true : false }}
-                  name="streetAddressLine2"
-                  // value={formData.streetAddressLine2}
-                  onChange={(event) =>
-                    handleMultipleInputChange(event, item, "streetAddressLine2")
-                  }
-                  style={{
-                    marginTop: "30px",
-                    width: "400px",
-                  }}
-                />
-                <div
-                  style={{
-                    display: "flex",
-                    marginTop: "30px",
-                    width: "400px",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <TextField
-                    label="City"
-                    variant={"outlined"}
-                    InputProps={{ disableUnderline: isViewing ? true : false }}
-                    name="city"
-                    // value={formData.city}
-                    onChange={(event) =>
-                      handleMultipleInputChange(event, item, "city")
-                    }
-                    style={{
-                      width: "200px",
-                    }}
-                  />
-                  <TextField
-                    label="State"
-                    variant={"outlined"}
-                    InputProps={{ disableUnderline: isViewing ? true : false }}
-                    name="state"
-                    // value={formData.state}
-                    onChange={(event) =>
-                      handleMultipleInputChange(event, item, "state")
-                    }
-                    style={{
-                      marginLeft: "1vw",
-                      width: "200px",
-                    }}
-                  />
-                </div>
-                <TextField
-                  label="Postal / Zip Code"
-                  variant={"outlined"}
-                  InputProps={{ disableUnderline: isViewing ? true : false }}
-                  name="zipCode"
-                  // value={formData.zipCode}
-                  onChange={(event) =>
-                    handleMultipleInputChange(event, item, "zipCode")
-                  }
-                  style={{
-                    marginTop: "30px",
-                    width: "400px",
-                  }}
-                />
+                {!isFormView && (
+                  <span>
+                    Street Address: {item.value.streetAddress},<br />
+                    Address Line 2: {item.value.streetAddressLine2},<br />
+                    City: {item.value.city},<br />
+                    State: {item.value.state},<br />
+                    Postal / Zip Code: {item.value.zipCode}
+                  </span>
+                )}
+                {isFormView && (
+                  <>
+                    <TextField
+                      label="Street Address"
+                      variant={"outlined"}
+                      InputProps={{
+                        disableUnderline: isViewing ? true : false,
+                      }}
+                      name="streetAddress"
+                      onChange={(event) =>
+                        handleMultipleInputChange(event, item, "streetAddress")
+                      }
+                      style={{
+                        width: "400px",
+                      }}
+                      value={item.value.streetAddress}
+                    />
+                    <TextField
+                      label="Street Address Line 2"
+                      variant={"outlined"}
+                      InputProps={{
+                        disableUnderline: isViewing ? true : false,
+                      }}
+                      name="streetAddressLine2"
+                      onChange={(event) =>
+                        handleMultipleInputChange(
+                          event,
+                          item,
+                          "streetAddressLine2"
+                        )
+                      }
+                      style={{
+                        marginTop: "30px",
+                        width: "400px",
+                      }}
+                      value={item.value.streetAddressLine2}
+                    />
+                    <div
+                      style={{
+                        display: "flex",
+                        marginTop: "30px",
+                        width: "400px",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <TextField
+                        label="City"
+                        variant={"outlined"}
+                        InputProps={{
+                          disableUnderline: isViewing ? true : false,
+                        }}
+                        name="city"
+                        onChange={(event) =>
+                          handleMultipleInputChange(event, item, "city")
+                        }
+                        style={{
+                          width: "200px",
+                        }}
+                        value={item.value.city}
+                      />
+                      <TextField
+                        label="State"
+                        variant={"outlined"}
+                        InputProps={{
+                          disableUnderline: isViewing ? true : false,
+                        }}
+                        name="state"
+                        onChange={(event) =>
+                          handleMultipleInputChange(event, item, "state")
+                        }
+                        style={{
+                          marginLeft: "1vw",
+                          width: "200px",
+                        }}
+                        value={item.value.state}
+                      />
+                    </div>
+                    <TextField
+                      label="Postal / Zip Code"
+                      variant={"outlined"}
+                      InputProps={{
+                        disableUnderline: isViewing ? true : false,
+                      }}
+                      name="zipCode"
+                      onChange={(event) =>
+                        handleMultipleInputChange(event, item, "zipCode")
+                      }
+                      style={{
+                        marginTop: "30px",
+                        width: "400px",
+                      }}
+                      value={item.value.zipCode}
+                    />
+                  </>
+                )}
               </div>
             </div>
             {item.hasError && (
@@ -916,7 +1076,6 @@ const MiddleForm = ({
             )}
           </div>
         );
-
       case "phone":
         return (
           <div className="formComponentTitles">
@@ -941,27 +1100,29 @@ const MiddleForm = ({
               />
             )}
             <div className="formBuilderTextFields">
-              <TextField
-                label={checked ? null : "Phone"}
-                variant={"outlined"}
-                InputProps={{ disableUnderline: isViewing ? true : false }}
-                name="phone"
-                value={item.value}
-                onChange={(event) => handleInputChange(event, item)}
-                style={{
-                  width: "300px",
-                }}
-                helperText={
-                  isViewing ? null : "Please enter a valid phone number."
-                }
-              />
+              {!isFormView && <span>{item.value}</span>}
+              {isFormView && (
+                <TextField
+                  label={checked ? null : "Phone"}
+                  variant={"outlined"}
+                  InputProps={{ disableUnderline: isViewing ? true : false }}
+                  name="phone"
+                  value={item.value}
+                  onChange={(event) => handleInputChange(event, item)}
+                  style={{
+                    width: "300px",
+                  }}
+                  helperText={
+                    isViewing ? null : "Please enter a valid phone number."
+                  }
+                />
+              )}
             </div>
             {item.hasError && (
               <span style={{ color: "red" }}>{item.errorMsg}</span>
             )}
           </div>
         );
-
       case "datePicker":
         return (
           <div className="formComponentTitles">
@@ -987,15 +1148,18 @@ const MiddleForm = ({
               />
             )}
             <div className="formBuilderTextFields">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label="Choose Date"
-                  //   value={date}
-                  onChange={(newValue) => {
-                    handleDateChange(newValue.toString(), item);
-                  }}
-                />
-              </LocalizationProvider>
+              {isFormView && (
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    label="Choose Date"
+                    value={item.value ? new Date(item.value) : null}
+                    onChange={(newValue) => {
+                      handleDateChange(newValue.toString(), item);
+                    }}
+                  />
+                </LocalizationProvider>
+              )}
+              {!isFormView && <span>{handleformatedOnlyDate(item.value)}</span>}
             </div>
             {item.hasError && (
               <span style={{ color: "red" }}>{item.errorMsg}</span>
@@ -1015,7 +1179,7 @@ const MiddleForm = ({
             )}
             {!checked && (
               <TextField
-                placeholder="time"
+                placeholder="Time"
                 variant={"outlined"}
                 InputProps={{ disableUnderline: isViewing ? true : false }}
                 style={{
@@ -1027,11 +1191,16 @@ const MiddleForm = ({
               />
             )}
             <div className="formBuilderTextFields">
-              <input
-                value={item.value}
-                type="time"
-                onChange={(e) => handleTimeChange(e, item)}
-              />
+              {isFormView && (
+                <input
+                  value={item.value}
+                  type="time"
+                  onChange={(e) => handleTimeChange(e, item)}
+                />
+              )}
+              <div style={{ whiteSpace: "normal", wordWrap: "break-word" }}>
+                <p>{item.value}</p>
+              </div>
             </div>
             {item.hasError && (
               <span style={{ color: "red" }}>{item.errorMsg}</span>
@@ -1062,13 +1231,19 @@ const MiddleForm = ({
                 value={item.label}
               />
             )}
-            <ReactQuill
-              style={{ height: "250px" }}
-              onChange={(content) => handleContentChange(content, item)}
-              value={item.value}
-              theme="snow"
-            />
-            {/* </div> */}
+            {isFormView && (
+              <ReactQuill
+                style={{ height: "250px" }}
+                onChange={(content) => handleContentChange(content, item)}
+                value={item.value}
+                theme="snow"
+              />
+            )}
+            {!isFormView && (
+              <div style={{ whiteSpace: "normal", wordWrap: "break-word" }}>
+                {parse(item.value)}
+              </div>
+            )}
 
             {item.hasError && (
               <span style={{ color: "red" }}>{item.errorMsg}</span>
@@ -1105,6 +1280,7 @@ const MiddleForm = ({
                 onChange={onJsonChange}
                 view="dual"
                 viewOnly={false}
+                value={item.value}
                 // id="a_unique_id"
                 // onChange={(event) => console.log("jsonConsole", event)}
                 // locale={locale}
@@ -1151,42 +1327,59 @@ const MiddleForm = ({
             >
               <div>
                 <div>
-                  <SignaturePad
-                    canvasProps={{
-                      width: 300,
-                      height: 150,
-                      className: "sigPad",
-                    }}
-                    ref={sigPadRef}
-                  />
+                  {isFormView ? (
+                    <SignaturePad
+                      canvasProps={{
+                        width: 300,
+                        height: 150,
+                        className: "sigPad",
+                      }}
+                      ref={sigPadRef}
+                    />
+                  ) : (
+                    <div style={{ margin: "10px 0 0 10px" }}>
+                      <img
+                        src={item.value}
+                        alt="Signature"
+                        style={{
+                          width: 250,
+                          height: 125,
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  gap: "10px",
-                }}
-              >
-                <button
-                  style={{ border: "none", borderRadius: "10px" }}
-                  onClick={handleClear}
+              {isFormView && (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    gap: "10px",
+                  }}
                 >
-                  Clear
-                </button>
-                <button
-                  style={{ border: "none", borderRadius: "10px" }}
-                  onClick={() => handleTrim(item)}
-                >
-                  Sign
-                </button>
-              </div>
+                  <button
+                    style={{ border: "none", borderRadius: "10px" }}
+                    onClick={handleClear}
+                  >
+                    Clear
+                  </button>
+
+                  <button
+                    style={{ border: "none", borderRadius: "10px" }}
+                    onClick={() => handleTrim(item)}
+                  >
+                    Sign
+                  </button>
+                </div>
+              )}
             </div>
             {item.hasError && (
               <span style={{ color: "red" }}>{item.errorMsg}</span>
             )}
           </div>
         );
+
       default:
         return null;
     }
@@ -1249,19 +1442,22 @@ const MiddleForm = ({
             </div>
           </div>
         )}
-        {formElementsList?.length > 0 && checked && !isViewing && (
-          <div style={{ padding: "10px 8px" }}>
-            <Button
-              color="primary"
-              variant="contained"
-              // loading={loading}
-              // loadingIndicator="Loading..."
-              onClick={previewSubmit}
-            >
-              Submit
-            </Button>
-          </div>
-        )}
+        {formElementsList?.length > 0 &&
+          checked &&
+          !isViewing &&
+          isFormView && (
+            <div style={{ padding: "10px 8px" }}>
+              <Button
+                color="primary"
+                variant="contained"
+                // loading={loading}
+                // loadingIndicator="Loading..."
+                onClick={previewSubmit}
+              >
+                Submit
+              </Button>
+            </div>
+          )}
       </div>
       {formSubmitted && (
         <div className="modalSuccess">

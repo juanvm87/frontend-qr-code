@@ -5,7 +5,7 @@ import QRCode from "react-qr-code";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { useParams } from "react-router-dom";
 import { getQr, getQrStatistic } from "../services/RestApi";
-import { handleformattedDate } from "../components/helperFunction/formatedDate";
+import { handleformattedDateTime } from "../components/helperFunction/formatedDate";
 import StatCard from "../components/common/StatCard";
 import LineChart from "../components/common/LineChart";
 import PieActiveArc from "../components/common/PieActiveArc";
@@ -39,7 +39,7 @@ const StatisticPage = () => {
         .slice()
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       const lastScan = sortedData[0];
-      const formattedDate = handleformattedDate(lastScan.createdAt);
+      const formattedDate = handleformattedDateTime(lastScan.createdAt);
       const s = (
         <h3
           className=""
@@ -100,7 +100,7 @@ const StatisticPage = () => {
                 <h2 className="h2-title">{qrInfo.title}</h2>
                 <h4 className="h4-type">{qrInfo.type}</h4>
                 <h4 className="h4-type">
-                  Created: {handleformattedDate(qrInfo.createdAt)}
+                  Created: {handleformattedDateTime(qrInfo.createdAt)}
                 </h4>
                 <div style={{ display: "flex", flexWrap: "wrap" }}>
                   <h4 className="h4-type" style={{ color: "#ffffff" }}>

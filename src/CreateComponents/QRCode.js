@@ -7,7 +7,7 @@ import { BsFiletypePdf, BsFiletypeSvg, BsFiletypePng } from "react-icons/bs";
 import { createQrAPI, updateQr } from "../services/RestApi";
 import { checkInput } from "../components/helperFunction/checkInput";
 import { PopUpModal } from "../components/common/PopUpModal";
-import { handleformattedDate } from "../components/helperFunction/formatedDate";
+import { handleformattedDateTime } from "../components/helperFunction/formatedDate";
 import { handleDownload } from "../components/helperFunction/handleDownload";
 import { useNavigate } from "react-router-dom";
 import { MyHandleContext } from "../store/handleContext";
@@ -161,10 +161,12 @@ const QRcode = (props) => {
       try {
         const title = props.eventData.title;
         const eventData_notes = props.eventData.notes;
-        const formattedStartDate = handleformattedDate(
+        const formattedStartDate = handleformattedDateTime(
           props.eventData.startTime
         );
-        const formattedEndDate = handleformattedDate(props.eventData.endTime);
+        const formattedEndDate = handleformattedDateTime(
+          props.eventData.endTime
+        );
 
         const eventDataString22 = `BEGIN:VCALENDAR
 BEGIN:VEVENT

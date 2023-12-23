@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Line } from "react-chartjs-2";
-import { handleformattedDate } from "../helperFunction/formatedDate";
+import { handleformattedDateTime } from "../helperFunction/formatedDate";
 import "chartjs-adapter-date-fns";
 
 import { Chart, registerables } from "chart.js";
@@ -10,7 +10,7 @@ const LineChart = (props) => {
 
   const getDates = (data) => {
     const dates = data.map(
-      (dataPoint) => handleformattedDate(dataPoint.createdAt).split(" ")[0]
+      (dataPoint) => handleformattedDateTime(dataPoint.createdAt).split(" ")[0]
     );
     return dates;
   };

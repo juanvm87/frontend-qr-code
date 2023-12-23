@@ -54,8 +54,13 @@ export default function UserCard(props) {
   }, [downloadType]);
 
   const handleNavigation = () => {
-    navigateTo(`/edit/${props.qrData._id}`);
-    setSelected("");
+    if (props.qrData.type === "customQr") {
+      navigateTo(`/custom-edit/${props.qrData._id}`);
+      setSelected("");
+    } else {
+      navigateTo(`/edit/${props.qrData._id}`);
+      setSelected("");
+    }
   };
   const copyToClipboard = (value) => {
     navigator.clipboard.writeText(value);
@@ -66,8 +71,6 @@ export default function UserCard(props) {
       onClick={(e) => {
         if (e.target.id === "parent-card") {
           if (isDynamic) {
-            console.log(isDynamic);
-
             navigateTo(`/statistic/${props.qrData._id}`);
           }
         }
@@ -79,6 +82,9 @@ export default function UserCard(props) {
         <CardContent className="card-content-info">
           {props.qrData.isDynamic && (
             <Typography className="dynamic-label">DYNAMIC</Typography>
+          )}
+          {props.qrData.type === "customQr" && (
+            <Typography className="custom-label">CUSTOM</Typography>
           )}
           <Typography
             className="title-view-card"
