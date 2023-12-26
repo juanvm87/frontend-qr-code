@@ -97,8 +97,19 @@ function CustomSee() {
         </div>
       )}
       {isQr && !isNotFound && (
-        <div style={{ width: "95%" }}>
-          <div style={{ margin: "20px" }} className="profile-heading-info2">
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+            marginTop: "15px",
+          }}
+        >
+          <div
+            style={{ margin: "0px", padding: "0px", width: "95%" }}
+            className="profile-heading-info2"
+          >
             <div className="container-header2">
               <div className="box-info-search-info">
                 <QRCode
@@ -119,13 +130,18 @@ function CustomSee() {
             </div>
           </div>
           <div
-            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+            style={{
+              marginTop: "20px",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
           >
             <Card
               style={{
                 height: "69vh",
                 padding: "10px",
-                width: "550px",
+                width: "34rem",
                 borderRadius: "10px",
               }}
             >

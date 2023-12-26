@@ -112,13 +112,12 @@ const FormBuilderSidebar = (props) => {
       const updateCode = {
         title: title,
         type: "customQr",
-        link: qrLink ? qrLink : `${window.location.origin}/login`,
+        link: `${window.location.origin}/custom-qr/${qrId}`,
         input: formElementsList,
         isFormDisplay: isFormDisplay,
       };
       const id = _id ? _id : qrId;
       const responce = await updateQr(id, updateCode);
-      console.log("eeeeeee", responce);
     } catch (error) {
       console.log(error);
     }
@@ -696,7 +695,6 @@ const FormBuilderSidebar = (props) => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            width: "30rem",
             margin: "auto",
             flexDirection: "column",
           }}

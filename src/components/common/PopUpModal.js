@@ -77,7 +77,6 @@ export function PopUpModal(props) {
                   } else if (props.isDynamic) {
                     props.handleUpdate(textValue);
                     setSelected("View");
-                    console.log("is dinamic", props.isDynamic);
                     setTimeout(() => {
                       navigate("/view");
                     }, 500);
