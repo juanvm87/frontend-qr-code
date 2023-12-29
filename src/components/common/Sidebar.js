@@ -305,19 +305,19 @@ export default function Sidebar() {
               disablePadding
               style={{
                 backgroundColor:
-                  selected === "qr-builder" ? "#5BC0DE" : "#f1f5ff",
-                color: selected === "qr-builder" ? "white" : "#777777",
+                  selected === "custom-qr" ? "#5BC0DE" : "#f1f5ff",
+                color: selected === "custom-qr" ? "white" : "#777777",
               }}
             >
-              <ListItemButton onClick={() => handleMenuClick("qr-builder")}>
+              <ListItemButton onClick={() => handleMenuClick("custom-qr")}>
                 <ListItemIcon>
                   <AddCircleOutlineOutlinedIcon
                     style={{
-                      color: selected === "qr-builder" ? "white" : "#777777",
+                      color: selected === "custom-qr" ? "white" : "#777777",
                     }}
                   />
                 </ListItemIcon>
-                <ListItemText primary="Custom QR Type" />
+                <ListItemText primary="Custom QR" />
               </ListItemButton>
               <Divider />
             </ListItem>

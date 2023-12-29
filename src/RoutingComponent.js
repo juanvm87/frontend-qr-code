@@ -30,7 +30,7 @@ export default function RoutingComponent() {
             <Route path="/qr-info" element={<QRInfo />} />
             <Route path="/create" element={<CreatePage />} />
             <Route path="/create-dynamic" element={<CreateDynamicQr />} />
-            <Route path="/qr-builder" element={<FormBuilderSidebar />} />
+            <Route path="/custom-qr" element={<FormBuilderSidebar />} />
             <Route path="/custom-edit/:id" element={<CustomEdit />} />
             <Route path="/edit/:id" element={<EditPage />} />
             <Route path="/view" element={<View />} />

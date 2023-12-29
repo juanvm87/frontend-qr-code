@@ -24,7 +24,12 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "./FormBuilderSidebar.css";
 import { v4 } from "uuid";
-import { ClearOutlined, DeleteOutlined, OpenWith } from "@mui/icons-material";
+import {
+  ClearOutlined,
+  DeleteOutlined,
+  OpenWith,
+  SettingsOutlined,
+} from "@mui/icons-material";
 import { useLocation } from "react-router-dom";
 
 import "./MiddleForm.css";
@@ -236,7 +241,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -281,7 +286,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -350,7 +355,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -398,7 +403,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -449,7 +454,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -500,7 +505,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -590,7 +595,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -682,7 +687,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -772,7 +777,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -823,7 +828,9 @@ const MiddleForm = ({
               <div className="textFields">
                 <div
                   style={{ fontWeight: 600, fontSize: "1rem" }}
-                  className={`${isRequired ? "requiredField" : ""}`}
+                  className={`${
+                    isRequired && isFormView ? "requiredField" : ""
+                  }`}
                 >
                   Select Image
                 </div>
@@ -849,7 +856,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -893,7 +900,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -946,7 +953,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -1083,7 +1090,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -1130,7 +1137,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -1173,7 +1180,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -1214,7 +1221,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -1257,7 +1264,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -1301,7 +1308,7 @@ const MiddleForm = ({
             {checked && (
               <div
                 style={{ fontWeight: 600, fontSize: "1rem" }}
-                className={`${isRequired ? "requiredField" : ""}`}
+                className={`${isRequired && isFormView ? "requiredField" : ""}`}
               >
                 <span>{item.label}</span>
               </div>
@@ -1411,6 +1418,15 @@ const MiddleForm = ({
                 </div>
                 {!checked && (
                   <div className={!checked ? "setting-delete-icon" : ""}>
+                    <div
+                      className={!checked ? "settingIcon" : ""}
+                      onClick={() => {
+                        setDrawerType2 && setDrawerType2("permanent");
+                        setSelectedElement && setSelectedElement(item);
+                      }}
+                    >
+                      <SettingsOutlined style={{ color: "#ffffff" }} />
+                    </div>
                     <div
                       className={!checked ? "deleteIcon" : ""}
                       onClick={() => handleOnClickDelete(item.key)}

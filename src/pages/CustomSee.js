@@ -10,7 +10,6 @@ import { handleformattedDateTime } from "../components/helperFunction/formatedDa
 
 function CustomSee() {
   const idFromURL = useParams().id;
-  const navigateTo = useNavigate();
   const [isNotFound, setIsNotFound] = useState(false);
   const [isQr, setIsQr] = useState(false);
   const [qr, setQr] = useState({});
@@ -62,11 +61,48 @@ function CustomSee() {
 
       const submitedForm = await updateQr(idFromURL, { formResponses });
       if (submitedForm.status === 200) {
-        setFormSubmitted(true);
+        previewSubmit(true);
       }
     } catch (err) {
       console.error(err);
       throw err;
+    }
+  };
+  const isValidated = () => {
+    let canSubmit = true;
+    for (let item of formElementsList) {
+      item.hasError = false;
+      if (typeof item.value === "object" && item.isRequired) {
+        if (item.value.length > -1) {
+          if (item.value.length === 0) {
+            item.hasError = true;
+            item.errorMsg = `${item.label} is required field`;
+            canSubmit = false;
+            break;
+          }
+        } else {
+          for (let i of Object.entries(item.value)) {
+            if (!i[1]) {
+              item.hasError = true;
+              item.errorMsg = `Fill all fields of ${item.label}`;
+              canSubmit = false;
+              break;
+            }
+          }
+        }
+      } else if (!item.value.length > 0 && item.isRequired) {
+        canSubmit = false;
+        item.hasError = true;
+        item.errorMsg = `${item.label} is required field`;
+      }
+    }
+    setFormElementsList([...formElementsList]);
+    return canSubmit;
+  };
+
+  const previewSubmit = () => {
+    if (isValidated()) {
+      setFormSubmitted(true);
     }
   };
 

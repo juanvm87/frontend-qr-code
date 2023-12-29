@@ -83,7 +83,7 @@
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  height: 78vh;
+  height: 83vh;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -204,7 +204,7 @@
 @media (max-width: 1150px) {
 
   .elements-container {
-    height: 25vh;
+    height: 26vh;
     border-radius: 8px;
   }
 

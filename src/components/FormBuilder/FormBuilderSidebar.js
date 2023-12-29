@@ -700,6 +700,7 @@ const FormBuilderSidebar = (props) => {
             </Drawer>
           )}
         </div>
+
         <div
           style={{
             display: "flex",
@@ -758,6 +759,81 @@ const FormBuilderSidebar = (props) => {
             )}
           </Card>
         </div>
+        {/* {required- mode} */}
+        <div
+          style={{
+            position: "absolute",
+            width: "300px",
+            right: 0,
+            height: "80%",
+            zIndex: "9999",
+          }}
+        >
+          {!checked && (
+            <Drawer
+              className={classes.drawer}
+              variant={drawerType2}
+              anchor="right"
+              classes={{ paper: classes.drawerPaper }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "10px",
+                }}
+              >
+                <div
+                  style={{
+                    background: "#3e4652",
+                    color: "white",
+                    width: "100%",
+                    paddingLeft: "5%",
+                  }}
+                >
+                  <Typography variant="h6">Form Designer</Typography>
+                </div>
+                <Clear
+                  color="black"
+                  onClick={() => setDrawerType2("temporary")}
+                  style={{ marginLeft: "1%", cursor: "pointer" }}
+                />
+              </div>
+              <List>
+                <ListItem>
+                  <FormControlLabel
+                    value="required"
+                    control={
+                      <Switch
+                        color="primary"
+                        checked={selectedElement?.isRequired}
+                        onChange={(e, checked) => {
+                          // setSelectedElement((prev) => ({
+                          //   ...prev,
+                          //   isRequired: checked,
+                          // }));
+
+                          setFormElementsList((prev) => [
+                            ...prev.map((val) => {
+                              if (val.key === selectedElement.key) {
+                                val.isRequired = checked;
+                              }
+                              return val;
+                            }),
+                          ]);
+                        }}
+                      />
+                    }
+                    label="Required"
+                    labelPlacement="start"
+                  />
+                </ListItem>
+              </List>
+            </Drawer>
+          )}
+        </div>
+        {/* {End required- mode} */}
       </div>
     </>
   );
