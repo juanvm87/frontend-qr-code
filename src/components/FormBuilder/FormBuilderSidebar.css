@@ -1,7 +1,7 @@
 .formBuilderOuter {
   padding: 15px 0px;
   height: 100%;
-  max-width: 800px;
+
   margin: 0 auto;
 }
 
@@ -180,4 +180,48 @@
   display: flex;
 }
 
-@media (max-width: 1210px) {}
+.custom-container {
+  display: flex;
+  height: 100%;
+  background: #FBFBFB;
+}
+
+.elements-container {
+  overflow: auto;
+  height: 85vh;
+  background: #3e4652;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1151px) {
+  .formBuilderOuterContainer {
+    width: 50%;
+  }
+}
+
+@media (max-width: 1150px) {
+
+  .elements-container {
+    height: 25vh;
+    border-radius: 8px;
+  }
+
+  .list-name {
+    text-align: center;
+  }
+
+  .element1 {
+    flex-direction: column;
+  }
+
+  .elements-list {
+    display: flex;
+  }
+
+  .custom-container {
+    display: flex;
+    flex-direction: column;
+  }
+}

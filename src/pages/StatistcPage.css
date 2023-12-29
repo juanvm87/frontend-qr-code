@@ -32,9 +32,6 @@
     padding: 15px;
 }
 
-.container-qrinfo {}
-
-.container-statistic {}
 
 .container-qr-info {
     margin: 10px 10px 10px 20px;
@@ -89,4 +86,23 @@
     height: 19rem;
     padding: 10px;
     border-radius: 8px !important;
+}
+
+.showForm-cotainer {
+    height: 100vh;
+}
+
+@media (max-width: 840px) {
+    .container-left3 {
+        width: 100%;
+    }
+
+    .stat-cards {
+        justify-content: center !important;
+    }
+
+    .c-dashboardInfo {
+        width: 100%;
+    }
+
 }

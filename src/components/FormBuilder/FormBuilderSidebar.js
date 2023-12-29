@@ -20,6 +20,7 @@ import {
   CalendarMonthOutlined,
   CallOutlined,
   CheckBoxOutlined,
+  Clear,
   DataObjectOutlined,
   DriveFileRenameOutlineOutlined,
   EmailOutlined,
@@ -39,7 +40,6 @@ import { BsFiletypePdf, BsFiletypePng, BsFiletypeSvg } from "react-icons/bs";
 import { PopUpModal } from "../common/PopUpModal";
 import { createQrAPI, updateQr } from "../../services/RestApi";
 import { handleDownload } from "../helperFunction/handleDownload";
-
 const useStyles = makeStyles({
   drawer: {
     height: "100%",
@@ -150,7 +150,7 @@ const FormBuilderSidebar = (props) => {
   useEffect(() => {
     if (isSaved) {
       setTimeout(() => {
-        handleUpdate("");
+        handleUpdate("", qrId);
       }, 700);
     }
   }, [formElementsList, isFormDisplay]);
@@ -158,6 +158,7 @@ const FormBuilderSidebar = (props) => {
   useEffect(() => {
     if (!props.isEditPage && !isSaved && formElementsList.length > 0) {
       generateQr();
+      setIsSaved(true);
     } else if (props.isEditPage) {
       setShowButton(true);
       setQrId(props.editQrId);
@@ -387,7 +388,7 @@ const FormBuilderSidebar = (props) => {
     //   dataType: "json",
     // },
     {
-      id: 10,
+      id: 9,
       name: "Signature",
       icon: <DataObjectOutlined style={{ color: "white" }} />,
       label: "signature",
@@ -402,11 +403,9 @@ const FormBuilderSidebar = (props) => {
       value: "",
       dataType: "string",
     },
-  ];
 
-  const basicElements = [
     {
-      id: 1,
+      id: 10,
       name: "Short Text",
       icon: <ShortTextOutlined style={{ color: "white" }} />,
       label: "Label",
@@ -422,7 +421,7 @@ const FormBuilderSidebar = (props) => {
       dataType: "string",
     },
     {
-      id: 2,
+      id: 11,
       name: "Long Text",
       icon: <NotesOutlined style={{ color: "white" }} />,
       label: "Label",
@@ -438,7 +437,7 @@ const FormBuilderSidebar = (props) => {
       dataType: "string",
     },
     {
-      id: 3,
+      id: 12,
       name: "Paragraph",
       icon: <FormatColorTextOutlined style={{ color: "white" }} />,
       label: "Paragraph",
@@ -454,7 +453,7 @@ const FormBuilderSidebar = (props) => {
       dataType: "string",
     },
     {
-      id: 4,
+      id: 13,
       name: "Dropdown",
       icon: <ArrowDropDownOutlined style={{ color: "white" }} />,
       label: "Label",
@@ -472,7 +471,7 @@ const FormBuilderSidebar = (props) => {
       dataType: "string",
     },
     {
-      id: 5,
+      id: 14,
       name: "Single Choice",
       icon: <RadioButtonCheckedOutlined style={{ color: "white" }} />,
       label: "Label",
@@ -495,7 +494,7 @@ const FormBuilderSidebar = (props) => {
       dataType: "string",
     },
     {
-      id: 6,
+      id: 15,
       name: "Multiple Choice",
       icon: <CheckBoxOutlined style={{ color: "white" }} />,
       label: "Label",
@@ -517,7 +516,7 @@ const FormBuilderSidebar = (props) => {
       dataType: "array",
     },
     {
-      id: 7,
+      id: 16,
       name: "Number",
       icon: <Looks3Outlined style={{ color: "white" }} />,
       label: "Number",
@@ -567,89 +566,29 @@ const FormBuilderSidebar = (props) => {
   ];
 
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          height: "100%",
-          background: "#FBFBFB",
-          flexWrap: "wrap",
-        }}
-      >
-        <div style={{ width: "250px" }}>
-          <Drawer
-            className={classes.drawer}
-            variant={drawerType}
-            anchor="left"
-            classes={{ paper: classes.drawerPaper }}
-          >
-            <div style={{ overflow: "auto", height: "85vh" }}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  padding: "10px",
-                }}
+    <>
+      <div className="custom-container">
+        <div className="elements-container">
+          <Typography style={{ margin: "5px" }} variant="h6">
+            Elements
+          </Typography>
+          <div className="elements-list" style={{ color: "white" }}>
+            {formElements.map((item) => (
+              <ListItem
+                className="element1"
+                key={item.id}
+                button
+                onClick={() => handleOnClickBasicElements(item)}
               >
-                <div
-                  style={{
-                    background: "#3e4652",
-                    color: "white",
-                    width: "100%",
-                    paddingLeft: "5%",
-                    overflow: "auto",
-                  }}
-
-                  //   onClick={() => navigateTo(`/admin/${applicationName}/dashboard`)}
-                >
-                  <Typography variant="h6">Elements</Typography>
-                </div>
-              </div>
-
-              <List>
-                {formElements.map((item) => (
-                  <ListItem
-                    key={item.id}
-                    button
-                    onClick={() => handleOnClickBasicElements(item)}
-                  >
-                    <ListItemIcon>{item.icon}</ListItemIcon>
-                    <ListItemText primary={item.name} />
-                  </ListItem>
-                ))}
-              </List>
-
-              <div
-                style={{
-                  background: "#3e4652",
-                  color: "white",
-
-                  display: "flex",
-                  padding: 10,
-                  alignItems: "center",
-                }}
-              >
-                <Typography variant="h6" style={{ paddingLeft: "5%" }}>
-                  Basic Elements
-                </Typography>
-              </div>
-              <List>
-                {basicElements.map((item) => (
-                  <ListItem
-                    key={item.id}
-                    button
-                    onClick={() => handleOnClickBasicElements(item)}
-                  >
-                    <ListItemIcon>{item.icon}</ListItemIcon>
-                    <ListItemText primary={item.name} />
-                  </ListItem>
-                ))}
-              </List>
-            </div>
-          </Drawer>
+                <ListItemIcon style={{ justifyContent: "center" }}>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText className="list-name" primary={item.name} />
+              </ListItem>
+            ))}
+          </div>
         </div>
-        <div style={{ width: "50%" }}>
+        <div className="formBuilderOuterContainer">
           <div className="formBuilderOuter">
             <div className="formBuilderInner">
               <div
@@ -689,7 +628,78 @@ const FormBuilderSidebar = (props) => {
             </div>
           </div>
         </div>
+        <div
+          style={{
+            position: "absolute",
+            width: "300px",
+            right: 0,
+            height: "80%",
+          }}
+        >
+          {!checked && (
+            <Drawer
+              className={classes.drawer}
+              variant={drawerType2}
+              anchor="right"
+              classes={{ paper: classes.drawerPaper }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "10px",
+                }}
+              >
+                <div
+                  style={{
+                    background: "#3e4652",
+                    color: "white",
+                    width: "100%",
+                    paddingLeft: "5%",
+                  }}
+                >
+                  <Typography variant="h6">Form Designer</Typography>
+                </div>
+                <Clear
+                  color="black"
+                  onClick={() => setDrawerType2("temporary")}
+                  style={{ marginLeft: "1%", cursor: "pointer" }}
+                />
+              </div>
+              <List>
+                <ListItem>
+                  <FormControlLabel
+                    value="required"
+                    control={
+                      <Switch
+                        color="primary"
+                        checked={selectedElement?.isRequired}
+                        onChange={(e, checked) => {
+                          // setSelectedElement((prev) => ({
+                          //   ...prev,
+                          //   isRequired: checked,
+                          // }));
 
+                          setFormElementsList((prev) => [
+                            ...prev.map((val) => {
+                              if (val.key === selectedElement.key) {
+                                val.isRequired = checked;
+                              }
+                              return val;
+                            }),
+                          ]);
+                        }}
+                      />
+                    }
+                    label="Required"
+                    labelPlacement="start"
+                  />
+                </ListItem>
+              </List>
+            </Drawer>
+          )}
+        </div>
         <div
           style={{
             display: "flex",
@@ -699,7 +709,7 @@ const FormBuilderSidebar = (props) => {
             flexDirection: "column",
           }}
         >
-          <Card className="qr-card">
+          <Card style={{ width: "300px" }} className="qr-card">
             <QRCode
               size={200}
               id="qr-picture"
@@ -749,7 +759,7 @@ const FormBuilderSidebar = (props) => {
           </Card>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

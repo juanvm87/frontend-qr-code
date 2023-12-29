@@ -376,9 +376,6 @@ export default function Sidebar() {
           <Outlet />
         </Main>
       </Box>
-      <div style={{ margin: "10px" }}>
-        <footer>&copy; Copyright 2023 Alphech Global Private Limited</footer>
-      </div>
     </>
   );
 }

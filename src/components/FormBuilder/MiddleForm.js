@@ -14,6 +14,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useRef } from "react";
+import dayjs from "dayjs";
 import {
   handleformatedOnlyDate,
   handleformattedDateTime,
@@ -22,7 +23,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "./FormBuilderSidebar.css";
-import parse from "html-react-parser";
 import { v4 } from "uuid";
 import { ClearOutlined, DeleteOutlined, OpenWith } from "@mui/icons-material";
 import { useLocation } from "react-router-dom";
@@ -39,6 +39,7 @@ const MiddleForm = ({
   formElementsList,
   setFormElementsList,
   selectedElement,
+  handleSubmitForm,
   checked,
   setSelectedElement,
   setDrawerType2,
@@ -1152,7 +1153,7 @@ const MiddleForm = ({
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
                     label="Choose Date"
-                    value={item.value ? new Date(item.value) : null}
+                    value={item.value ? dayjs(item.value) : null}
                     onChange={(newValue) => {
                       handleDateChange(newValue.toString(), item);
                     }}
@@ -1241,7 +1242,7 @@ const MiddleForm = ({
             )}
             {!isFormView && (
               <div style={{ whiteSpace: "normal", wordWrap: "break-word" }}>
-                {parse(item.value)}
+                {item.value.replace(/(<([^>]+)>)/gi, "")}
               </div>
             )}
 
@@ -1452,7 +1453,7 @@ const MiddleForm = ({
                 variant="contained"
                 // loading={loading}
                 // loadingIndicator="Loading..."
-                onClick={previewSubmit}
+                onClick={handleSubmitForm}
               >
                 Submit
               </Button>

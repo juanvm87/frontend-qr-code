@@ -9,6 +9,7 @@
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 50px;
+    height: 100vh;
 }
 
 
@@ -19,6 +20,7 @@
     flex-wrap: wrap;
     padding: 35px;
     align-items: center;
+    height: fit-content;
 }
 
 .qr-details-content {

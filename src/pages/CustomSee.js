@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import MiddleForm from "../components/FormBuilder/MiddleForm";
 import { useNavigate, useParams } from "react-router";
 import "./DynamicQr.css";
-import { addStatistic, getIPInfo, getQr } from "../services/RestApi";
+import { addStatistic, getIPInfo, getQr, updateQr } from "../services/RestApi";
 import logoNotFound from "../components/Images/notFoundQr.png";
 import { Card } from "@material-ui/core";
 import QRCode from "react-qr-code";
@@ -16,6 +16,7 @@ function CustomSee() {
   const [qr, setQr] = useState({});
   const [formElementsList, setFormElementsList] = useState([]);
   const qrCodeRef = useRef(null);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const saveLocation = async (qrId) => {
     try {
@@ -35,15 +36,45 @@ function CustomSee() {
       throw err;
     }
   };
-  useEffect(() => {
-    console.log("formElementList----->", formElementsList);
-  }, [formElementsList]);
+  const closeTab = () => {
+    window.opener = null;
+    window.open("", "_self");
+    window.close();
+  };
+  const closeSuccessModal = () => {
+    setFormSubmitted(false);
+    closeTab();
+  };
+  const handleSubmitForm = async () => {
+    try {
+      const formResponses = formElementsList.reduce((acc, field) => {
+        // Check if field.value is an object
+        if (typeof field.value === "object" && field.value !== null) {
+          // Convert object to string
+          acc[field.name] = Object.entries(field.value)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join(", ");
+        } else {
+          acc[field.name] = field.value;
+        }
+        return acc;
+      }, {});
+
+      const submitedForm = await updateQr(idFromURL, { formResponses });
+      if (submitedForm.status === 200) {
+        setFormSubmitted(true);
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  };
 
   useEffect(() => {
     const getQrInfo = async () => {
       if (idFromURL) {
         const newQr = await getQr(idFromURL);
-        console.log(newQr);
+
         setTimeout(() => {
           if (newQr) {
             setQr(newQr.data);
@@ -107,7 +138,7 @@ function CustomSee() {
           }}
         >
           <div
-            style={{ margin: "0px", padding: "0px", width: "95%" }}
+            style={{ margin: "0px", padding: "10px", width: "95%" }}
             className="profile-heading-info2"
           >
             <div className="container-header2">
@@ -139,7 +170,7 @@ function CustomSee() {
           >
             <Card
               style={{
-                height: "69vh",
+                height: "72vh",
                 padding: "10px",
                 width: "34rem",
                 borderRadius: "10px",
@@ -151,6 +182,9 @@ function CustomSee() {
                 checked={true}
                 formElementsList={formElementsList}
                 setFormElementsList={setFormElementsList}
+                handleSubmitForm={handleSubmitForm}
+                formSubmitted={formSubmitted}
+                closeSuccessModal={closeSuccessModal}
               />
             </Card>
           </div>
