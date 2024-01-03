@@ -45,7 +45,7 @@ const useStyles = makeStyles({
     height: "100%",
   },
   drawerPaper: {
-    position: "static",
+    position: "relative",
     width: "100%",
     height: "100%",
     background: "#3e4652",
@@ -629,12 +629,24 @@ const FormBuilderSidebar = (props) => {
           </div>
         </div>
         <div
-          style={{
-            position: "absolute",
-            width: "300px",
-            right: 0,
-            height: "80%",
-          }}
+          style={
+            drawerType2 !== "temporary"
+              ? {
+                  position: "absolute",
+                  display: "block",
+                  width: "300px",
+                  right: 0,
+                  height: "80%",
+                  zIndex: "9999",
+                }
+              : {
+                  position: "absolute",
+
+                  width: "300px",
+                  right: 0,
+                  display: "none",
+                }
+          }
         >
           {!checked && (
             <Drawer
@@ -761,13 +773,21 @@ const FormBuilderSidebar = (props) => {
         </div>
         {/* {required- mode} */}
         <div
-          style={{
-            position: "absolute",
-            width: "300px",
-            right: 0,
-            height: "80%",
-            zIndex: "9999",
-          }}
+          style={
+            drawerType2 !== "temporary"
+              ? {
+                  position: "absolute",
+                  display: "block",
+                  width: "300px",
+                  right: 0,
+                  height: "80%",
+                  zIndex: "9999",
+                }
+              : {
+                  display: "none",
+                  zIndex: -100,
+                }
+          }
         >
           {!checked && (
             <Drawer
@@ -796,7 +816,9 @@ const FormBuilderSidebar = (props) => {
                 </div>
                 <Clear
                   color="black"
-                  onClick={() => setDrawerType2("temporary")}
+                  onClick={() => {
+                    setDrawerType2("temporary");
+                  }}
                   style={{ marginLeft: "1%", cursor: "pointer" }}
                 />
               </div>
