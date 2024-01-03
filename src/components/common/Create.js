@@ -89,7 +89,7 @@ const Create = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ height: "calc(100vh - 15vh)" }}>
       {!idFromURL && <Header letters={"CQ"} information={"Create QR"} />}
       {idFromURL && <Header letters={"UQ"} information={"Update QR"} />}
 

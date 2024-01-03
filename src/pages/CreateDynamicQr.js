@@ -148,7 +148,7 @@ const CreateDynamicQr = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ height: "calc(100vh - 19vh)" }}>
       {!idFromURL && (
         <Header letters={"CDQ"} information={"Create Dynamic QR"} />
       )}
