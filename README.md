@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +69,39 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=======
+# QR-CODE-GENERATOR
+
+A brief description of your React.js project.
+
+## Table of Contents
+
+- [Project Overview](#project-overview)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Project Overview
+
+Provide a brief introduction to your project. Explain what it does, its purpose, and any other relevant information. You can also include screenshots or GIFs to showcase your project.
+
+## Getting Started
+
+Explain how to set up and run your project locally. Include step-by-step instructions.
+
+### Prerequisites
+
+List any software or dependencies that users need to install before running your project.
+
+### Installation
+
+1. Clone the repository:
+
+   ```shell
+   git clone https://github.com/your-username/your-project.git
+>>>>>>> c4c215a0dfc973c1ec2f7b46e1f61e01d3b740b9
