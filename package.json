@@ -53,8 +53,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "install-client": "npm install --prefix client",
-    "build-client": "npm run build --prefix client",
+    "install-client": "yarn --cwd ./client install",
+    "build-client": "yarn --cwd ./client run build",
     "start-client": "cd client && npm run start"
   },
   "eslintConfig": {
