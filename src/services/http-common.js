@@ -3,8 +3,8 @@ import jwtDecode from "jwt-decode"; // Import jwt-decode
 
 const instance = axios.create({
   //TODO change domain
-  //  baseURL: `http://qrskan.com:8085`,
-  baseURL: "http://localhost:8080",
+  baseURL: `https://qr-code-kdpi.onrender.com`,
+  // baseURL: "http://localhost:8080",
   timeout: 5000,
   headers: {
     "Content-type": "application/json",
