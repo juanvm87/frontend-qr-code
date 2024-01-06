@@ -55,7 +55,7 @@
     "eject": "react-scripts eject",
     "install-client": "yarn --cwd ./client install",
     "build-client": "yarn --cwd ./client run build",
-    "start-client": "cd client && npm run start"
+    "start-client": "cd frontend-qr-code && yarn start"
   },
   "eslintConfig": {
     "extends": [
